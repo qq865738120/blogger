@@ -16,7 +16,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'git@github.com:qq865738120/blogger.git',
       path : '/root/deploy/blogger',
-      'post-deploy' : 'npm install && npm run build && npm run start && pm2 startOrRestart ecosystem.config.js --env production'
+      'post-deploy' : 'cnpm install && npm run build && npm run start && pm2 startOrRestart ecosystem.config.js --env production'
     }
   }
 };
