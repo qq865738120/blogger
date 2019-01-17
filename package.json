@@ -18,6 +18,7 @@
     "mysql": "^2.16.0",
     "nuxt": "^2.0.0",
     "sass-loader": "^7.1.0",
+    "node-sass": "^4.11.0",
     "vue-gemini-scrollbar": "^2.0.0",
     "vue-i18n": "^8.4.0",
     "vue-lazyload": "^1.2.6"
@@ -25,7 +26,6 @@
   "devDependencies": {
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "2.6.2",
-    "node-sass": "^4.11.0",
     "nodemon": "^1.11.0",
     "prettier": "1.14.3",
     "sass-loader": "^7.1.0"
