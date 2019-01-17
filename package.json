@@ -1,0 +1,32 @@
+{
+  "name": "blogger",
+  "version": "1.0.0",
+  "description": "My incredible Nuxt.js project",
+  "author": "qq865738120",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.0.0",
+    "express": "^4.16.3",
+    "element-ui": "^2.4.6",
+    "@nuxtjs/axios": "^5.0.0",
+    "sass-loader": "^7.1.0",
+    "vue-gemini-scrollbar": "^2.0.0",
+    "vue-i18n": "^8.4.0",
+    "vue-lazyload": "^1.2.6"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "2.6.2",
+    "node-sass": "^4.11.0",
+    "nodemon": "^1.11.0",
+    "prettier": "1.14.3",
+    "sass-loader": "^7.1.0"
+  }
+}

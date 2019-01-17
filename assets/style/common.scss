@@ -1,0 +1,112 @@
+/* 内部全局变量 */
+
+/* color相关变量 */
+$--main-color: #2b3843; //主色调
+$--secondary-color: #FF9C00; //辅助色
+
+$--color-white: #fff;
+$--color-black: #000;
+$--color-base-black: #141414;
+$--color-base-black-2: #333333;
+$--color-base-black-3: #484848;
+$--color-base-black-4: #666666;
+$--color-sub-black: #828a92;
+
+$--color-main-light-1: mix($--color-white, $--main-color, 10%); /* 404b54 */
+$--color-main-light-2: mix($--color-white, $--main-color, 20%); /* 555f68 */
+$--color-main-light-3: mix($--color-white, $--main-color, 30%); /* 6a737b */
+$--color-main-light-4: mix($--color-white, $--main-color, 40%); /* 7f878e */
+$--color-main-light-5: mix($--color-white, $--main-color, 50%); /* 959ba1 */
+$--color-main-light-6: mix($--color-white, $--main-color, 60%); /* aaafb3 */
+$--color-main-light-7: mix($--color-white, $--main-color, 70%); /* bfc3c6 */
+$--color-main-light-8: mix($--color-white, $--main-color, 80%); /* d4d7d9 */
+$--color-main-light-9: mix($--color-white, $--main-color, 90%); /* e9ebec */
+.color-main-color { color: $--main-color; } //前景色
+.color-secondary-color { color: $--secondary-color; }
+.color-main-light-1 { color: $--color-main-light-1; }
+.color-main-light-2 { color: $--color-main-light-2; }
+.color-main-light-3 { color: $--color-main-light-3; }
+.color-main-light-4 { color: $--color-main-light-4; }
+.color-main-light-5 { color: $--color-main-light-5; }
+.color-main-light-6 { color: $--color-main-light-6; }
+.color-main-light-7 { color: $--color-main-light-7; }
+.color-main-light-8 { color: $--color-main-light-8; }
+.color-main-light-9 { color: $--color-main-light-9; }
+.bg-color-main-color { background-color: $--main-color; }
+.bg-color-secondary-color { background-color: $--secondary-color; }
+.bg-color-main-light-1 { background-color: $--color-main-light-1; }
+.bg-color-main-light-2 { background-color: $--color-main-light-2; }
+.bg-color-main-light-3 { background-color: $--color-main-light-3; }
+.bg-color-main-light-4 { background-color: $--color-main-light-4; }
+.bg-color-main-light-5 { background-color: $--color-main-light-5; }
+.bg-color-main-light-6 { background-color: $--color-main-light-6; }
+.bg-color-main-light-7 { background-color: $--color-main-light-7; }
+.bg-color-main-light-8 { background-color: $--color-main-light-8; }
+.bg-color-main-light-9 { background-color: $--color-main-light-9; }
+
+/* 字体相关变量 */
+$--extra-large: 20px;
+$--large: 18px;
+$--medium: 16px;
+$--small: 14px;
+$--extra-small: 13px;
+$--extra-extra-small: 12px;
+.font-extra-large { font-size: $--extra-large; }
+.font-large { font-size: $--large; }
+.font-medium { font-size: $--medium; }
+.font-small { font-size: $--small; }
+.font-extra-small { font-size: $--extra-small; }
+.font-extra-extra-small { font-size: $--extra-extra-small; }
+
+/* 布局相关变量 */
+$--px6: 6px;
+$--px8: 8px;
+$--px10: 10px;
+$--px12: 12px;
+$--px16: 16px;
+$--px20: 20px;
+$--px24: 24px;
+$--px30: 30px;
+$--px40: 40px;
+@mixin felx($display, $direction, $align, $justify) {
+  display: $display;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+}
+.flex-center {
+  @include felx(flex, row, center, center);
+}
+.flex-inline-center {
+  @include felx(inline-flex, row, center, center)
+}
+.flex-inline-between {
+  @include felx(inline-flex, row, flex-start, space-between)
+}
+@mixin spacing($attribute, $direction, $size) {
+  #{$attribute}-#{$direction}: $size;
+}
+.margin-top-10 {
+  @include spacing(margin, top, $--px10)
+}
+.margin-top-20 {
+  @include spacing(margin, top, $--px20)
+}
+.margin-top-24 {
+  @include spacing(margin, top, $--px24)
+}
+.margin-left-30 {
+  @include spacing(margin, left, $--px30)
+}
+.margin-bottom-20 {
+  @include spacing(margin, bottom, $--px20)
+}
+
+/* 常用样式封装 */
+@mixin over-length($line) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
