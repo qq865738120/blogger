@@ -23,7 +23,7 @@ module.exports = {
       host : '119.27.178.158',
       ref  : 'origin/master',
       repo : 'git@github.com:qq865738120/blogger.git',
-      path : '/var/www/production',
+      path : '/root/deploy/blogger',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     }
   }
