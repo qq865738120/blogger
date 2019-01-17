@@ -4,14 +4,6 @@ module.exports = {
     script: './node_modules/nuxt/bin/nuxt',
 
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
-    args: 'one two',
-    instances: 1,
-    autorestart: true,
-    watch: false,
-    max_memory_restart: '1.4G',
-    env: {
-      NODE_ENV: 'development'
-    },
     env_production: {
       NODE_ENV: 'production'
     }
@@ -24,7 +16,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'git@github.com:qq865738120/blogger.git',
       path : '/root/deploy/blogger',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+      'post-deploy' : 'npm install && npm run build && npm run start && pm2 startOrRestart ecosystem.config.js --env production'
     }
   }
 };
