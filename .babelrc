@@ -1,13 +1,3 @@
 {
-  "plugins": [
-    [
-      "module-alias",
-      [
-        {
-          "src": "./configs",
-          "expose": "config"
-        }
-      ]
-    ]
-  ]
+
 }

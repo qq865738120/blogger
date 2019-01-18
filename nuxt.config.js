@@ -1,7 +1,12 @@
 const pkg = require('./package')
+const config = require('./configs/index')
 
 module.exports = {
   mode: 'universal',
+
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
 
   /*
   ** Headers of the page
@@ -83,6 +88,20 @@ module.exports = {
     */
     extend(config, ctx) {
 
-    }
+    },
+
+    // babel: {
+    //   "plugins": [
+    //     [
+    //       "module-alias",
+    //       [
+    //         {
+    //           "src": "~/configs/base-config",
+    //           "expose": "config"
+    //         }
+    //       ]
+    //     ]
+    //   ]
+    // }
   }
 }
