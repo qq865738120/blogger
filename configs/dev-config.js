@@ -1,6 +1,6 @@
 module.exports = {
   mysql: {
-    host: 'example.org',
-    port: ''
+    host: 'cdb-25kpdc3w.cd.tencentcdb.com',
+    port: '10009'
   }
 }

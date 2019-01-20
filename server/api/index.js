@@ -7,16 +7,21 @@ const autho = require('./controller/autho.js')
 const apiMap = [
   {
     path: '/test',
+    type: 'get',
     method: home.test
   },
   {
     path: '/login',
+    type: 'post',
     method: autho.login
   }
 ]
 
 for (let item of apiMap) {
-  api.get(item.path, item.method)
+  switch (item.type) {
+    case 'get': api.get(item.path, item.method); break;
+    case 'post': api.post(item.path, item.method); break;
+  }
 }
 
 module.exports = api

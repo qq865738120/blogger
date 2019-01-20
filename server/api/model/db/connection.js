@@ -1,10 +1,4 @@
 const mysql = require('mysql')
-const config = require('')
+const config = require('../../../../configs/index')
 
-var pool  = mysql.createPool({
-  // connectionLimit: 20,
-  // host: 'example.org',
-  // user: 'bob',
-  // password: 'secret',
-  // database: 'my_db'
-});
+module.exports = mysql.createPool(config.mysql);
