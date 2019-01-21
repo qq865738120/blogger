@@ -23,23 +23,30 @@ const emun = {
 
 module.exports = {
 
-  /*
-  登陆接口
+  /**
+  * @api {get} /login 用户登录
+  * @apiDescription 用户登录
+  * @apiName login
+  * @apiGroup User
+  * @apiParam {string} username 用户名
+  * @apiParam {string} passwd 密码
+  * @apiVersion 1.0.0
   */
-  login(req, res) {
+  async login(req, res) {
     let result = {}
     if (!req.body.username) {
       result = emun.PAR_USER_NAME_ERR
     } else if (!req.body.passwd) {
       result = emun.PAR_PASSWD_ERR
     } else {
-      utils.dbQuery(pool, sql.showUserByUsername(req.body.username), (err, results, fields) => {
-        if (results[0].username == req.body.username && results[0].passwd == req.body.passwd) {
-          result = emun.LOGIN_SUCCESS
-        } else {
-          result = emun.USER_NAME_OR_PASSWD_ERR
-        }
-      })
+      let row = await utils.dbQuery(pool, sql.showUserByUsername(req.body.username))
+      if (row.length == 0) {
+        result = emun.USER_NAME_OR_PASSWD_ERR
+      } else if (row[0].username == req.body.username && row[0].passwd == req.body.passwd) {
+        result = emun.LOGIN_SUCCESS
+      } else {
+        result = emun.USER_NAME_OR_PASSWD_ERR
+      }
     }
     res.json(result)
   }
