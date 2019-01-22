@@ -170,7 +170,7 @@ export default {
     }
   },
   async mounted() {
-    let config = await this.$axios.post('/api/login', { username: 'test', passwd: 'test' })
+    let config = await this.$axios.post('/api/v1/login', { username: 'test', passwd: 'test' })
     console.log(config);
   }
 }

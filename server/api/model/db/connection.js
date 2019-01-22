@@ -1,4 +1,6 @@
 const mysql = require('mysql')
 const config = require('../../../../configs/index')
 
-module.exports = mysql.createPool(config.mysql);
+const pool = mysql.createPool(config.mysql);
+
+module.exports = pool

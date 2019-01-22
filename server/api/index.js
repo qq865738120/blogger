@@ -1,5 +1,5 @@
 const express = require('express')
-const api = express.Router()
+const apiv1 = express.Router()
 
 const home = require('./controller/home.js')
 const autho = require('./controller/autho.js')
@@ -19,9 +19,11 @@ const apiMap = [
 
 for (let item of apiMap) {
   switch (item.type) {
-    case 'get': api.get(item.path, item.method); break;
-    case 'post': api.post(item.path, item.method); break;
+    case 'get': apiv1.get(item.path, item.method); break;
+    case 'post': apiv1.post(item.path, item.method); break;
   }
 }
 
-module.exports = api
+module.exports = {
+  apiv1
+}

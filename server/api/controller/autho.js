@@ -32,7 +32,7 @@ module.exports = {
     } else if (!req.body.passwd) {
       result = emun.PAR_PASSWD_ERR
     } else {
-      result = await service.login(req.body.username, req.body.passwd)
+      result = await service.login(req.body.username, req.body.passwd, req)
     }
     res.json(result)
   }
