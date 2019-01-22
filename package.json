@@ -9,7 +9,7 @@
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate",
-    "doc": "apidoc -i server/ -o static/doc/apidoc"
+    "doc": "apidoc -i server/ -o docs/"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
