@@ -94,7 +94,6 @@ export default {
       element: document.body,
       autoshow: true
     }).create()
-    console.log(scrollbar)
   }
 }
 </script>
