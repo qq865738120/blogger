@@ -14,7 +14,7 @@ module.exports = {
         username,
         passwd
       }
-      console.log('sid', req.session.user.sid);
+      console.log('sid', req.sessionID);
       return emun.LOGIN_SUCCESS
     } else {
       return emun.USER_NAME_OR_PASSWD_ERR

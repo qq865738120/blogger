@@ -7,7 +7,7 @@ module.exports = {
   },
   session: {
     secret: 'cat',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: {
       // domain: 'xxx.xxx.xxx.xxx:xxxx', // 域名
