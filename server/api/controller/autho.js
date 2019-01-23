@@ -32,7 +32,13 @@ module.exports = {
     } else if (!req.body.passwd) {
       result = emun.PAR_PASSWD_ERR
     } else {
-      result = await service.login(req.body.username, req.body.passwd, req)
+      result = await service.autho(req.body.username, req.body.passwd, () => {
+        req.session.user = {
+          username: req.body.username,
+          passwd: req.body.passwd
+        }
+        console.log('sid', req.sessionID);
+      })
     }
     res.json(result)
   }

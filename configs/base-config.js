@@ -18,5 +18,8 @@ module.exports = {
   },
   redis: {
     prefix: 'blog-'
+  },
+  redisStore: {
+
   }
 }
