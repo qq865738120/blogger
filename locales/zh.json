@@ -22,5 +22,15 @@
       "signUpTip": "没有账号？",
       "toSignUp": "去注册"
     }
+  },
+  "signupPage": {
+    "form": {
+      "name": "用户名",
+      "passwd": "密码",
+      "rePasswd": "确认密码",
+      "signUp": "注册",
+      "signInTip": "已有账号？",
+      "toSignIn": "去登陆"
+    }
   }
 }

@@ -1,16 +1,16 @@
 <template>
-  <div class="page-signin-root" :style="{ background: bg }">
+  <div class="page-signup-root" :style="{ background: bg }">
     <img v-lazy="logoSrc" class="margin-bottom-30"/>
-    <signin-form></signin-form>
+    <signup-form></signup-form>
   </div>
 </template>
 
 <script>
-import SigninForm from '~/components/SigninForm.vue'
+import SignupForm from '~/components/SignupForm.vue'
 
 export default {
   components: {
-    SigninForm
+    SignupForm
   },
   data() {
     return {
@@ -28,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 @import 'assets/style/common';
 
-.page-signin-root {
+.page-signup-root {
   height: 100%;
   @include felx(flex, column, center, center);
 }

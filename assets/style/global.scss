@@ -4,6 +4,10 @@ html, body {
 }
 a {
   text-decoration: none;
+  color: $--link-color;
+}
+i {
+  cursor: pointer;
 }
 .el-form-item__error {
   color: $--danger-color
@@ -11,11 +15,12 @@ a {
 
 @font-face {
   font-family: 'iconfont';  /* project id 957689 */
-  src: url('//at.alicdn.com/t/font_957689_seztu7to5v.eot');
-  src: url('//at.alicdn.com/t/font_957689_seztu7to5v.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_957689_seztu7to5v.woff') format('woff'),
-  url('//at.alicdn.com/t/font_957689_seztu7to5v.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_957689_seztu7to5v.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_957689_f73shccpl1r.eot');
+  src: url('//at.alicdn.com/t/font_957689_f73shccpl1r.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_957689_f73shccpl1r.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_957689_f73shccpl1r.woff') format('woff'),
+  url('//at.alicdn.com/t/font_957689_f73shccpl1r.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_957689_f73shccpl1r.svg#iconfont') format('svg');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -32,3 +37,5 @@ a {
 .open-yuedu:before { content: "\e778"; margin-right: 10px;}
 
 .open-neifenmike:before { content: "\e78a"; margin-right: 10px;}
+
+.open-github:before { content: "\e851"; }

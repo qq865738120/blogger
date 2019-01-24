@@ -1,26 +1,43 @@
 <template>
-  <div class="root">
+  <div class="sign-from-root">
     <el-form :model="signForm" status-icon :rules="rules" ref="signForm" class="demo-ruleForm">
-      <el-form-item :label="$t('signinPage.form.name')" prop="name">
+      <el-form-item :label="$t('signupPage.form.name')" prop="name">
         <el-input type="text" v-model="signForm.name" autocomplete="off" max="30"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('signinPage.form.passwd')" prop="pass">
+      <el-form-item :label="$t('signupPage.form.passwd')" prop="pass">
         <el-input type="password" v-model="signForm.pass" autocomplete="off" max="30"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button class="submit-button" type="primary" @click="submitForm('signForm')">{{ $t('signinPage.form.signIn') }}</el-button>
+      <el-form-item :label="$t('signupPage.form.rePasswd')" prop="rePass">
+        <el-input type="password" v-model="signForm.rePass" autocomplete="off" max="30"></el-input>
+      </el-form-item>
+      <el-form-item size="large">
+        <el-button size="large" class="submit-button" type="primary" @click="submitForm('signForm')">{{ $t('signupPage.form.signUp') }}</el-button>
       </el-form-item>
     </el-form>
-    <p class="sign-tip font-small">{{ $t('signinPage.form.signUpTip') }}<nuxt-link to="/">{{ $t('signinPage.form.toSignUp') }}</nuxt-link></p>
+    <p class="sign-tip font-small">{{ $t('signupPage.form.signInTip') }}<nuxt-link to="/signin">{{ $t('signupPage.form.toSignIn') }}</nuxt-link></p>
   </div>
 </template>
 
 <script>
+import ThirdLogin from '~/components/ThirdLogin.vue'
+
 export default {
+  components: {
+    ThirdLogin
+  },
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
+      } else {
+        callback();
+      }
+    };
+    var validateRePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.signForm.pass) {
+        callback(new Error('两次输入密码不一致!'));
       } else {
         callback();
       }
@@ -35,11 +52,15 @@ export default {
     return {
       signForm: {
         pass: '',
+        rePass: '',
         name: ''
       },
       rules: {
         pass: [
           { validator: validatePass, trigger: 'blur' },
+        ],
+        rePass: [
+          { validator: validateRePass, trigger: 'blur' },
         ],
         name: [
           { validator: validateName, trigger: 'blur' }
@@ -62,10 +83,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss" >
 @import 'assets/style/common';
 
-.root {
+.sign-from-root {
   width: 440px;
   background-color: white;
   padding: 50px;
