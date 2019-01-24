@@ -86,6 +86,8 @@ import BaseDisplay from '~/components/BaseDisplay.vue'
 import HotList from '~/components/HotList.vue'
 
 export default {
+  layout: 'main',
+  middleware: 'autho',
   components: {
     MainDisplay,
     SubDisplay,
@@ -170,8 +172,8 @@ export default {
     }
   },
   async mounted() {
-    let config = await this.$axios.post('/api/v1/login', { username: 'test', passwd: 'test' })
-    console.log(config);
+    // let config = await this.$axios.post('/api/v1/login', { username: 'test', passwd: 'test' })
+    // console.log(config);
   }
 }
 </script>

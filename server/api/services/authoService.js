@@ -23,5 +23,15 @@ module.exports = {
     } else {
       return emun.USER_NAME_OR_PASSWD_ERR
     }
-  }
+  },
+
+  /*
+  校验用户是否处于登录状态
+  参数：req request对象
+  返回：通过返回true，不通过返回false
+  */
+  check(req) {
+    return req.session.user ? true : false
+  },
+
 }

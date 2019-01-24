@@ -4,6 +4,10 @@ const config = require('./configs/index')
 module.exports = {
   mode: 'universal',
 
+  env: {
+    cosPath: 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com'
+  },
+
   /*
   ** Headers of the page
   */

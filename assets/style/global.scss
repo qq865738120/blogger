@@ -1,9 +1,12 @@
+@import 'assets/style/common';
 html, body {
   height: 100%;
 }
-
 a {
   text-decoration: none;
+}
+.el-form-item__error {
+  color: $--danger-color
 }
 
 @font-face {

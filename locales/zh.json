@@ -13,5 +13,14 @@
     "choice": "精选",
     "recommend": "推荐",
     "hotspot": "热点"
+  },
+  "signinPage": {
+    "form": {
+      "name": "用户名",
+      "passwd": "密码",
+      "signIn": "登录",
+      "signUpTip": "没有账号？",
+      "toSignUp": "去注册"
+    }
   }
 }
