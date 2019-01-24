@@ -20,7 +20,9 @@
       "passwd": "密码",
       "signIn": "登录",
       "signUpTip": "没有账号？",
-      "toSignUp": "去注册"
+      "toSignUp": "去注册",
+      "nameTip": "请输入用户名",
+      "passwdTip": "请输入密码"
     }
   },
   "signupPage": {
@@ -30,7 +32,11 @@
       "rePasswd": "确认密码",
       "signUp": "注册",
       "signInTip": "已有账号？",
-      "toSignIn": "去登陆"
+      "toSignIn": "去登陆",
+      "nameTip": "请输入用户名",
+      "passwdTip": "请输入密码",
+      "passwdTip2": "请再次输入密码",
+      "passwdTip3": "两次输入密码不一致!"
     }
   }
 }

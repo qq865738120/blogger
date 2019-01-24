@@ -269,9 +269,9 @@
   .el-progress.is-success .el-progress__text {
     color: #4E6162; }
   .el-progress.is-exception .el-progress-bar__inner {
-    background-color: #EBEBEB; }
+    background-color: #F56C6C; }
   .el-progress.is-exception .el-progress__text {
-    color: #EBEBEB; }
+    color: #F56C6C; }
 
 .el-progress-bar {
   padding-right: 50px;

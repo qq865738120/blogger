@@ -233,7 +233,7 @@
   vertical-align: middle;
   display: inline-block; }
   .el-badge__content {
-    background-color: #EBEBEB;
+    background-color: #F56C6C;
     border-radius: 10px;
     color: #fff;
     display: inline-block;
@@ -263,8 +263,8 @@
     .el-badge__content--success {
       background-color: #4E6162; }
     .el-badge__content--warning {
-      background-color: #4D4D4D; }
+      background-color: #E6A23C; }
     .el-badge__content--info {
-      background-color: #666666; }
+      background-color: #909399; }
     .el-badge__content--danger {
-      background-color: #EBEBEB; }
+      background-color: #F56C6C; }

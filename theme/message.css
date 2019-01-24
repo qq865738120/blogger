@@ -263,22 +263,22 @@
   .el-message p {
     margin: 0; }
   .el-message--info .el-message__content {
-    color: #666666; }
+    color: #909399; }
   .el-message--success {
     background-color: #edefef;
     border-color: #dcdfe0; }
     .el-message--success .el-message__content {
       color: #4E6162; }
   .el-message--warning {
-    background-color: #ededed;
-    border-color: #dbdbdb; }
+    background-color: #fdf6ec;
+    border-color: #faecd8; }
     .el-message--warning .el-message__content {
-      color: #4D4D4D; }
+      color: #E6A23C; }
   .el-message--error {
-    background-color: #fdfdfd;
-    border-color: #fbfbfb; }
+    background-color: #fef0f0;
+    border-color: #fde2e2; }
     .el-message--error .el-message__content {
-      color: #EBEBEB; }
+      color: #F56C6C; }
   .el-message__icon {
     margin-right: 10px; }
   .el-message__content {
@@ -303,11 +303,11 @@
   .el-message .el-icon-success {
     color: #4E6162; }
   .el-message .el-icon-error {
-    color: #EBEBEB; }
+    color: #F56C6C; }
   .el-message .el-icon-info {
-    color: #666666; }
+    color: #909399; }
   .el-message .el-icon-warning {
-    color: #4D4D4D; }
+    color: #E6A23C; }
 
 .el-message-fade-enter,
 .el-message-fade-leave-active {

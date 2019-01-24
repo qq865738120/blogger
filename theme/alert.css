@@ -257,20 +257,20 @@
     .el-alert--success .el-alert__description {
       color: #4E6162; }
   .el-alert--info {
-    background-color: #f0f0f0;
-    color: #666666; }
+    background-color: #f4f4f5;
+    color: #909399; }
     .el-alert--info .el-alert__description {
-      color: #666666; }
+      color: #909399; }
   .el-alert--warning {
-    background-color: #ededed;
-    color: #4D4D4D; }
+    background-color: #fdf6ec;
+    color: #E6A23C; }
     .el-alert--warning .el-alert__description {
-      color: #4D4D4D; }
+      color: #E6A23C; }
   .el-alert--error {
-    background-color: #fdfdfd;
-    color: #EBEBEB; }
+    background-color: #fef0f0;
+    color: #F56C6C; }
     .el-alert--error .el-alert__description {
-      color: #EBEBEB; }
+      color: #F56C6C; }
   .el-alert__content {
     display: table-cell;
     padding: 0 8px; }

@@ -20,6 +20,10 @@
 
 <script>
 import ThirdLogin from '~/components/ThirdLogin.vue'
+let nameTip = '';
+let passwdTip = '';
+let passwdTip2 = '';
+let passwdTip3 = '';
 
 export default {
   components: {
@@ -28,23 +32,23 @@ export default {
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'));
+        callback(new Error(passwdTip));
       } else {
         callback();
       }
     };
     var validateRePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请再次输入密码'));
+        callback(new Error(passwdTip2));
       } else if (value !== this.signForm.pass) {
-        callback(new Error('两次输入密码不一致!'));
+        callback(new Error(passwdTip3));
       } else {
         callback();
       }
     };
     var validateName = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入用户名'));
+        callback(new Error(nameTip));
       } else {
         callback();
       }
@@ -67,6 +71,12 @@ export default {
         ]
       }
     }
+  },
+  created() {
+    nameTip = this.$t('signupPage.form.nameTip')
+    passwdTip = this.$t('signupPage.form.passwdTip')
+    passwdTip2 = this.$t('signupPage.form.passwdTip2')
+    passwdTip3 = this.$t('signupPage.form.passwdTip3')
   },
   methods: {
     submitForm(formName) {

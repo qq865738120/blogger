@@ -308,7 +308,7 @@
     .el-form-item__content .el-input-group {
       vertical-align: middle; }
   .el-form-item__error {
-    color: #EBEBEB;
+    color: #F56C6C;
     font-size: 12px;
     line-height: 1;
     padding-top: 4px;
@@ -323,17 +323,17 @@
       margin-left: 10px; }
   .el-form-item.is-required:not(.is-no-asterisk) > .el-form-item__label:before {
     content: '*';
-    color: #EBEBEB;
+    color: #F56C6C;
     margin-right: 4px; }
   .el-form-item.is-error .el-input__inner, .el-form-item.is-error .el-input__inner:focus,
   .el-form-item.is-error .el-textarea__inner,
   .el-form-item.is-error .el-textarea__inner:focus {
-    border-color: #EBEBEB; }
+    border-color: #F56C6C; }
   .el-form-item.is-error .el-input-group__append .el-input__inner,
   .el-form-item.is-error .el-input-group__prepend .el-input__inner {
     border-color: transparent; }
   .el-form-item.is-error .el-input__validateIcon {
-    color: #EBEBEB; }
+    color: #F56C6C; }
   .el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-input__inner:focus,
   .el-form-item.is-success .el-textarea__inner,
   .el-form-item.is-success .el-textarea__inner:focus {

@@ -1,11 +1,11 @@
 <template>
   <div class="sign-from-root">
     <el-form :model="signForm" status-icon :rules="rules" ref="signForm" class="demo-ruleForm">
-      <el-form-item :label="$t('signinPage.form.name')" prop="name">
-        <el-input type="text" v-model="signForm.name" autocomplete="off" max="30"></el-input>
+      <el-form-item :label="$t('signinPage.form.name')" prop="username">
+        <el-input type="text" v-model="signForm.username" autocomplete="off" max="30"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('signinPage.form.passwd')" prop="pass">
-        <el-input type="password" v-model="signForm.pass" autocomplete="off" max="30"></el-input>
+      <el-form-item :label="$t('signinPage.form.passwd')" prop="passwd">
+        <el-input type="password" v-model="signForm.passwd" autocomplete="off" max="30"></el-input>
       </el-form-item>
       <el-form-item size="large">
         <el-button size="large" class="submit-button" type="primary" @click="submitForm('signForm')">{{ $t('signinPage.form.signIn') }}</el-button>
@@ -21,6 +21,8 @@
 
 <script>
 import ThirdLogin from '~/components/ThirdLogin.vue'
+let nameTip = '';
+let passwdTip = ''
 
 export default {
   components: {
@@ -29,41 +31,53 @@ export default {
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'));
+        callback(new Error(passwdTip));
       } else {
         callback();
       }
     };
     var validateName = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入用户名'));
+        callback(new Error(nameTip));
       } else {
         callback();
       }
     };
     return {
       signForm: {
-        pass: '',
-        name: ''
+        passwd: '',
+        username: ''
       },
       rules: {
-        pass: [
+        passwd: [
           { validator: validatePass, trigger: 'blur' },
         ],
-        name: [
+        username: [
           { validator: validateName, trigger: 'blur' }
         ]
       }
     }
   },
+  created() {
+    nameTip = this.$t('signinPage.form.nameTip')
+    passwdTip = this.$t('signinPage.form.passwdTip')
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
-        } else {
-          console.log('error submit!!');
-          return false;
+          this.$axios.post('/api/v1/login', this.signForm).then(res => {
+            console.log('login接口', res.data);
+            let type = 'error'
+            if (res.data.code == 200) { //登陆成功
+              type = 'success'
+              this.$router.push('/')
+            }
+            this.$message({
+              message: res.data.msg,
+              type
+            });
+          })
         }
       });
     }
