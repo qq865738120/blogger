@@ -9,7 +9,7 @@
         <el-col
           :span="2"
           class="flex-inline-center">
-          <div class="iconfont open-logo logo "/>
+          <div class="iconfont open-logo logo hover-pointer" @click="$router.push('/')"/>
         </el-col>
         <el-col :span="9">
           <el-menu
@@ -46,12 +46,14 @@
             </el-col>
             <el-col :span="10">
               <div
+                v-if="$store.state.isLogin"
                 class="flex-center font-small"
                 style="width: 100%; height: 100%; color: white; font-weight: 400;">
-                <span>{{ $t('header.login') }}</span>
+                <span class="hover-pointer" @click="$router.push('/signin')">{{ $t('header.login') }}</span>
                 <span class="line bg-color-main-light-8"/>
-                <span>{{ $t('header.register') }}</span>
+                <span class="hover-pointer" @click="$router.push('/signup')">{{ $t('header.register') }}</span>
               </div>
+              <img v-lazy="" />
             </el-col>
           </el-row>
         </el-col>
@@ -112,6 +114,11 @@ body {
 .logo {
   color: $--color-white;
   font-size: 48px;
+  transform: rotate(0deg);
+  transition: all 200ms;
+}
+.logo:hover {
+  transform: rotate(30deg);
 }
 .search-input .el-input__inner {
   border-radius: 30px;

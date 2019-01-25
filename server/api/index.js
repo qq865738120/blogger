@@ -3,6 +3,7 @@ const apiv1 = express.Router()
 
 const home = require('./controller/home.js')
 const autho = require('./controller/autho.js')
+const user = require('./controller/user.js')
 
 const apiMap = [
   {
@@ -14,6 +15,21 @@ const apiMap = [
     path: '/login',
     type: 'post',
     method: autho.login
+  },
+  {
+    path: '/registered',
+    type: 'post',
+    method: autho.registered
+  },
+  {
+    path: '/check',
+    type: 'get',
+    method: autho.check
+  },
+  {
+    path: '/user/info',
+    type: 'get',
+    method: user.userInfo
   }
 ]
 

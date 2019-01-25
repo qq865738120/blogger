@@ -2,10 +2,10 @@
   <div class="sign-from-root">
     <el-form :model="signForm" status-icon :rules="rules" ref="signForm" class="demo-ruleForm">
       <el-form-item :label="$t('signupPage.form.name')" prop="name">
-        <el-input type="text" v-model="signForm.name" autocomplete="off" max="30"></el-input>
+        <el-input type="text" v-model="signForm.username" autocomplete="off" max="30"></el-input>
       </el-form-item>
       <el-form-item :label="$t('signupPage.form.passwd')" prop="pass">
-        <el-input type="password" v-model="signForm.pass" autocomplete="off" max="30"></el-input>
+        <el-input type="password" v-model="signForm.passwd" autocomplete="off" max="30"></el-input>
       </el-form-item>
       <el-form-item :label="$t('signupPage.form.rePasswd')" prop="rePass">
         <el-input type="password" v-model="signForm.rePass" autocomplete="off" max="30"></el-input>
@@ -40,7 +40,7 @@ export default {
     var validateRePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error(passwdTip2));
-      } else if (value !== this.signForm.pass) {
+      } else if (value !== this.signForm.passwd) {
         callback(new Error(passwdTip3));
       } else {
         callback();
@@ -55,9 +55,9 @@ export default {
     };
     return {
       signForm: {
-        pass: '',
+        passwd: '',
         rePass: '',
-        name: ''
+        username: ''
       },
       rules: {
         pass: [
@@ -82,10 +82,18 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
-        } else {
-          console.log('error submit!!');
-          return false;
+          this.$axios.post('/api/v1/registered', this.signForm).then(res => {
+            console.log('registered注册接口', res.data);
+            let type = 'error'
+            if (res.data.code == 200) { //登陆成功
+              type = 'success'
+              this.$router.push('/')
+            }
+            this.$message({
+              message: res.data.msg,
+              type
+            });
+          })
         }
       });
     }

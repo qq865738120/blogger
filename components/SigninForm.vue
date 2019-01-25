@@ -66,12 +66,23 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.5)'
+          });
           this.$axios.post('/api/v1/login', this.signForm).then(res => {
-            console.log('login接口', res.data);
+            console.log('login登录接口', res.data);
             let type = 'error'
             if (res.data.code == 200) { //登陆成功
               type = 'success'
+              this.$store.commit('SET_LOGIN', true)
+              this.$axios.get('/api/v1/user/info')
               this.$router.push('/')
+            } else {
+              this.$store.commit('SET_LOGIN', false)
+              loading.close()
             }
             this.$message({
               message: res.data.msg,
