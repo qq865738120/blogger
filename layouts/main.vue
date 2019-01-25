@@ -53,7 +53,7 @@
                 <span class="line bg-color-main-light-8"/>
                 <span class="hover-pointer" @click="$router.push('/signup')">{{ $t('header.register') }}</span>
               </div>
-              <img class="avatar hover-pointer" v-lazy="$store.state.userInfo.avatar" v-if="$store.state.isLogin" />
+              <img class="avatar hover-pointer" @click="$router.push('/personal')" v-lazy="$store.state.userInfo.avatar" v-if="$store.state.isLogin" />
             </el-col>
           </el-row>
         </el-col>
