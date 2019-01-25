@@ -14,7 +14,6 @@ module.exports = {
   */
   async showUserInfo(username) {
     let row = await utils.dbQuery(pool, sql.showUserByUsername(username))
-    console.log('row', row);
     if (row.length == 0) {
       return emun.NOT_USESR
     } else {
