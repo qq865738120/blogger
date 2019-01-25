@@ -70,7 +70,7 @@ export default {
             lock: true,
             text: 'Loading',
             spinner: 'el-icon-loading',
-            background: 'rgba(0, 0, 0, 0.5)'
+            background: 'rgba(0, 0, 0, 0.4)'
           });
           this.$axios.post('/api/v1/login', this.signForm).then(res => {
             console.log('login登录接口', res.data);
@@ -78,8 +78,13 @@ export default {
             if (res.data.code == 200) { //登陆成功
               type = 'success'
               this.$store.commit('SET_LOGIN', true)
-              this.$axios.get('/api/v1/user/info')
-              this.$router.push('/')
+              this.$axios.get('/api/v1/user/info').then(res => {
+                if (res.data.code == 200) {
+                  this.$store.commit('SET_USER_INFO', res.data.data)
+                  this.$router.push('/')
+                }
+                loading.close()
+              })
             } else {
               this.$store.commit('SET_LOGIN', false)
               loading.close()

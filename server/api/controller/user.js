@@ -15,12 +15,12 @@ module.exports = {
   * @apiSuccessExample {json} Success:
   *{
   *  code: 200,
-  *  msg: '注册成功'
+  *  msg: '成功'
   *}
   * @apiErrorExample {json} Error:
   * {
-  *   code: 300,
-  *   msg: '用户名已存在'
+  *   code: 201,
+  *   msg: '没有登录'
   * }
   * @apiVersion 1.0.0
   */

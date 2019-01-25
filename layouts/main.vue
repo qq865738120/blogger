@@ -46,14 +46,14 @@
             </el-col>
             <el-col :span="10">
               <div
-                v-if="$store.state.isLogin"
+                v-if="!$store.state.isLogin"
                 class="flex-center font-small"
                 style="width: 100%; height: 100%; color: white; font-weight: 400;">
                 <span class="hover-pointer" @click="$router.push('/signin')">{{ $t('header.login') }}</span>
                 <span class="line bg-color-main-light-8"/>
                 <span class="hover-pointer" @click="$router.push('/signup')">{{ $t('header.register') }}</span>
               </div>
-              <img v-lazy="" />
+              <img class="avatar hover-pointer" v-lazy="$store.state.userInfo.avatar" v-if="$store.state.isLogin" />
             </el-col>
           </el-row>
         </el-col>
@@ -89,7 +89,23 @@ export default {
   data() {
     return {
       searchInput: '',
-      logSrc: ''
+      logSrc: '',
+    }
+  },
+  async created() {
+    if (this.$store.state.isLogin && this.$store.state.userInfo == '') {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.4)'
+      });
+      this.$axios.get('/api/v1/user/info').then(res => {
+        if (res.data.code == 200) {
+          this.$store.commit('SET_USER_INFO', res.data.data)
+        }
+        loading.close()
+      })
     }
   },
   mounted() {
@@ -139,5 +155,14 @@ body {
 }
 .fonter-bottom > a:hover {
   color: white;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+.avatar:hover {
+  border: 1px solid $--secondary-color;
 }
 </style>

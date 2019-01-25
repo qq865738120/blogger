@@ -1,6 +1,53 @@
 define({ "api": [
   {
-    "type": "get",
+    "type": "post",
+    "url": "/check",
+    "title": "检验用户登录",
+    "description": "<p>检验用户登录</p>",
+    "name": "check",
+    "group": "User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：验证通过；201：验证失败</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '验证通过'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 201,\n  msg: '验证失败'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/autho.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
     "url": "/login",
     "title": "用户登录",
     "description": "<p>用户登录</p>",
@@ -57,13 +104,127 @@ define({ "api": [
       "examples": [
         {
           "title": "Error:",
-          "content": "{ code: 300, msg: '密码参数异常' }",
+          "content": "{\n  code: 300,\n  msg: '密码参数异常'\n}",
           "type": "json"
         }
       ]
     },
     "version": "1.0.0",
     "filename": "server/api/controller/autho.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/registered",
+    "title": "用户注册",
+    "description": "<p>用户注册</p>",
+    "name": "registered",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "username",
+            "description": "<p>用户名</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "passwd",
+            "description": "<p>密码</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：注册成功；300：传参异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '注册成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: '用户名已存在'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/autho.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/user/info",
+    "title": "查询用户信息",
+    "description": "<p>查询用户信息</p>",
+    "name": "userInfo",
+    "group": "User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；201：没有登录</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 201,\n  msg: '没有登录'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/user.js",
     "groupTitle": "User"
   }
 ] });
