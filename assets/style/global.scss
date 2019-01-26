@@ -9,18 +9,15 @@ a {
 i {
   cursor: pointer;
 }
-// .el-form-item__error {
-//   color: $--danger-color
-// }
 
 @font-face {
   font-family: 'iconfont';  /* project id 957689 */
-  src: url('//at.alicdn.com/t/font_957689_f73shccpl1r.eot');
-  src: url('//at.alicdn.com/t/font_957689_f73shccpl1r.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_957689_f73shccpl1r.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_957689_f73shccpl1r.woff') format('woff'),
-  url('//at.alicdn.com/t/font_957689_f73shccpl1r.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_957689_f73shccpl1r.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_957689_ndikobwj9g.eot');
+  src: url('//at.alicdn.com/t/font_957689_ndikobwj9g.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_957689_ndikobwj9g.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_957689_ndikobwj9g.woff') format('woff'),
+  url('//at.alicdn.com/t/font_957689_ndikobwj9g.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_957689_ndikobwj9g.svg#iconfont') format('svg');
 }
 .iconfont {
   font-family: "iconfont" !important;
@@ -39,3 +36,7 @@ i {
 .open-neifenmike:before { content: "\e78a"; margin-right: 10px;}
 
 .open-github:before { content: "\e851"; }
+
+.open-gerenzhongxin-xuanzhongxin:before { content: "\e607"; }
+
+.open-zhuxiao:before { content: "\e64e"; }

@@ -17,6 +17,11 @@ const apiMap = [
     method: autho.login
   },
   {
+    path: '/logout',
+    type: 'get',
+    method: autho.logout
+  },
+  {
     path: '/registered',
     type: 'post',
     method: autho.registered
@@ -30,7 +35,7 @@ const apiMap = [
     path: '/user/info',
     type: 'get',
     method: user.userInfo
-  }
+  },
 ]
 
 for (let item of apiMap) {

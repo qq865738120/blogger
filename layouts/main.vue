@@ -53,7 +53,13 @@
                 <span class="line bg-color-main-light-8"/>
                 <span class="hover-pointer" @click="$router.push('/signup')">{{ $t('header.register') }}</span>
               </div>
-              <img class="avatar hover-pointer" @click="$router.push('/personal')" v-lazy="$store.state.userInfo.avatar" v-if="$store.state.isLogin" />
+              <el-dropdown v-if="$store.state.isLogin" placement="bottom-start" @command="onDropdown">
+                <img class="avatar hover-pointer" v-lazy="$store.state.userInfo.avatar" />
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="1" class="dropdown-item font-medium iconfont open-gerenzhongxin-xuanzhongxin">个人中心</el-dropdown-item>
+                  <el-dropdown-item command="2" class="dropdown-item font-medium iconfont open-zhuxiao">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </el-col>
           </el-row>
         </el-col>
@@ -114,6 +120,31 @@ export default {
       autoshow: true
     }).create()
     this.logSrc = process.env.cosPath + '/system/logo.png'
+  },
+  methods: {
+    onDropdown(e) {
+      if (e == 1) {
+        this.$router.push('/personal')
+      } else if (e == 2) {
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.4)'
+        });
+        this.$axios.get('/api/v1/logout').then(res => {
+          console.log('注销', res.data);
+          loading.close()
+          this.$message({
+            message: res.data.msg,
+            type: res.data.code == 200 ? 'success' : 'error'
+          });
+          if (res.data.code == 200) {
+            location.reload();
+          }
+        })
+      }
+    }
   }
 }
 </script>
@@ -164,5 +195,11 @@ body {
 }
 .avatar:hover {
   border: 1px solid $--secondary-color;
+}
+.dropdown-item {
+  padding: $--px8 $--px30;
+}
+.dropdown-item::before {
+  margin-right: $--px8
 }
 </style>

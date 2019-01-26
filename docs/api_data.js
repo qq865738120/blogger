@@ -1,6 +1,6 @@
 define({ "api": [
   {
-    "type": "post",
+    "type": "get",
     "url": "/check",
     "title": "检验用户登录",
     "description": "<p>检验用户登录</p>",
@@ -105,6 +105,53 @@ define({ "api": [
         {
           "title": "Error:",
           "content": "{\n  code: 300,\n  msg: '密码参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/autho.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/logout",
+    "title": "退出登陆",
+    "description": "<p>退出登陆</p>",
+    "name": "logout",
+    "group": "User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：注销成功；201：注销失败</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n  code: 200,\n  msg: '注销成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 201,\n  msg: '注销失败'\n}",
           "type": "json"
         }
       ]

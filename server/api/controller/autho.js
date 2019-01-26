@@ -83,7 +83,7 @@ module.exports = {
   },
 
   /**
-  * @api {post} /check 检验用户登录
+  * @api {get} /check 检验用户登录
   * @apiDescription 检验用户登录
   * @apiName check
   * @apiGroup User
@@ -109,6 +109,35 @@ module.exports = {
       result = emun.CHECK_FAIL
     }
     res.json(result)
+  },
+
+  /**
+  * @api {get} /logout 退出登陆
+  * @apiDescription 退出登陆
+  * @apiName logout
+  * @apiGroup User
+  * @apiSuccess {Number} code 错误码 200：注销成功；201：注销失败
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *   code: 200,
+  *   msg: '注销成功'
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 201,
+  *   msg: '注销失败'
+  * }
+  * @apiVersion 1.0.0
+  */
+  logout(req, res) {
+    req.session.destroy(function(err) {
+      if (err) {
+        res.json(emun.LOGOUT_FAIL)
+      } else {
+        res.json(emun.LOGOUT_SUCCESS)
+      }
+    })
   }
 
 }

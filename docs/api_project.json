@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "开放博客平台api文档",
   "title": "blogger项目api文档",
-  "url": "https://127.0.0.1/api",
+  "url": "https://127.0.0.1/api/v1",
   "template": {
     "withCompare": true,
     "withGenerator": true
@@ -13,7 +13,7 @@
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2019-01-25T15:01:34.243Z",
+    "time": "2019-01-26T13:58:13.603Z",
     "url": "http://apidocjs.com",
     "version": "0.17.7"
   }

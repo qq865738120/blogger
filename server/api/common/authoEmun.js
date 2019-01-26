@@ -31,4 +31,12 @@ module.exports = {
     code: 201,
     msg: '验证失败'
   },
+  LOGOUT_FAIL: {
+    code: 201,
+    msg: '注销失败'
+  },
+  LOGOUT_SUCCESS: {
+    code: 200,
+    msg: '注销成功'
+  },
 }
