@@ -21,5 +21,28 @@ module.exports = {
   },
   redisStore: {
 
+  },
+  STS: {
+    secretId: 'AKID3xc1B6QEPL1RaUaXgZDn7G9oEOJypYVD', // 固定密钥
+    secretKey: 'c1C9QTIvJTQ8cstgEcmiQuACzYsypSr1', // 固定密钥
+    proxy: '',
+    durationSeconds: 1800, // 密钥有效期
+
+    // 放行判断相关参数
+    bucket: 'weixin-1251663069', // 换成你的 bucket
+    region: 'ap-chengdu', // 换成 bucket 所在地区
+    allowPrefix: 'user/*', // 这里改成允许的路径前缀，可以根据自己网站的用户登录态判断允许上传的目录，例子：* 或者 a/* 或者 a.jpg
+    // 密钥的权限列表。简单上传和分片需要以下的权限，其他权限列表请看 https://cloud.tencent.com/document/product/436/31923
+    allowActions: [
+      // 简单上传
+      'name/cos:PutObject',
+      'name/cos:PostObject',
+      // 分片上传
+      'name/cos:InitiateMultipartUpload',
+      'name/cos:ListMultipartUploads',
+      'name/cos:ListParts',
+      'name/cos:UploadPart',
+      'name/cos:CompleteMultipartUpload'
+    ],
   }
 }

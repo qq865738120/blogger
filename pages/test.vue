@@ -12,9 +12,16 @@ export default {
     }
   },
   async mounted() {
-    let result = await this.$axios.get('/api/v1/user/info')
-    console.log('result', result);
-    this.result = result
+    // let result = await this.$axios.post('/api/v1/file/sts',
+    //   [{
+    //     action: 'name/cos:PutObject',
+    //     bucket: 'weixin-1251663069',
+    //     region: 'ap-chengdu',
+    //     prefix: 'user/*',
+    //   }]
+    // )
+    // console.log('result', result.data);
+    // this.result = result.data
   }
 }
 </script>

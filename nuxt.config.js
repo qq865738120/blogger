@@ -63,6 +63,11 @@ module.exports = {
       src: '@/plugins/vue-lazyload',
       ssr: true
     },
+    {
+      // 图片懒加载
+      src: '@/plugins/utils',
+      ssr: false
+    },
   ],
 
   /*

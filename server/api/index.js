@@ -4,6 +4,7 @@ const apiv1 = express.Router()
 const home = require('./controller/home.js')
 const autho = require('./controller/autho.js')
 const user = require('./controller/user.js')
+const sts = require('./controller/STS.js')
 
 const apiMap = [
   {
@@ -35,6 +36,11 @@ const apiMap = [
     path: '/user/info',
     type: 'get',
     method: user.userInfo
+  },
+  {
+    path: '/file/sts',
+    type: 'post',
+    method: sts.getScope
   },
 ]
 

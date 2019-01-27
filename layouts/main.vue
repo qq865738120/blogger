@@ -54,7 +54,7 @@
                 <span class="hover-pointer" @click="$router.push('/signup')">{{ $t('header.register') }}</span>
               </div>
               <el-dropdown v-if="$store.state.isLogin" placement="bottom-start" @command="onDropdown">
-                <img class="avatar hover-pointer" v-lazy="$store.state.userInfo.avatar" />
+                <img class="main-avatar hover-pointer" v-lazy="$store.state.userInfo.avatar" />
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="1" class="dropdown-item font-medium iconfont open-gerenzhongxin-xuanzhongxin">个人中心</el-dropdown-item>
                   <el-dropdown-item command="2" class="dropdown-item font-medium iconfont open-zhuxiao">退出登录</el-dropdown-item>
@@ -187,13 +187,13 @@ body {
 .fonter-bottom > a:hover {
   color: white;
 }
-.avatar {
+.main-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   border: 1px solid white;
 }
-.avatar:hover {
+.main-avatar:hover {
   border: 1px solid $--secondary-color;
 }
 .dropdown-item {

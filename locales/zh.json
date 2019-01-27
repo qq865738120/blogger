@@ -38,5 +38,10 @@
       "passwdTip2": "请再次输入密码",
       "passwdTip3": "两次输入密码不一致!"
     }
+  },
+  "personal": {
+    "avatarTip1": "上传头像图片只能是 JPG/PNG 格式!",
+    "avatarTip2": "上传头像图片大小不能超过 2MB!",
+    "avatarTip3": "上传失败了!"
   }
 }
