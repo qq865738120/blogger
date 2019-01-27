@@ -1,5 +1,72 @@
 [
   {
+    "type": "post",
+    "url": "/file/sts",
+    "title": "对象存储临时凭证",
+    "description": "<p>对象存储临时凭证</p>",
+    "name": "getScope",
+    "group": "File",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Array",
+            "optional": false,
+            "field": "options",
+            "description": "<p>配置参数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "credentials",
+            "description": "<p>云API参数</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "expiredTime",
+            "description": "<p>密钥的失效时间，是 UNIX 时间戳</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "startTime",
+            "description": "<p>密钥的起始时间，是 UNIX 时间戳</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n credentials: {\n   sessionToken: \"daaeba2eb21c69750b188af4e2d022972fec17d130001\",\n   tmpSecretId: \"AKIDU1zH4FiL2uCkQF4yN9Xedt4u8tz5Yu2x\",\n   tmpSecretKey: \"uYRbsfm4pdtZ4SlfdSJSkN7oB3KGybOS\"\n }\n expiredTime: 1548599718,\n startTime: 1548597918\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: '参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/STS.js",
+    "groupTitle": "File"
+  },
+  {
     "type": "get",
     "url": "/check",
     "title": "检验用户登录",
@@ -273,72 +340,5 @@
     "version": "1.0.0",
     "filename": "server/api/controller/user.js",
     "groupTitle": "User"
-  },
-  {
-    "type": "post",
-    "url": "/file/sts",
-    "title": "对象存储临时凭证",
-    "description": "<p>对象存储临时凭证</p>",
-    "name": "getScope",
-    "group": "file",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Array",
-            "optional": false,
-            "field": "options",
-            "description": "<p>配置参数</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "credentials",
-            "description": "<p>云API参数</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "expiredTime",
-            "description": "<p>密钥的失效时间，是 UNIX 时间戳</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "startTime",
-            "description": "<p>密钥的起始时间，是 UNIX 时间戳</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success:",
-          "content": "{\n credentials: {\n   sessionToken: \"daaeba2eb21c69750b188af4e2d022972fec17d130001\",\n   tmpSecretId: \"AKIDU1zH4FiL2uCkQF4yN9Xedt4u8tz5Yu2x\",\n   tmpSecretKey: \"uYRbsfm4pdtZ4SlfdSJSkN7oB3KGybOS\"\n }\n expiredTime: 1548599718,\n startTime: 1548597918\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error:",
-          "content": "{\n  code: 300,\n  msg: '参数异常'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "1.0.0",
-    "filename": "server/api/controller/STS.js",
-    "groupTitle": "file"
   }
 ]

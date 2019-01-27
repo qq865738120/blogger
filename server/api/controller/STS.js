@@ -22,7 +22,7 @@ module.exports = {
   * @api {post} /file/sts 对象存储临时凭证
   * @apiDescription 对象存储临时凭证
   * @apiName getScope
-  * @apiGroup file
+  * @apiGroup File
   * @apiParam {Array} options 配置参数
   * @apiSuccess {Number} credentials 云API参数
   * @apiSuccess {Number} expiredTime 密钥的失效时间，是 UNIX 时间戳
