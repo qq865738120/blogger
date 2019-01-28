@@ -20,7 +20,7 @@ module.exports = {
 
   /**
   * @api {post} /file/sts 对象存储临时凭证
-  * @apiDescription 对象存储临时凭证
+  * @apiDescription 对象存储临时凭证，需要先登录获取用户权限
   * @apiName getScope
   * @apiGroup File
   * @apiParam {Array} options 配置参数
@@ -45,6 +45,12 @@ module.exports = {
   * @apiVersion 1.0.0
   */
   getScope(req, res) {
+    if (!req.session.user) {
+      return res.json({
+        code: 301,
+        msg: "没有登录"
+      })
+    }
     let cof = config.STS
     var scope = req.body;
     if (!scope || !scope.length || !allowScope(scope)) {

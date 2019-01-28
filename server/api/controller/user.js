@@ -6,10 +6,10 @@ module.exports = {
 
   /**
   * @api {get} /user/info 查询用户信息
-  * @apiDescription 查询用户信息
+  * @apiDescription 查询用户信息，需要先登录获取用户权限
   * @apiName userInfo
   * @apiGroup User
-  * @apiSuccess {Number} code 错误码 200：成功；201：没有登录
+  * @apiSuccess {Number} code 错误码 200：成功；301：没有登录
   * @apiSuccess {String} msg 错误信息
   * @apiSuccessExample {json} Success:
   *{
@@ -18,7 +18,7 @@ module.exports = {
   *}
   * @apiErrorExample {json} Error:
   * {
-  *   code: 201,
+  *   code: 301,
   *   msg: '没有登录'
   * }
   * @apiVersion 1.0.0
@@ -35,10 +35,11 @@ module.exports = {
 
   /**
   * @api {post} /user/update 更新用户信息
-  * @apiDescription 更新用户信息
+  * @apiDescription 更新用户信息，需要先登录获取用户权限
   * @apiName userUpdate
   * @apiGroup User
-  * @apiSuccess {Number} code 错误码 200：成功；201：没有登录
+  * @apiParam {Object} { nickname: 'lalala' } 需要更新的用户信息
+  * @apiSuccess {Number} code 错误码 200：成功；301：没有登录
   * @apiSuccess {String} msg 错误信息
   * @apiSuccessExample {json} Success:
   *{
@@ -47,7 +48,7 @@ module.exports = {
   *}
   * @apiErrorExample {json} Error:
   * {
-  *   code: 201,
+  *   code: 301,
   *   msg: '没有登录'
   * }
   * @apiVersion 1.0.0

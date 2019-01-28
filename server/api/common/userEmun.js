@@ -3,7 +3,7 @@ const authoEmun = require('./authoEmun')
 module.exports = {
   PAR_USER_NAME_ERR: authoEmun.PAR_USER_NAME_ERR,
   NOT_LOGIN: {
-    code: 201,
+    code: 301,
     msg: '没有登录'
   },
   USER_SUCCESS: {

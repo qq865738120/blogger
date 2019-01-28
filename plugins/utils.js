@@ -2,6 +2,17 @@ import Vue from 'vue'
 const COS = require('cos-js-sdk-v5')
 const config = require('@/configs/index')
 
+const apiErr = function(that, data, loading) {
+  if (data.code && data.code == 301) {
+    that.$message.error(that.$t('common.notLoginTip'));
+    location.reload();
+    that.$router.push(path ? path : '/signin')
+  }
+  if (loading) {
+    loading.close()
+  }
+}
+
 const getCos = function (that) {
   return new COS({
     getAuthorization: function (options, callback) {
@@ -15,6 +26,7 @@ const getCos = function (that) {
         }]
       ).then(res => {
         let data = res.data
+        apiErr(that, data)
         callback({
           TmpSecretId: data.credentials && data.credentials.tmpSecretId,
           TmpSecretKey: data.credentials && data.credentials.tmpSecretKey,
@@ -29,6 +41,14 @@ const getCos = function (that) {
 Vue.prototype.$utils = {
 
   /*
+  api返回统一异常处理
+  参数：that 页面this引用
+       data 接口返回数据
+      loading对象
+  */
+  apiErr,
+
+  /*
   单文件上传
   参数：that 页面that引用
        file 文件对象
@@ -37,11 +57,10 @@ Vue.prototype.$utils = {
        error Function 上传失败的回调函数
   */
   upLoadFail(that, file, username, success, error) {
-    console.log('config', config);
     let cos = getCos(that)
     cos.putObject({
-      Bucket: 'weixin-1251663069',
-      Region: 'ap-chengdu',
+      Bucket: config.STS.bucket,
+      Region: config.STS.region,
       Key: `user/${username}/${file.uid}.${file.type.split('/')[1]}`,
       Body: file,
       onHashProgress: function (progressData) {
@@ -67,6 +86,7 @@ Vue.prototype.$utils = {
   */
   getUserInfo(that, call, path) {
     that.$axios.get('/api/v1/user/info').then(res => {
+      apiErr(that, res.data)
       if (res.data.code == 200) {
         that.$store.commit('SET_USER_INFO', res.data.data)
         that.$router.push(path ? path : '/')

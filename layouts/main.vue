@@ -54,7 +54,7 @@
                 <span class="hover-pointer" @click="$router.push('/signup')">{{ $t('header.register') }}</span>
               </div>
               <el-dropdown v-if="$store.state.isLogin" placement="bottom-start" @command="onDropdown">
-                <img class="main-avatar hover-pointer" v-lazy="$store.state.userInfo.avatar" />
+                <img class="main-avatar hover-pointer" :src="$store.state.userInfo.avatar" />
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="1" class="dropdown-item font-medium iconfont open-gerenzhongxin-xuanzhongxin">个人中心</el-dropdown-item>
                   <el-dropdown-item command="2" class="dropdown-item font-medium iconfont open-zhuxiao">退出登录</el-dropdown-item>
@@ -75,7 +75,7 @@
         type="flex"
         justify="center">
         <img
-          v-lazy="logSrc"
+          :src="logSrc"
           style="width: 128px; height: 52.6px; margin: 60px 0 24px 0;">
       </el-row>
       <el-row
@@ -107,6 +107,7 @@ export default {
         background: 'rgba(0, 0, 0, 0.4)'
       });
       this.$axios.get('/api/v1/user/info').then(res => {
+        this.$utils.apiErr(this, res.data)
         if (res.data.code == 200) {
           this.$store.commit('SET_USER_INFO', res.data.data)
         }

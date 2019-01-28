@@ -1,6 +1,6 @@
 <template>
   <div class="personal-root">
-    <avatar style="margin-top: 40px" :name="$store.state.userInfo.nickname" :signature="$store.state.userInfo.signature" src="http://www.yougexing.net/uploads/180625/1-1P625150924-50.jpg"></avatar>
+    <avatar style="margin-top: 40px" :name="$store.state.userInfo.nickname" :signature="$store.state.userInfo.signature" :src="$store.state.userInfo.avatar"></avatar>
     <el-card style="padding: 10px 0px;">
       <el-tabs tab-position="left" style="width: 800px">
         <el-tab-pane :label="$t('personal.personalInfo')">
@@ -67,6 +67,7 @@ export default {
             }, '/personal')
           } else {
             this.$message.error(res.data.msg)
+            this.$utils.apiErr(this, res.data)
             loading.close()
           }
         }

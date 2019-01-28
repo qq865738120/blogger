@@ -1,6 +1,7 @@
 <template>
   <div class="avatar-upload-root">
     <el-upload
+      v-loading="loading"
       class="avatar-uploader flex-inline-center"
       action=""
       :show-file-list="false"
@@ -15,12 +16,12 @@
 export default {
   data() {
     return {
-      imageUrl: ''
+      imageUrl: '',
+      loading: false
     };
   },
   methods: {
     onUpload({ file }) {
-      console.log('upload', file);
       const type = file.type === 'image/jpeg' || file.type === 'image/png';
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!type) {
@@ -31,11 +32,23 @@ export default {
         this.$message.error(this.$t('personal.avatarTip2'));
         return
       }
+      this.loading = true
       this.$utils.upLoadFail(this, file, this.$store.state.userInfo.username, data => {
         console.log(data);
-        this.imageUrl = 'https://' + data.Location
+        this.imageUrl = 'https://' + data.Location;
+        this.$axios.post('/api/v1/user/update', { avatar: 'https://' + data.Location }).then(res => {
+          console.log('更新头像数据', res.data);
+          if (res.data.code == 200) {
+            this.$utils.getUserInfo(this, () => {
+              this.$message.success(this.$t('personal.avatarTip4'));
+            }, '/personal')
+          }
+          this.loading = false
+          this.$utils.apiErr(this, res.data)
+        })
       }, data => {
         this.$message.error(this.$t('personal.avatarTip3'));
+        this.loading = false
       })
     },
   }
