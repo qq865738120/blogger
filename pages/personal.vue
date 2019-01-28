@@ -1,16 +1,29 @@
 <template>
   <div class="personal-root">
-    <avatar style="margin-top: 40px" name="nicheng" signature="nishiwodeweiyi" src="http://www.yougexing.net/uploads/180625/1-1P625150924-50.jpg"></avatar>
-    <el-card>
-      <el-tabs tab-position="left" style="width: 900px">
-        <el-tab-pane label="个人信息">
+    <avatar style="margin-top: 40px" :name="$store.state.userInfo.nickname" :signature="$store.state.userInfo.signature" src="http://www.yougexing.net/uploads/180625/1-1P625150924-50.jpg"></avatar>
+    <el-card style="padding: 10px 0px;">
+      <el-tabs tab-position="left" style="width: 800px">
+        <el-tab-pane :label="$t('personal.personalInfo')">
           <div class="personal-information label-content">
-            <avatar-upload></avatar-upload>
+            <el-form :model="infoForm" status-icon ref="infoForm" label-width="100px" style="width: 600px;">
+              <el-form-item :label="$t('personal.nickname')" prop="nickname">
+                <el-input type="text" v-model="infoForm.nickname" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item :label="$t('personal.signature')" prop="signature">
+                <el-input type="text" v-model="infoForm.signature" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item :label="$t('personal.uploadAvatar')">
+                <avatar-upload></avatar-upload>
+              </el-form-item>
+              <el-form-item>
+                <el-button style="width: 100px" type="primary" @click="submitForm('infoForm')">{{ $t('personal.submitUpdate') }}</el-button>
+              </el-form-item>
+            </el-form>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="账号设置">账号设置</el-tab-pane>
-        <el-tab-pane label="作品管理">作品管理</el-tab-pane>
-        <el-tab-pane label="我的收藏">我的收藏</el-tab-pane>
+        <el-tab-pane :label="$t('personal.accountSetting')">账号设置</el-tab-pane>
+        <el-tab-pane :label="$t('personal.workManagement')">作品管理</el-tab-pane>
+        <el-tab-pane :label="$t('personal.myCollection')">我的收藏</el-tab-pane>
       </el-tabs>
     </el-card>
   </div>
@@ -26,6 +39,39 @@ export default {
   components: {
     Avatar,
     AvatarUpload
+  },
+  data() {
+    return {
+      infoForm: {
+        nickname: '',
+        signature: ''
+      },
+    };
+  },
+  mounted() {
+    this.infoForm = {
+      nickname: this.$store.state.userInfo.nickname,
+      signature: this.$store.state.userInfo.signature
+    }
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate(async (valid) => {
+        if (valid) {
+          let loading = this.$utils.loading(this)
+          let res = await this.$axios.post('/api/v1/user/update', this.infoForm)
+          if (res.data.code == 200) {
+            this.$message.success('修改成功')
+            this.$utils.getUserInfo(this, () => {
+              loading.close()
+            }, '/personal')
+          } else {
+            this.$message.error(res.data.msg)
+            loading.close()
+          }
+        }
+      });
+    }
   }
 }
 </script>

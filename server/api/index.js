@@ -38,6 +38,11 @@ const apiMap = [
     method: user.userInfo
   },
   {
+    path: '/user/update',
+    type: 'post',
+    method: user.userUpdate
+  },
+  {
     path: '/file/sts',
     type: 'post',
     method: sts.getScope

@@ -12,16 +12,17 @@ export default {
     }
   },
   async mounted() {
-    // let result = await this.$axios.post('/api/v1/file/sts',
-    //   [{
-    //     action: 'name/cos:PutObject',
-    //     bucket: 'weixin-1251663069',
-    //     region: 'ap-chengdu',
-    //     prefix: 'user/*',
-    //   }]
-    // )
-    // console.log('result', result.data);
-    // this.result = result.data
+    this.$utils.doLogin(this, { passwd: 'test', username: 'test' }, async () => {
+
+      let result = await this.$axios.post('/api/v1/user/update',
+        {
+          nickname: 'lalala'
+        }
+      )
+      console.log('result', result.data);
+      this.result = result.data
+
+    }, '/test')
   }
 }
 </script>

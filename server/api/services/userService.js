@@ -23,4 +23,21 @@ module.exports = {
     }
   },
 
+  /*
+  更新用户信息
+  参数：parm Object { username: 'test', passwd: 'test', nickname: 'lalala' }，除username其他选传一个
+  返回：userEmun枚举
+  */
+  async updateUserInfo(parm) {
+    if (!parm.passwd && !parm.nickname && !parm.avatar && !parm.signature) {
+      return emun.UPDATE_ERR
+    }
+    let row = await utils.dbQuery(pool, sql.updateUser(parm.username, parm.passwd, parm.nickname, parm.avatar, parm.signature))
+    if (row.fieldCount != 0) {
+      return emun.UPDATE_FAIL
+    } else {
+      return emun.UPDATE_SUCCESS
+    }
+  }
+
 }

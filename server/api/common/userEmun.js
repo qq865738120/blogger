@@ -14,5 +14,17 @@ module.exports = {
   NOT_USESR: {
     code: 201,
     msg: '用户不存在'
-  }
+  },
+  UPDATE_FAIL: {
+    code: 201,
+    msg: '更新失败'
+  },
+  UPDATE_SUCCESS: {
+    code: 200,
+    msg: '更新成功'
+  },
+  UPDATE_ERR: {
+    code: 300,
+    msg: '参数异常'
+  },
 }

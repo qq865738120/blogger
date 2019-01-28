@@ -340,5 +340,52 @@
     "version": "1.0.0",
     "filename": "server/api/controller/user.js",
     "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/user/update",
+    "title": "更新用户信息",
+    "description": "<p>更新用户信息</p>",
+    "name": "userUpdate",
+    "group": "User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；201：没有登录</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '更新成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 201,\n  msg: '没有登录'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/user.js",
+    "groupTitle": "User"
   }
 ]

@@ -66,7 +66,6 @@ import HotList from '~/components/HotList.vue'
 
 export default {
   layout: 'main',
-  middleware: 'autho',
   components: {
     MainDisplay,
     SubDisplay,
@@ -150,7 +149,7 @@ export default {
       ]
     }
   },
-  
+
 }
 </script>
 

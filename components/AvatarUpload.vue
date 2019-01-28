@@ -55,10 +55,10 @@ export default {
 .avatar-uploader-icon {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
-  font-size: 28px;
+  font-size: 20px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
+  width: 160px;
+  height: 160px;
   line-height: 178px;
   text-align: center;
 }
@@ -66,8 +66,8 @@ export default {
   border-color: $--main-color;
 }
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 160px;
+  height: 160px;
   display: block;
 }
 </style>

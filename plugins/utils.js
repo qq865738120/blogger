@@ -30,7 +30,7 @@ Vue.prototype.$utils = {
 
   /*
   单文件上传
-  参数：that 页面this引用
+  参数：that 页面that引用
        file 文件对象
        username String 用户名
        success Function 上传成功的回调函数
@@ -56,6 +56,62 @@ Vue.prototype.$utils = {
       } else if (data) {
         success(data)
       }
+    });
+  },
+
+  /*
+  更新用户信息
+  参数：path String 成功之后的跳转路径，默认跳转到首页
+       call Function 方法运行完成后的回调函数，用于结束loading效果
+       that 页面this引用
+  */
+  getUserInfo(that, call, path) {
+    that.$axios.get('/api/v1/user/info').then(res => {
+      if (res.data.code == 200) {
+        that.$store.commit('SET_USER_INFO', res.data.data)
+        that.$router.push(path ? path : '/')
+      }
+      call()
+    })
+  },
+
+  /*
+  登录方法
+  参数：that 页面this引用
+       parm Object 登录接口所需参数{ passwd: '', username: '' }
+       path String 成功之后的跳转路径，默认跳转到首页
+       call Function 方法运行完成后的回调函数，用于结束loading效果
+  */
+  doLogin(that, parm, call, path) {
+    that.$axios.post('/api/v1/login', parm).then(res => {
+      console.log('login登录接口', res.data);
+      let type = 'error'
+      if (res.data.code == 200) { //登陆成功
+        type = 'success'
+        that.$store.commit('SET_LOGIN', true)
+        this.getUserInfo(that, call, path)
+      } else {
+        that.$store.commit('SET_LOGIN', false)
+        call()
+      }
+      that.$message({
+        message: res.data.msg,
+        type
+      });
+    })
+  },
+
+  /*
+  loading封装方法
+  参数：that 页面this引用
+  返回：loading对象
+  */
+  loading(that) {
+    return that.$loading({
+      lock: true,
+      text: 'Loading',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.4)'
     });
   }
 

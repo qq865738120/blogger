@@ -82,12 +82,17 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          let loading = this.$utils.loading(this)
           this.$axios.post('/api/v1/registered', this.signForm).then(res => {
             console.log('registered注册接口', res.data);
             let type = 'error'
-            if (res.data.code == 200) { //登陆成功
+            if (res.data.code == 200) { //注册成功
               type = 'success'
-              this.$router.push('/')
+              this.$utils.doLogin(this, this.signForm, () => {
+                loading.close()
+              })
+            } else {
+              loading.close()
             }
             this.$message({
               message: res.data.msg,
