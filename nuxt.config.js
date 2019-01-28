@@ -26,7 +26,10 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: {
+    color: '#994800',
+    height: '3px'
+  },
 
   /*
   ** Global CSS
@@ -64,7 +67,7 @@ module.exports = {
       ssr: true
     },
     {
-      // 图片懒加载
+      // 工具
       src: '@/plugins/utils',
       ssr: false
     },

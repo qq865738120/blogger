@@ -9,6 +9,12 @@ a {
 i {
   cursor: pointer;
 }
+.page-enter-active, .page-leave-active {
+  transition: opacity .35s;
+}
+.page-enter, .page-leave-active {
+  opacity: 0;
+}
 
 @font-face {
   font-family: 'iconfont';  /* project id 957689 */
