@@ -154,13 +154,14 @@ export default {
     let { data } = await app.$axios.get('/api/v1/check')
     if (data.code != 200) {
       store.commit('SET_LOGIN', false)
-      let { data } = await app.$axios.get('/api/v1/user/info').then(res => {
-        if (res.data.code == 200) {
-          that.$store.commit('SET_USER_INFO', res.data.data)
-        }
-      })
     } else {
       store.commit('SET_LOGIN', true)
+      if (!store.state.userInfo) {
+        let { data } = await app.$axios.get('/api/v1/user/info')
+        if (data.code == 200) {
+          store.commit('SET_USER_INFO', data.data)
+        }
+      }
     }
   }
 

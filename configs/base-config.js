@@ -42,7 +42,9 @@ module.exports = {
       'name/cos:ListMultipartUploads',
       'name/cos:ListParts',
       'name/cos:UploadPart',
-      'name/cos:CompleteMultipartUpload'
+      'name/cos:CompleteMultipartUpload',
+      // 简单删除权限
+      'name/cos:DeleteObject',
     ],
   }
 }

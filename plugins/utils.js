@@ -13,13 +13,18 @@ const apiErr = function(that, data, loading) {
   }
 }
 
-const getCos = function (that) {
+/*
+获取cos实力
+参数： that 页面this引用
+      action cos操作权限
+*/
+const getCos = function (that, action) {
   return new COS({
     getAuthorization: function (options, callback) {
       console.log(options);
       that.$axios.post('/api/v1/file/sts',
         [{
-          action: 'name/cos:PutObject',
+          action: 'name/cos:' + action,
           bucket: options.Bucket,
           region: options.Region,
           prefix: 'user/*',
@@ -50,14 +55,14 @@ Vue.prototype.$utils = {
 
   /*
   单文件上传
-  参数：that 页面that引用
+  参数：that 页面this引用
        file 文件对象
        username String 用户名
        success Function 上传成功的回调函数
        error Function 上传失败的回调函数
   */
-  upLoadFail(that, file, username, success, error) {
-    let cos = getCos(that)
+  upLoadFile(that, file, username, success, error) {
+    let cos = getCos(that, 'PutObject')
     cos.putObject({
       Bucket: config.STS.bucket,
       Region: config.STS.region,
@@ -70,6 +75,30 @@ Vue.prototype.$utils = {
         console.log('上传中', JSON.stringify(progressData));
       },
     }, function (err, data) {
+      if (err) {
+        error(err)
+      } else if (data) {
+        success(data)
+      }
+    });
+  },
+
+  /*
+  单文件删除
+  参数：that 页面this引用
+       key String 文件路径加文件名
+       success Function 成功的回调函数
+       error Function 失败的回调函数
+  */
+  deleteFile(that, key, success, error) {
+    let cos = getCos(that, 'DeleteObject')
+    console.log('key', key);
+    cos.deleteObject({
+      Bucket: config.STS.bucket,
+      Region: config.STS.region,
+      Key: key
+    }, function(err, data) {
+      console.log(err, data);
       if (err) {
         error(err)
       } else if (data) {

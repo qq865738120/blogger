@@ -54,6 +54,8 @@
     "personalInfo": "个人信息",
     "accountSetting": "账号设置",
     "workManagement": "作品管理",
-    "myCollection": "我的收藏"
+    "myCollection": "我的收藏",
+    "nicknameTip": "昵称不能为空！",
+    "signatureTip": "个性签名不能为空！"
   }
 }

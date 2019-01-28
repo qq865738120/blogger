@@ -21,6 +21,7 @@ export default {
   width: 120px;
   height: 120px;
   border-radius: 100%;
+  box-shadow: 0 0 20px 4px rgba(106, 115, 123, 0.3);
 }
 .avatar-root>p {
   margin-block-start: $--px20;

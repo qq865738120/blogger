@@ -5,7 +5,7 @@
       <el-tabs tab-position="left" style="width: 800px">
         <el-tab-pane :label="$t('personal.personalInfo')">
           <div class="personal-information label-content">
-            <el-form :model="infoForm" status-icon ref="infoForm" label-width="100px" style="width: 600px;">
+            <el-form :model="infoForm" :rules="rules" status-icon ref="infoForm" label-width="100px" style="width: 600px;">
               <el-form-item :label="$t('personal.nickname')" prop="nickname">
                 <el-input type="text" v-model="infoForm.nickname" autocomplete="off"></el-input>
               </el-form-item>
@@ -16,7 +16,7 @@
                 <avatar-upload></avatar-upload>
               </el-form-item>
               <el-form-item>
-                <el-button style="width: 100px" type="primary" @click="submitForm('infoForm')">{{ $t('personal.submitUpdate') }}</el-button>
+                <el-button style="width: 100px" type="primary" @keyup.enter="submitForm('infoForm')" @click="submitForm('infoForm')">{{ $t('personal.submitUpdate') }}</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -32,6 +32,8 @@
 <script>
 import Avatar from '~/components/Avatar.vue'
 import AvatarUpload from '~/components/AvatarUpload.vue'
+let nicknameTip = '';
+let signatureTip = '';
 
 export default {
   layout: 'main',
@@ -41,12 +43,38 @@ export default {
     AvatarUpload
   },
   data() {
+    var validateNickname = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(nicknameTip));
+      } else {
+        callback();
+      }
+    };
+    var validateSignature = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(signatureTip));
+      } else {
+        callback();
+      }
+    };
     return {
       infoForm: {
         nickname: '',
         signature: ''
       },
+      rules: {
+        nickname: [
+          { validator: validateNickname, trigger: 'blur' },
+        ],
+        signature: [
+          { validator: validateSignature, trigger: 'blur' }
+        ]
+      }
     };
+  },
+  created() {
+    nicknameTip = this.$t('personal.nicknameTip')
+    signatureTip = this.$t('personal.signatureTip')
   },
   mounted() {
     this.infoForm = {

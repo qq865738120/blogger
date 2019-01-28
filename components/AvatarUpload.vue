@@ -33,15 +33,18 @@ export default {
         return
       }
       this.loading = true
-      this.$utils.upLoadFail(this, file, this.$store.state.userInfo.username, data => {
+      this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, data => {
         console.log(data);
         this.imageUrl = 'https://' + data.Location;
-        this.$axios.post('/api/v1/user/update', { avatar: 'https://' + data.Location }).then(res => {
+        this.$axios.post('/api/v1/user/update', { avatar: 'https://' + data.Location }).then( res => {
           console.log('更新头像数据', res.data);
           if (res.data.code == 200) {
-            this.$utils.getUserInfo(this, () => {
-              this.$message.success(this.$t('personal.avatarTip4'));
-            }, '/personal')
+            this.$utils.deleteFile(this, this.$store.state.userInfo.avatar.split('.myqcloud.com/')[1], data => {
+              this.$utils.getUserInfo(this, () => {
+                this.$message.success(this.$t('personal.avatarTip4'));
+                this.loading = false
+              }, '/personal')
+            }, () => {})
           }
           this.loading = false
           this.$utils.apiErr(this, res.data)
