@@ -38,7 +38,7 @@ module.exports = {
   * @apiDescription 更新用户信息，需要先登录获取用户权限
   * @apiName userUpdate
   * @apiGroup User
-  * @apiParam {Object} { nickname: 'lalala' } 需要更新的用户信息
+  * @apiParam {Object} parm 需要更新的用户信息
   * @apiSuccess {Number} code 错误码 200：成功；301：没有登录
   * @apiSuccess {String} msg 错误信息
   * @apiSuccessExample {json} Success:

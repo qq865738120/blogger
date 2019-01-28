@@ -3,7 +3,7 @@ define({ "api": [
     "type": "post",
     "url": "/file/sts",
     "title": "对象存储临时凭证",
-    "description": "<p>对象存储临时凭证</p>",
+    "description": "<p>对象存储临时凭证，需要先登录获取用户权限</p>",
     "name": "getScope",
     "group": "File",
     "parameter": {
@@ -298,7 +298,7 @@ define({ "api": [
     "type": "get",
     "url": "/user/info",
     "title": "查询用户信息",
-    "description": "<p>查询用户信息</p>",
+    "description": "<p>查询用户信息，需要先登录获取用户权限</p>",
     "name": "userInfo",
     "group": "User",
     "success": {
@@ -309,7 +309,7 @@ define({ "api": [
             "type": "Number",
             "optional": false,
             "field": "code",
-            "description": "<p>错误码 200：成功；201：没有登录</p>"
+            "description": "<p>错误码 200：成功；301：没有登录</p>"
           },
           {
             "group": "Success 200",
@@ -332,7 +332,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error:",
-          "content": "{\n  code: 201,\n  msg: '没有登录'\n}",
+          "content": "{\n  code: 301,\n  msg: '没有登录'\n}",
           "type": "json"
         }
       ]
@@ -345,9 +345,22 @@ define({ "api": [
     "type": "post",
     "url": "/user/update",
     "title": "更新用户信息",
-    "description": "<p>更新用户信息</p>",
+    "description": "<p>更新用户信息，需要先登录获取用户权限</p>",
     "name": "userUpdate",
     "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "parm",
+            "description": "<p>需要更新的用户信息</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -356,7 +369,7 @@ define({ "api": [
             "type": "Number",
             "optional": false,
             "field": "code",
-            "description": "<p>错误码 200：成功；201：没有登录</p>"
+            "description": "<p>错误码 200：成功；301：没有登录</p>"
           },
           {
             "group": "Success 200",
@@ -379,7 +392,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error:",
-          "content": "{\n  code: 201,\n  msg: '没有登录'\n}",
+          "content": "{\n  code: 301,\n  msg: '没有登录'\n}",
           "type": "json"
         }
       ]
