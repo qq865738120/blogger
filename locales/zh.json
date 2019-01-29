@@ -63,6 +63,7 @@
     "personalise": "个性化",
     "security": "安全",
     "oldPasswd": "旧密码",
-    "newPasswd": "新密码"
+    "newPasswd": "新密码",
+    "article": "博文"
   }
 }

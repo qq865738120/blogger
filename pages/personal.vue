@@ -17,7 +17,7 @@
         </el-tab-pane>
         <el-tab-pane :label="$t('personal.workManagement')">
           <div class="personal-information label-content">
-            <p class="tab-item-title iconfont open-anquan">{{ $t('personal.security') }}</p>
+            <p class="tab-item-title iconfont open-wenzhang1">{{ $t('personal.article') }}</p>
             <works-card-list></works-card-list>
           </div>
         </el-tab-pane>
