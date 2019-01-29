@@ -5,23 +5,16 @@
       <el-tabs tab-position="left" style="width: 800px">
         <el-tab-pane :label="$t('personal.personalInfo')">
           <div class="personal-information label-content">
-            <el-form :model="infoForm" :rules="rules" status-icon ref="infoForm" label-width="100px" style="width: 600px;">
-              <el-form-item :label="$t('personal.nickname')" prop="nickname">
-                <el-input type="text" v-model="infoForm.nickname" autocomplete="off"></el-input>
-              </el-form-item>
-              <el-form-item :label="$t('personal.signature')" prop="signature">
-                <el-input type="text" v-model="infoForm.signature" autocomplete="off"></el-input>
-              </el-form-item>
-              <el-form-item :label="$t('personal.uploadAvatar')">
-                <avatar-upload></avatar-upload>
-              </el-form-item>
-              <el-form-item>
-                <el-button style="width: 100px" type="primary" @keyup.enter="submitForm('infoForm')" @click="submitForm('infoForm')">{{ $t('personal.submitUpdate') }}</el-button>
-              </el-form-item>
-            </el-form>
+            <p class="tab-item-title iconfont open-shouye">{{ $t('personal.personalise') }}</p>
+            <personalise-form></personalise-form>
           </div>
         </el-tab-pane>
-        <el-tab-pane :label="$t('personal.accountSetting')">账号设置</el-tab-pane>
+        <el-tab-pane :label="$t('personal.accountSetting')">
+          <div class="personal-information label-content">
+            <p class="tab-item-title iconfont open-anquan">{{ $t('personal.security') }}</p>
+            <safety-setting-form></safety-setting-form>
+          </div>
+        </el-tab-pane>
         <el-tab-pane :label="$t('personal.workManagement')">作品管理</el-tab-pane>
         <el-tab-pane :label="$t('personal.myCollection')">我的收藏</el-tab-pane>
       </el-tabs>
@@ -31,7 +24,8 @@
 
 <script>
 import Avatar from '~/components/Avatar.vue'
-import AvatarUpload from '~/components/AvatarUpload.vue'
+import PersonaliseForm from '~/components/PersonaliseForm.vue'
+import SafetySettingForm from '~/components/SafetySettingForm.vue'
 let nicknameTip = '';
 let signatureTip = '';
 
@@ -40,67 +34,22 @@ export default {
   middleware: 'autho',
   components: {
     Avatar,
-    AvatarUpload
+    PersonaliseForm,
+    SafetySettingForm
   },
   data() {
-    var validateNickname = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error(nicknameTip));
-      } else {
-        callback();
-      }
-    };
-    var validateSignature = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error(signatureTip));
-      } else {
-        callback();
-      }
-    };
     return {
-      infoForm: {
-        nickname: '',
-        signature: ''
-      },
-      rules: {
-        nickname: [
-          { validator: validateNickname, trigger: 'blur' },
-        ],
-        signature: [
-          { validator: validateSignature, trigger: 'blur' }
-        ]
-      }
-    };
+
+    }
   },
   created() {
-    nicknameTip = this.$t('personal.nicknameTip')
-    signatureTip = this.$t('personal.signatureTip')
+
   },
   mounted() {
-    this.infoForm = {
-      nickname: this.$store.state.userInfo.nickname,
-      signature: this.$store.state.userInfo.signature
-    }
+
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate(async (valid) => {
-        if (valid) {
-          let loading = this.$utils.loading(this)
-          let res = await this.$axios.post('/api/v1/user/update', this.infoForm)
-          if (res.data.code == 200) {
-            this.$message.success('修改成功')
-            this.$utils.getUserInfo(this, () => {
-              loading.close()
-            }, '/personal')
-          } else {
-            this.$message.error(res.data.msg)
-            this.$utils.apiErr(this, res.data)
-            loading.close()
-          }
-        }
-      });
-    }
+
   }
 }
 </script>
@@ -113,5 +62,13 @@ export default {
 }
 .label-content {
   margin: 0 $--px20;
+}
+.tab-item-title {
+  font-size: $--large;
+  color: $--color-base-black-2;
+  padding-bottom: $--px10;
+  border-bottom: 1px solid $--color-main-light-8;
+  margin-block-start: 0;
+  margin-block-end: $--px30;
 }
 </style>

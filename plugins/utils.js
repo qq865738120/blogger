@@ -1,6 +1,7 @@
 import Vue from 'vue'
 const COS = require('cos-js-sdk-v5')
 const config = require('@/configs/index')
+const MD5 = require('md5')
 
 const apiErr = function(that, data, loading) {
   if (data.code && data.code == 301) {
@@ -162,6 +163,14 @@ Vue.prototype.$utils = {
       spinner: 'el-icon-loading',
       background: 'rgba(0, 0, 0, 0.4)'
     });
+  },
+
+  /*
+  计算md5值
+  参数：str String 需要进行md5加密的字符串
+  */
+  md5(str) {
+    return MD5(str)
   }
 
 }

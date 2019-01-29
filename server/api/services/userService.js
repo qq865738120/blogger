@@ -32,7 +32,8 @@ module.exports = {
     if (!parm.passwd && !parm.nickname && !parm.avatar && !parm.signature) {
       return emun.UPDATE_ERR
     }
-    let row = await utils.dbQuery(pool, sql.updateUser(parm.username, parm.passwd, parm.nickname, parm.avatar, parm.signature))
+    let pw = parm.passwd ? md5(parm.passwd) : ''
+    let row = await utils.dbQuery(pool, sql.updateUser(parm.username, pw, parm.nickname, parm.avatar, parm.signature))
     if (row.fieldCount != 0) {
       return emun.UPDATE_FAIL
     } else {

@@ -11,7 +11,7 @@
         <el-input type="password" v-model="signForm.rePass" autocomplete="off" max="30"></el-input>
       </el-form-item>
       <el-form-item size="large">
-        <el-button size="large" class="submit-button" type="primary" @click="submitForm('signForm')">{{ $t('signupPage.form.signUp') }}</el-button>
+        <el-button size="large" class="submit-button" type="primary"  @keyup.enter="submitForm('signForm')" @click="submitForm('signForm')">{{ $t('signupPage.form.signUp') }}</el-button>
       </el-form-item>
     </el-form>
     <p class="sign-tip font-small">{{ $t('signupPage.form.signInTip') }}<nuxt-link to="/signin">{{ $t('signupPage.form.toSignIn') }}</nuxt-link></p>

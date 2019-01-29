@@ -1,6 +1,6 @@
 <template>
   <div class="sign-from-root">
-    <el-form :model="signForm" status-icon :rules="rules" ref="signForm" class="demo-ruleForm">
+    <el-form :model="signForm" status-icon :rules="rules" ref="signForm">
       <el-form-item :label="$t('signinPage.form.name')" prop="username">
         <el-input type="text" v-model="signForm.username" autocomplete="off" max="30"></el-input>
       </el-form-item>
@@ -8,7 +8,7 @@
         <el-input type="password" v-model="signForm.passwd" autocomplete="off" max="30"></el-input>
       </el-form-item>
       <el-form-item size="large">
-        <el-button size="large" class="submit-button" type="primary" @click="submitForm('signForm')">{{ $t('signinPage.form.signIn') }}</el-button>
+        <el-button size="large" class="submit-button" type="primary" @keyup.enter="submitForm('signForm')" @click="submitForm('signForm')">{{ $t('signinPage.form.signIn') }}</el-button>
       </el-form-item>
     </el-form>
     <p class="sign-tip font-small">{{ $t('signinPage.form.signUpTip') }}<nuxt-link to="/signup">{{ $t('signinPage.form.toSignUp') }}</nuxt-link></p>
