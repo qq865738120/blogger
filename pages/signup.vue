@@ -30,6 +30,6 @@ export default {
 
 .page-signup-root {
   height: 100%;
-  @include felx(flex, column, center, center);
+  @include felx(flex, column, center, center, nowrap);
 }
 </style>

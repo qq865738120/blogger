@@ -77,23 +77,27 @@ $--px26: 26px;
 $--px28: 28px;
 $--px30: 30px;
 $--px40: 40px;
-@mixin felx($display, $direction, $align, $justify) {
+@mixin felx($display, $direction, $align, $justify, $wrap) {
   display: $display;
   flex-direction: $direction;
   align-items: $align;
   justify-content: $justify;
+  flex-wrap: $wrap;
 }
 .flex-center {
-  @include felx(flex, row, center, center);
+  @include felx(flex, row, center, center, nowrap);
+}
+.flex-between {
+  @include felx(flex, row, flex-start, space-around, wrap )
 }
 .flex-inline-center {
-  @include felx(inline-flex, row, center, center)
+  @include felx(inline-flex, row, center, center, nowrap )
 }
 .flex-inline-between {
-  @include felx(inline-flex, row, flex-start, space-between)
+  @include felx(inline-flex, row, flex-start, space-between, nowrap)
 }
 .flex-col-center {
-  @include felx(flex, column, center, center);
+  @include felx(flex, column, center, center, nowrap );
 }
 @mixin spacing($attribute, $direction, $size) {
   #{$attribute}-#{$direction}: $size;

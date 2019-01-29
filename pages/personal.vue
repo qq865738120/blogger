@@ -15,7 +15,12 @@
             <safety-setting-form></safety-setting-form>
           </div>
         </el-tab-pane>
-        <el-tab-pane :label="$t('personal.workManagement')">作品管理</el-tab-pane>
+        <el-tab-pane :label="$t('personal.workManagement')">
+          <div class="personal-information label-content">
+            <p class="tab-item-title iconfont open-anquan">{{ $t('personal.security') }}</p>
+            <works-card-list></works-card-list>
+          </div>
+        </el-tab-pane>
         <el-tab-pane :label="$t('personal.myCollection')">我的收藏</el-tab-pane>
       </el-tabs>
     </el-card>
@@ -26,8 +31,7 @@
 import Avatar from '~/components/Avatar.vue'
 import PersonaliseForm from '~/components/PersonaliseForm.vue'
 import SafetySettingForm from '~/components/SafetySettingForm.vue'
-let nicknameTip = '';
-let signatureTip = '';
+import WorksCardList from '~/components/WorksCardList.vue'
 
 export default {
   layout: 'main',
@@ -35,7 +39,8 @@ export default {
   components: {
     Avatar,
     PersonaliseForm,
-    SafetySettingForm
+    SafetySettingForm,
+    WorksCardList
   },
   data() {
     return {
