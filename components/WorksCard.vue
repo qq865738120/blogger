@@ -1,6 +1,6 @@
 <template>
   <div class="works-card-root">
-    <el-card class="works-card-content" :body-style="{ padding: '0px' }" shadow="hover">
+    <el-card class="works-card-content hover-pointer" :body-style="{ padding: '0px' }" shadow="hover">
       <img v-lazy="img" class="image">
       <div style="padding: 14px;">
         <span class="title" style="-webkit-box-orient: vertical">{{ title }}</span>
@@ -51,7 +51,7 @@ export default {
 }
 .bottom>div {
   margin-left: $--px8;
-  color: $--color-main-light-2;
+  color: $--color-main-light-4;
 }
 .bottom>div:hover {
   color: $--secondary-color;
