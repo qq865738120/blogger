@@ -4,7 +4,9 @@
     "notLoginTip": "您还没有登录，或者登录身份已过期！",
     "modifySuccess": "修改成功！",
     "confirmChanges": "确认修改",
-    "passwdErr": "密码不正确!"
+    "passwdErr": "密码不正确!",
+    "author": "作者",
+    "start": "始于"
   },
   "header": {
     "homePage": "首页",
@@ -64,6 +66,8 @@
     "security": "安全",
     "oldPasswd": "旧密码",
     "newPasswd": "新密码",
-    "article": "博文"
+    "article": "博文",
+    "serial": "连载",
+    "allCollection": "所有收藏"
   }
 }

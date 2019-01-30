@@ -6,7 +6,7 @@
         <span class="title" style="-webkit-box-orient: vertical">{{ title }}</span>
         <div class="bottom">
           <span class="time">{{ date }}</span>
-          <div class="iconfont open-bianji font-extra-extra-small"></div>
+          <div v-if="isShowButton" class="iconfont open-bianji font-extra-extra-small"></div>
           <div class="iconfont open-ai-share font-extra-extra-small"></div>
         </div>
       </div>
@@ -19,7 +19,11 @@ export default {
   props: {
     title: String,
     date: String,
-    img: String
+    img: String,
+    isShowButton: {
+      type: Boolean,
+      default: true
+    }
   }
 }
 </script>

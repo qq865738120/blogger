@@ -19,9 +19,16 @@
           <div class="personal-information label-content">
             <p class="tab-item-title iconfont open-wenzhang1">{{ $t('personal.article') }}</p>
             <works-card-list></works-card-list>
+            <p class="tab-item-title iconfont open-icon-- secend-title">{{ $t('personal.serial') }}</p>
+            <book-list></book-list>
           </div>
         </el-tab-pane>
-        <el-tab-pane :label="$t('personal.myCollection')">我的收藏</el-tab-pane>
+        <el-tab-pane :label="$t('personal.myCollection')">
+          <div class="personal-information label-content">
+            <p class="tab-item-title iconfont open-shoucang">{{ $t('personal.allCollection') }}</p>
+            <collection-list></collection-list>
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </el-card>
   </div>
@@ -32,6 +39,8 @@ import Avatar from '~/components/Avatar.vue'
 import PersonaliseForm from '~/components/PersonaliseForm.vue'
 import SafetySettingForm from '~/components/SafetySettingForm.vue'
 import WorksCardList from '~/components/WorksCardList.vue'
+import BookList from '~/components/BookList.vue'
+import CollectionList from '~/components/CollectionList.vue'
 
 export default {
   layout: 'main',
@@ -40,7 +49,9 @@ export default {
     Avatar,
     PersonaliseForm,
     SafetySettingForm,
-    WorksCardList
+    WorksCardList,
+    BookList,
+    CollectionList
   },
   data() {
     return {
@@ -75,5 +86,8 @@ export default {
   border-bottom: 1px solid $--color-main-light-8;
   margin-block-start: 0;
   margin-block-end: $--px30;
+}
+.secend-title {
+  margin-top: 60px;
 }
 </style>
