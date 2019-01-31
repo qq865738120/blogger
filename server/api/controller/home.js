@@ -66,9 +66,6 @@ module.exports = {
     } else {
       let row = req.query.row ? parseInt(req.query.row) : 20;
       let asc = req.query.asc ? ( req.query.asc == 'true' ? true : false ) : false
-      console.log('req.query', req.query);
-      console.log('row', row);
-      console.log('asc', asc);
       result = await service.showArticleByCreateTime(req.query.page, row, asc)
     }
     res.json(result)

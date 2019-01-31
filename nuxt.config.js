@@ -39,7 +39,10 @@ module.exports = {
     '@/theme/index.css',
     '@/assets/style/global.scss',
     'element-ui/lib/theme-chalk/display.css',
-    '@/assets/style/normalize.css'
+    '@/assets/style/normalize.css',
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css'
   ],
 
   /*
@@ -71,6 +74,10 @@ module.exports = {
       src: '@/plugins/utils',
       ssr: false
     },
+    {
+      src: '@/plugins/nuxt-quill-plugin.js',
+      ssr: false
+    }
   ],
 
   /*

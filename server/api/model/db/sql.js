@@ -68,10 +68,7 @@ module.exports = {
     let mRow = row ? parseInt(row) : 20;
     let asc = isAsc ? 'asc' : 'desc';
     const start = (mPage - 1) * mRow;
-    console.log('start', start);
-    console.log('mRow', mRow);
-    console.log('asc', asc);
-    return `select * from article order by created_date ${asc} limit ${mPage}, ${mRow}`
+    return `select * from article order by created_date ${asc} limit ${start}, ${mRow}`
   }
 
 }
