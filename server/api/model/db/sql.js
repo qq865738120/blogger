@@ -56,6 +56,22 @@ module.exports = {
   */
   showArticleById: ( id ) => {
     return `select * from article where id='${id}'`
+  },
+
+  /*
+  按创建时间降序排列并分页处理
+  参数：page Number 第几页
+       row Number 一页多少行
+  */
+  showArticleByCreateTimeDescPage: ( page, row, isAsc ) => {
+    let mPage = page ? parseInt(page) : 0;
+    let mRow = row ? parseInt(row) : 20;
+    let asc = isAsc ? 'asc' : 'desc';
+    const start = (mPage - 1) * mRow;
+    console.log('start', start);
+    console.log('mRow', mRow);
+    console.log('asc', asc);
+    return `select * from article order by created_date ${asc} limit ${mPage}, ${mRow}`
   }
 
 }

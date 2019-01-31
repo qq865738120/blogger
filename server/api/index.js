@@ -43,9 +43,14 @@ const apiMap = [
     method: sts.getScope
   },
   {
-    path: '/article/id/:id',
+    path: '/article/id',
     type: 'get',
     method: home.getArticleById
+  },
+  {
+    path: '/article/createtime',
+    type: 'get',
+    method: home.getArticleByCreateTime
   },
 ]
 

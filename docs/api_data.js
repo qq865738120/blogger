@@ -1,5 +1,153 @@
 define({ "api": [
   {
+    "type": "get",
+    "url": "/article/createtime",
+    "title": "文章查询通过create_time",
+    "description": "<p>文章查询通过create_time，升序或者降序排了，并且分页处理</p>",
+    "name": "show_article_by_createtime",
+    "group": "Article",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>第几页（必传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "row",
+            "description": "<p>该页多少行（选传，默认20）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "asc",
+            "description": "<p>是否升序排列（选传，默认降序）</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：传参异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据（没数据返回空）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功',\n data: ''\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: '参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/home.js",
+    "groupTitle": "Article"
+  },
+  {
+    "type": "get",
+    "url": "/article/id",
+    "title": "文章查询通过id",
+    "description": "<p>文章查询通过id</p>",
+    "name": "show_article_by_id",
+    "group": "Article",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>文章id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：传参异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功',\n data: ''\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: '参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/home.js",
+    "groupTitle": "Article"
+  },
+  {
     "type": "post",
     "url": "/file/sts",
     "title": "对象存储临时凭证",
@@ -178,73 +326,6 @@ define({ "api": [
     },
     "version": "1.0.0",
     "filename": "server/api/controller/autho.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "get",
-    "url": "/article/id",
-    "title": "文章查询通过id",
-    "description": "<p>文章查询通过id</p>",
-    "name": "login",
-    "group": "User",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "id",
-            "description": "<p>文章id</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "code",
-            "description": "<p>错误码 200：登录成功；300：传参异常</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "msg",
-            "description": "<p>错误信息</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<p>数据</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success:",
-          "content": "{\n code: 200,\n msg: '成功',\n data: ''\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error:",
-          "content": "{\n  code: 300,\n  msg: '密码参数异常'\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "1.0.0",
-    "filename": "server/api/controller/home.js",
     "groupTitle": "User"
   },
   {
