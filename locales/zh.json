@@ -6,7 +6,8 @@
     "confirmChanges": "确认修改",
     "passwdErr": "密码不正确!",
     "author": "作者",
-    "start": "始于"
+    "start": "始于",
+    "enterContent": "请输入内容"
   },
   "header": {
     "homePage": "首页",
@@ -69,5 +70,33 @@
     "article": "博文",
     "serial": "连载",
     "allCollection": "所有收藏"
+  },
+  "quillEditor": {
+    "bold": "加粗",
+    "italic": "斜体",
+    "underline": "下划线",
+    "strike": "删除线",
+    "blockquote": "块引用",
+    "codeBlock": "代码块",
+    "header1": "标题1",
+    "header2": "标题2",
+    "header3": "标题3",
+    "header4": "标题4",
+    "header5": "标题5",
+    "list1": "数字序号",
+    "list2": "点序号",
+    "script1": "脚标",
+    "script2": "角标",
+    "indent1": "缩进 -1",
+    "indent2": "缩进 +1",
+    "direction": "方向",
+    "fontSize1": "小",
+    "fontSize2": "正常",
+    "fontSize3": "大",
+    "fontSize4": "巨大",
+    "insertLink": "插入链接",
+    "insertImage": "插入图片",
+    "insertVideo": "插入视频",
+    "clean": "格式清除"
   }
 }
