@@ -46,16 +46,13 @@
       <el-tooltip effect="dark" content="方向" placement="bottom-start">
         <button class="ql-direction" value="rtl"></button>
       </el-tooltip>
-      <el-tooltip effect="dark" content="方向" placement="bottom-start">
-        <select class="ql-size">
-          <option value="small">小</option>
-          <!-- Note a missing, thus falsy value, is used to reset to default -->
-          <option selected>正常</option>
-          <option value="large">大</option>
-          <option value="huge">巨大</option>
-        </select>
-      </el-tooltip>
-
+      <select class="ql-size">
+        <option value="small">小</option>
+        <!-- Note a missing, thus falsy value, is used to reset to default -->
+        <option selected>正常</option>
+        <option value="large">大</option>
+        <option value="huge">巨大</option>
+      </select>
       <select class="ql-header">
         <option value="1">标题1</option>
         <!-- Note a missing, thus falsy value, is used to reset to default -->
