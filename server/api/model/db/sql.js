@@ -6,7 +6,7 @@ module.exports = {
   根据id查找用户
   */
   showUserById: id => {
-    return `select * from user where id=${id}`
+    return `select * from user where id='${id}'`
   },
 
   /*
@@ -48,6 +48,14 @@ module.exports = {
     let signatureStr = signature ? "signature = '" + signature + "'," : '';
     let sql = `UPDATE user SET ${passwdStr}${nicknameStr}${avatarStr}${signatureStr} WHERE username = '${username}'`
     return sql.replace(', WHERE', ' WHERE')
+  },
+
+  /*
+  根据id查找文章
+  参数：id String article表id
+  */
+  showArticleById: ( id ) => {
+    return `select * from article where id='${id}'`
   }
 
 }

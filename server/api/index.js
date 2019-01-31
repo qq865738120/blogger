@@ -8,11 +8,6 @@ const sts = require('./controller/STS.js')
 
 const apiMap = [
   {
-    path: '/test',
-    type: 'get',
-    method: home.test
-  },
-  {
     path: '/login',
     type: 'post',
     method: autho.login
@@ -46,6 +41,11 @@ const apiMap = [
     path: '/file/sts',
     type: 'post',
     method: sts.getScope
+  },
+  {
+    path: '/article/id/:id',
+    type: 'get',
+    method: home.getArticleById
   },
 ]
 

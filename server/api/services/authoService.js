@@ -1,5 +1,4 @@
 const pool = require('../model/db/connection')
-const redis = require('../model/cache/connection')
 const sql = require('../model/db/sql')
 const utils = require('../common/utils')
 const emun = require('../common/authoEmun')
