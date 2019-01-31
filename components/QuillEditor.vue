@@ -62,8 +62,13 @@
         <option value="5">标题5</option>
         <option selected value="6">标题6</option>
       </select>
-      <select class="ql-color"></select>
-      <select class="ql-background"></select>
+      <el-tooltip effect="dark" content="前景色" placement="bottom-start">
+        <select class="ql-color"></select>
+      </el-tooltip>
+      <el-tooltip effect="dark" content="景色" placement="bottom-start">
+        <select class="ql-background"></select>
+      </el-tooltip>
+
       <select class="ql-font">
         <option value="cursive">微软雅黑</option>
         <option value="SimSun">宋体</option>
