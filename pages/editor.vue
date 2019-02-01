@@ -8,15 +8,21 @@
 import EditorArtical from '~/components/EditorArtical.vue'
 
 export default {
+  name: 'editor',
   layout: 'main',
-  // middleware: 'autho',
+  middleware: 'autho',
   components: {
     EditorArtical
   },
   created() {
     if (process.client) {
       document.getElementsByTagName('body')[0].style.background="white";
+      console.log('e', this.$route.params.type);
     }
+  },
+  mounted() {
+    hljs.initHighlightingOnLoad();
+    console.log('hljs', hljs);
   }
 }
 </script>

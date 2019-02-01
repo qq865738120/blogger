@@ -1,13 +1,15 @@
 <template>
   <div class="book-list-root">
     <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top-start">
-      <el-card
-        class="hover-pointer book add-book"
-        :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
-        :style="{ height: '241px' }"
-        shadow="never">
-        <i class="el-icon-plus plus"></i>
-      </el-card>
+      <section @click="onAdd">
+        <el-card
+          class="hover-pointer book add-book"
+          :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
+          :style="{ height: '241px' }"
+          shadow="never">
+          <i class="el-icon-plus plus"></i>
+        </el-card>
+      </section>
     </el-tooltip>
     <template v-for="(item, index) of bookList">
       <book class="book" :title="item.title" :author="item.author" :startDate="item.startDate" :img="item.img"></book>
@@ -46,6 +48,9 @@ export default {
     },
     handleCurrentChange(e) {
       console.log('handleCurrentChange', e);
+    },
+    onAdd() {
+      this.$router.push({name: 'editor', params: { type: 'book' }})
     }
   }
 }

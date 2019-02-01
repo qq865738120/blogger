@@ -106,7 +106,9 @@
       @ready="onEditorReady($event)"
       v-quill:myQuillEditor="editorOption">
     </div>
-    <div v-html="html"></div>
+    <div v-html="html">
+
+    </div>
     <el-button @click="onSubmit">提交</el-button>
   </section>
 </template>
@@ -121,15 +123,19 @@ export default {
       editorOption: {
         modules: {
           toolbar: '#toolbar',
+          syntax: true,
         },
         placeholder: this.$t('common.enterContent'),
       }
     }
   },
   async mounted() {
-    let res = await this.$axios.get('https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/user/111/9906182432051.html')
-    console.log('res', res.data);
-    this.html = res.data
+    // let res = await this.$axios.get('https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/user/111/9906182432051.html')
+    // console.log('res', res.data);
+    // this.html = res.data
+    hljs.configure({
+      languages: ['c#','c++','css','coffeescript','html','xml','http','json','java','javascript','markdown','nginx','php','python','ruby','sql','shell']
+    });
   },
   methods: {
     onEditorBlur(editor) {
@@ -148,7 +154,7 @@ export default {
     onSubmit() {
       console.log('submit');
       var file = new File([this.html], 'test', {type: 'text/html'});
-      file.uid = this.$utils.uuid(13, 10)
+      file.uid = new Date().getTime()
       console.log(file);
       this.$utils.upLoadFile(this, file, '111', data => {
         console.log(data);
@@ -165,7 +171,7 @@ export default {
 
 .quill-editor {
   min-height: 400px;
-  max-height: 700px;
+  max-height: 740px;
   overflow-y: auto;
 }
 </style>

@@ -7,7 +7,9 @@
     "passwdErr": "密码不正确!",
     "author": "作者",
     "start": "始于",
-    "enterContent": "请输入内容"
+    "enterContent": "请输入内容",
+    "save": "保存",
+    "public": "发布"
   },
   "header": {
     "homePage": "首页",

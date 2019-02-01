@@ -8,8 +8,10 @@
       <el-form-item :label="$t('editor.illustration')" style="width: 600px;">
         <upload-file></upload-file>
       </el-form-item>
+      <quill-editor></quill-editor>
       <el-form-item size="large">
-        <el-button size="large" class="submit-button" type="primary" @keyup.enter="submitForm('form')" @click="submitForm('form')">{{ $t('signinPage.form.signIn') }}</el-button>
+        <el-button size="large"  type="primary" @click="onPublic('form')">{{ $t('common.public') }}</el-button>
+        <el-button size="large" type="primary" @click="onSave('form')">{{ $t('common.save') }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -17,10 +19,12 @@
 
 <script>
 import UploadFile from '~/components/UploadFile.vue'
+import QuillEditor from '~/components/QuillEditor.vue'
 
 export default {
   components: {
-    UploadFile
+    UploadFile,
+    QuillEditor
   },
   data() {
     var validateName = (rule, value, callback) => {
@@ -42,13 +46,26 @@ export default {
     }
   },
   methods: {
-    submitForm(formName) {
+    onPublic(formName) {
+      console.log('formName', formName);
       this.$refs[formName].validate((valid) => {
+        console.log('valid',valid);
         if (valid) {
-          let loading = this.$utils.loading(this)
-          this.$utils.doLogin(this, this.form, () => {
-            loading.close()
-          })
+          // let loading = this.$utils.loading(this)
+          // this.$utils.doLogin(this, this.form, () => {
+          //   loading.close()
+          // })
+        }
+      });
+    },
+    onSave(formName) {
+      this.$refs[formName].validate((valid) => {
+        console.log('valid',valid);
+        if (valid) {
+          // let loading = this.$utils.loading(this)
+          // this.$utils.doLogin(this, this.form, () => {
+          //   loading.close()
+          // })
         }
       });
     }

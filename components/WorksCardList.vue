@@ -1,13 +1,16 @@
 <template>
   <div class="works-card-list-root">
     <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top-start">
-      <el-card
-        class="hover-pointer card add-card"
-        :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
-        :style="{ height: '250px' }"
-        shadow="never">
-        <i class="el-icon-plus plus"></i>
-      </el-card>
+      <section @click="onAdd">
+        <el-card
+          class="hover-pointer card add-card"
+          :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
+          :style="{ height: '250px' }"
+          shadow="never"
+          >
+          <i class="el-icon-plus plus"></i>
+        </el-card>
+      </section>
     </el-tooltip>
     <template v-for="(item, index) of list">
       <works-card class="card" :date="item.date" :title="item.title" :img="item.img"></works-card>
@@ -48,6 +51,9 @@ export default {
     },
     handleCurrentChange(e) {
       console.log('handleCurrentChange', e);
+    },
+    onAdd() {
+      this.$router.push({name: 'editor', params: { type: 'article' }})
     }
   }
 }
