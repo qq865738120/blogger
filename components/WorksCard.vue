@@ -1,18 +1,15 @@
 <template>
   <div class="works-card-root">
     <el-card class="works-card-content hover-pointer" :body-style="{ padding: '0px' }" shadow="hover">
-      <template v-if="img">
-        <img v-lazy="img" class="image">
-        <div style="padding: 14px;">
-          <span class="title" style="-webkit-box-orient: vertical">{{ title }}</span>
-          <div class="bottom">
-            <span class="time">{{ date }}</span>
-            <div v-if="isShowButton" class="iconfont open-bianji font-extra-extra-small"></div>
-            <div class="iconfont open-ai-share font-extra-extra-small"></div>
-          </div>
+      <img v-lazy="img" class="image">
+      <div style="padding: 14px;">
+        <span class="title" style="-webkit-box-orient: vertical">{{ title }}</span>
+        <div class="bottom">
+          <span class="time">{{ date }}</span>
+          <div v-if="isShowButton" class="iconfont open-bianji font-extra-extra-small"></div>
+          <div class="iconfont open-ai-share font-extra-extra-small"></div>
         </div>
-      </template>
-      <span v-else>+</span>
+      </div>
     </el-card>
   </div>
 </template>

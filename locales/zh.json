@@ -100,5 +100,12 @@
     "insertImage": "插入图片",
     "insertVideo": "插入视频",
     "clean": "格式清除"
+  },
+  "editor": {
+    "editArtical": "编辑博文",
+    "editBook": "编辑连载",
+    "title": "标题",
+    "illustration": "插图",
+    "titleTip": "请输入标题"
   }
 }
