@@ -24,6 +24,8 @@ module.exports = {
 
   /*
   生成uuid
+  参数：length Number 长度
+       radixs Number 进制
   */
   uuid(length, radixs) {
     let len = length ? length : 30;

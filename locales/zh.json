@@ -69,7 +69,9 @@
     "newPasswd": "新密码",
     "article": "博文",
     "serial": "连载",
-    "allCollection": "所有收藏"
+    "allCollection": "所有收藏",
+    "addArtical": "添加博文",
+    "addBook": "添加连载书"
   },
   "quillEditor": {
     "bold": "加粗",

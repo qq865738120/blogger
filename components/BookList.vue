@@ -1,5 +1,14 @@
 <template>
   <div class="book-list-root">
+    <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top-start">
+      <el-card
+        class="hover-pointer book add-book"
+        :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
+        :style="{ height: '241px' }"
+        shadow="never">
+        <i class="el-icon-plus plus"></i>
+      </el-card>
+    </el-tooltip>
     <template v-for="(item, index) of bookList">
       <book class="book" :title="item.title" :author="item.author" :startDate="item.startDate" :img="item.img"></book>
     </template>
@@ -51,5 +60,12 @@ export default {
 }
 .book {
   margin: 0 17px $--px30 19px;
+}
+.add-book {
+  border: 1px dashed #d9d9d9;
+}
+.plus {
+  font-size: 30px;
+  color: #8c939d;
 }
 </style>

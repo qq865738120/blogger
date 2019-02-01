@@ -1,5 +1,14 @@
 <template>
   <div class="works-card-list-root">
+    <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top-start">
+      <el-card
+        class="hover-pointer card add-card"
+        :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
+        :style="{ height: '250px' }"
+        shadow="never">
+        <i class="el-icon-plus plus"></i>
+      </el-card>
+    </el-tooltip>
     <template v-for="(item, index) of list">
       <works-card class="card" :date="item.date" :title="item.title" :img="item.img"></works-card>
     </template>
@@ -53,5 +62,12 @@ export default {
 }
 .card {
   margin: 0 17px $--px30 19px;
+}
+.add-card {
+  border: 1px dashed #d9d9d9;
+}
+.plus {
+  font-size: 30px;
+  color: #8c939d;
 }
 </style>

@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import VueQuillEditor from 'vue-quill-editor/dist/ssr'
-import { Quill } from 'vue-quill-editor'
+import Quill from 'quill'
+import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
 
-Vue.use(VueQuillEditor)
+if (process.browser) {
+  Quill.register('modules/ImageExtend', ImageExtend)
+
+  Vue.use(VueQuillEditor)
+}

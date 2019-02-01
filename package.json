@@ -26,6 +26,7 @@
     "nuxt": "^2.0.0",
     "qcloud-cos-sts": "^2.0.7",
     "quill": "^1.3.6",
+    "quill-image-extend-module": "^1.1.2",
     "redis": "^2.8.0",
     "sass-loader": "^7.1.0",
     "vue-gemini-scrollbar": "^2.0.0",

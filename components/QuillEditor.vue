@@ -99,6 +99,7 @@
     <div
       class="quill-editor"
       v-model="content"
+      ref="myQuillEditor"
       @change="onEditorChange($event)"
       @blur="onEditorBlur($event)"
       @focus="onEditorFocus($event)"
@@ -106,6 +107,7 @@
       v-quill:myQuillEditor="editorOption">
     </div>
     <div v-html="html"></div>
+    <el-button @click="onSubmit">提交</el-button>
   </section>
 </template>
 
@@ -124,8 +126,10 @@ export default {
       }
     }
   },
-  mounted() {
-
+  async mounted() {
+    let res = await this.$axios.get('https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/user/111/9906182432051.html')
+    console.log('res', res.data);
+    this.html = res.data
   },
   methods: {
     onEditorBlur(editor) {
@@ -140,6 +144,18 @@ export default {
     onEditorChange({ editor, html, text }) {
       console.log('editor change!', editor, html, text)
       this.html = html
+    },
+    onSubmit() {
+      console.log('submit');
+      var file = new File([this.html], 'test', {type: 'text/html'});
+      file.uid = this.$utils.uuid(13, 10)
+      console.log(file);
+      this.$utils.upLoadFile(this, file, '111', data => {
+        console.log(data);
+
+      }, (err) => {
+        console.log('err', err);
+      })
     }
   }
 }

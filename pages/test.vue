@@ -20,9 +20,9 @@ export default {
   async mounted() {
     this.$utils.doLogin(this, { passwd: '1', username: '1' }, async () => {
 
-      let result = await this.$axios.get('/api/v1/article/createtime', { params: { page: 0 }})
-      console.log('result', result.data);
-      this.result = result.data
+      // let result = await this.$axios.get('/api/v1/article/createtime', { params: { page: 0 }})
+      // console.log('result', result.data);
+      // this.result = result.data
 
     }, '/test')
   }
