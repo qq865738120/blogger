@@ -15,14 +15,13 @@ export default {
     EditorArtical
   },
   created() {
+
+  },
+  mounted() {
     if (process.client) {
       document.getElementsByTagName('body')[0].style.background="white";
       console.log('e', this.$route.params.type);
     }
-  },
-  mounted() {
-    hljs.initHighlightingOnLoad();
-    console.log('hljs', hljs);
   }
 }
 </script>

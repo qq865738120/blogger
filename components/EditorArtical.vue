@@ -8,10 +8,10 @@
       <el-form-item :label="$t('editor.illustration')" style="width: 600px;">
         <upload-file></upload-file>
       </el-form-item>
-      <quill-editor></quill-editor>
+      <quill-editor @onEditorChange="onEditorChange"></quill-editor>
       <el-form-item size="large">
-        <el-button size="large"  type="primary" @click="onPublic('form')">{{ $t('common.public') }}</el-button>
-        <el-button size="large" type="primary" @click="onSave('form')">{{ $t('common.save') }}</el-button>
+        <el-button size="large"  type="primary" @click="onSubmit('form', '1')">{{ $t('common.public') }}</el-button>
+        <el-button size="large" type="primary" @click="onSubmit('form', '0')">{{ $t('common.save') }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -42,33 +42,39 @@ export default {
         title: [
           { validator: validateName, trigger: 'blur' }
         ]
-      }
+      },
+      content: '' //富文本编辑器内容
     }
   },
   methods: {
-    onPublic(formName) {
-      console.log('formName', formName);
+    onSubmit(formName, status) {
       this.$refs[formName].validate((valid) => {
         console.log('valid',valid);
         if (valid) {
-          // let loading = this.$utils.loading(this)
-          // this.$utils.doLogin(this, this.form, () => {
-          //   loading.close()
-          // })
+          let loading = this.$utils.loading(this)
+
+          console.log('submit article');
+          var file = new File([this.content], 'fileName', {type: 'text/html'});
+          file.uid = new Date().getTime()
+          console.log(file);
+          this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, data => {
+            console.log(data);
+
+          }, (err) => {
+            console.log('err', err);
+          })
+
+          loading.close()
+
         }
       });
     },
-    onSave(formName) {
-      this.$refs[formName].validate((valid) => {
-        console.log('valid',valid);
-        if (valid) {
-          // let loading = this.$utils.loading(this)
-          // this.$utils.doLogin(this, this.form, () => {
-          //   loading.close()
-          // })
-        }
-      });
-    }
+
+    onEditorChange(content) {
+      this.content = content
+      console.log('onchange', content);
+    },
+
   }
 }
 </script>

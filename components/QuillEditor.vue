@@ -136,20 +136,22 @@ export default {
     hljs.configure({
       languages: ['c#','c++','css','coffeescript','html','xml','http','json','java','javascript','markdown','nginx','php','python','ruby','sql','shell']
     });
+    hljs.initHighlightingOnLoad();
   },
   methods: {
     onEditorBlur(editor) {
-      console.log('editor blur!', editor)
+      // console.log('editor blur!', editor)
     },
     onEditorFocus(editor) {
-      console.log('editor focus!', editor)
+      // console.log('editor focus!', editor)
     },
     onEditorReady(editor) {
-      console.log('editor ready!', editor)
+      // console.log('editor ready!', editor)
     },
     onEditorChange({ editor, html, text }) {
-      console.log('editor change!', editor, html, text)
-      this.html = html
+      // console.log('editor change!', editor, html, text)
+      this.html = html;
+      this.$emit('onEditorChange', this.content);
     },
     onSubmit() {
       console.log('submit');

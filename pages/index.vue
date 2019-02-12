@@ -163,6 +163,12 @@ export default {
         }
       }
     }
+  },
+
+  mounted() {
+    if (process.client) {
+      document.getElementsByTagName('body')[0].style.background="#f4f4f4";
+    }
   }
 
 }
