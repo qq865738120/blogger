@@ -1,4 +1,5 @@
 const utils = require('../../common/utils')
+const moment = require('moment')
 
 module.exports = {
 
@@ -84,11 +85,11 @@ module.exports = {
        illustration String 文章插图
   */
   insertArticle: ( id, title, authorId, createdDate, lastDate, classId, content, status, illustration ) => {
-    let mcreatedDate = createdDate ? createdDate : new Date();
-    let mlastDate = lastDate ? lastDate : new Date();
+    let mcreatedDate = createdDate ? createdDate : moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+    let mlastDate = lastDate ? lastDate : moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
     let mstatus = status ? status : 0;
     let millustration = illustration ? illustration : 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/article-illustration-default.png';
-    return `INSERT INTO article('id', 'title', 'author_id', 'created_date', 'last_date', 'class_id', 'content', 'status', 'illustration')
+    return `INSERT INTO article (id, title, author_id, created_date, last_date, class_id, content, status, illustration)
     VALUES ('${id}', '${title}', '${authorId}', '${mcreatedDate}', '${mlastDate}', '${classId}', '${content}', '${mstatus}', '${illustration}')`
   }
 

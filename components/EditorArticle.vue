@@ -65,6 +65,7 @@ export default {
           console.log(file);
           this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, data => {
             console.log(data);
+
             loading.close()
           }, (err) => {
             loading.close()

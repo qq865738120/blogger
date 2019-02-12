@@ -33,27 +33,27 @@ module.exports = {
   */
   async addArticle(req, res) {
     let result = {}
-    if (!req.query.id) {
+    if (!req.body.id) {
       result = emun.PAR_ARTICLE_ID_ERR
-    } else if (!req.query.title) {
+    } else if (!req.body.title) {
       result = emun.PAR_ARTICLE_TITLE_ERR
-    } else if (!req.query.authorId) {
+    } else if (!req.body.authorId) {
       result = emun.PAR_AUTHOR_ID_ERR
-    } else if (!req.query.classId) {
+    } else if (!req.body.classId) {
       result = emun.PAR_CLASS_ID_ERR
-    } else if (!req.query.content) {
+    } else if (!req.body.content) {
       result = emun.PAR_CONTENT_ERR
-    } else if (!req.query.status) {
+    } else if (!req.body.status) {
       result = emun.PAR_STATUS_ERR
     } else {
       result = await service.addArticle(
-        req.query.id,
-        req.query.title,
-        req.query.authorId,
-        req.query.classId,
-        req.query.content,
-        req.query.status,
-        req.query.illustration
+        req.body.id,
+        req.body.title,
+        req.body.authorId,
+        req.body.classId,
+        req.body.content,
+        req.body.status,
+        req.body.illustration
       )
     }
     res.json(result)
