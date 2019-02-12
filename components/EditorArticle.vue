@@ -58,20 +58,18 @@ export default {
         console.log('valid',valid);
         if (valid) {
           let loading = this.$utils.loading(this)
-
+          console.log('status', status);
           console.log('submit article');
           var file = new File([this.content], 'fileName', {type: 'text/html'});
-          file.uid = new Date().getTime()
+          file.uid = this.articleId
           console.log(file);
           this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, data => {
             console.log(data);
-
+            loading.close()
           }, (err) => {
+            loading.close()
             console.log('err', err);
           })
-
-          loading.close()
-
         }
       });
     },

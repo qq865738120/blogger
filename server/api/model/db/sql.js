@@ -69,6 +69,27 @@ module.exports = {
     let asc = isAsc ? 'asc' : 'desc';
     const start = (mPage - 1) * mRow;
     return `select * from article order by created_date ${asc} limit ${start}, ${mRow}`
+  },
+
+  /*
+  将数据插入article表
+  参数：id String 主键id
+       title String 标题
+       authorId String 作者（用户）id
+       createdDate Date 创建时间
+       lastDate Date 最后修改时间
+       classId String 分类id
+       content String 文章内容
+       status Number 文章状态
+       illustration String 文章插图
+  */
+  insertArticle: ( id, title, authorId, createdDate, lastDate, classId, content, status, illustration ) => {
+    let mcreatedDate = createdDate ? createdDate : new Date();
+    let mlastDate = lastDate ? lastDate : new Date();
+    let mstatus = status ? status : 0;
+    let millustration = illustration ? illustration : 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/article-illustration-default.png';
+    return `INSERT INTO article('id', 'title', 'author_id', 'created_date', 'last_date', 'class_id', 'content', 'status', 'illustration')
+    VALUES ('${id}', '${title}', '${authorId}', '${mcreatedDate}', '${mlastDate}', '${classId}', '${content}', '${mstatus}', '${illustration}')`
   }
 
 }
