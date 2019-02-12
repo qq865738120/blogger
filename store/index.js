@@ -3,6 +3,7 @@ export const state = () => ({
   locale: 'zh',
   isLogin: false, //是否处于登陆状态
   userInfo: '', //用户信息
+  oldIllustration: '', //旧的插图路径
 })
 export const mutations = {
   SET_LANG(state, locale) {
@@ -15,5 +16,8 @@ export const mutations = {
   },
   SET_USER_INFO(state, value) {
     state.userInfo = value
+  },
+  SET_OLD_ILLUSTRATION(state, value) {
+    state.oldIllustration = value
   }
 }

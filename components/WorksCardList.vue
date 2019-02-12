@@ -53,7 +53,7 @@ export default {
       console.log('handleCurrentChange', e);
     },
     onAdd() {
-      this.$router.push({name: 'editor', params: { type: 'article' }})
+      this.$router.push({name: 'editor', params: { id: this.$utils.uuid(), type: 'article' }})
     }
   }
 }

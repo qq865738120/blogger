@@ -6,10 +6,11 @@
       action=""
       :show-file-list="false"
       :http-request="onUpload">
-      <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar-uploader-icon">
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
-      <i class="el-icon-upload"></i>
-      <div class="el-upload__text">将文件拖到此处，或<em> 点击上传</em></div>
+      <img v-if="imageUrl" :src="imageUrl" style="width: 100%; height: 100%">
+      <div v-else>
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em> 点击上传</em></div>
+      </div>
       <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过1MB</div>
     </el-upload>
   </div>
@@ -17,12 +18,18 @@
 
 <script>
 export default {
+
+  props: {
+    uid: String
+  },
+
   data() {
     return {
       imageUrl: '',
-      loading: false
+      loading: false,
     };
   },
+
   methods: {
     onUpload({ file }) {
       const type = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -36,22 +43,15 @@ export default {
         return
       }
       this.loading = true
+      // file.uid = this.uid
       this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, data => {
         console.log(data);
         this.imageUrl = 'https://' + data.Location;
-        this.$axios.post('/api/v1/user/update', { avatar: 'https://' + data.Location }).then( res => {
-          console.log('更新头像数据', res.data);
-          if (res.data.code == 200) {
-            this.$utils.deleteFile(this, this.$store.state.userInfo.avatar.split('.myqcloud.com/')[1], data => {
-              this.$utils.getUserInfo(this, () => {
-                this.$message.success(this.$t('personal.avatarTip4'));
-                this.loading = false
-              }, '/personal')
-            }, () => {})
-          }
-          this.loading = false
-          this.$utils.apiErr(this, res.data)
-        })
+        this.loading = false;
+        if (this.$store.state.oldIllustration) {
+          this.$utils.deleteFile(this, this.$store.state.oldIllustration.split('.myqcloud.com/')[1], () => {}, () => {})
+        }
+        this.$store.commit('SET_OLD_ILLUSTRATION', data.Location)
       }, data => {
         this.$message.error(this.$t('personal.avatarTip3'));
         this.loading = false

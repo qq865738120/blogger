@@ -6,7 +6,7 @@
         <el-input type="text" v-model="form.title" autocomplete="off" max="30"></el-input>
       </el-form-item>
       <el-form-item :label="$t('editor.illustration')" style="width: 600px;">
-        <upload-file></upload-file>
+        <upload-file :uid="articleId"></upload-file>
       </el-form-item>
       <quill-editor @onEditorChange="onEditorChange"></quill-editor>
       <el-form-item size="large">
@@ -26,6 +26,11 @@ export default {
     UploadFile,
     QuillEditor
   },
+
+  props: {
+    articleId: String
+  },
+
   data() {
     var validateName = (rule, value, callback) => {
       if (value === '') {
@@ -46,6 +51,7 @@ export default {
       content: '' //富文本编辑器内容
     }
   },
+
   methods: {
     onSubmit(formName, status) {
       this.$refs[formName].validate((valid) => {
@@ -72,6 +78,7 @@ export default {
 
     onEditorChange(content) {
       this.content = content
+      console.log('id', this.articleId);
       console.log('onchange', content);
     },
 
