@@ -4,7 +4,7 @@ const service = require('../services/editorService')
 module.exports = {
 
   /**
-  * @api {put} /article/add 新增文章
+  * @api {post} /article/add 新增文章
   * @apiDescription 增加新的文章
   * @apiName add article
   * @apiGroup Article

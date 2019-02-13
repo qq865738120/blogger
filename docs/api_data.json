@@ -1,6 +1,6 @@
 [
   {
-    "type": "put",
+    "type": "post",
     "url": "/article/add",
     "title": "新增文章",
     "description": "<p>增加新的文章</p>",
