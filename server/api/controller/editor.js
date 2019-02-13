@@ -17,17 +17,15 @@ module.exports = {
   * @apiParam {string} illustration 文章插图（选传）
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
-  * @apiSuccess {Object} data 数据
   * @apiSuccessExample {json} Success:
   *{
   *  code: 200,
-  *  msg: '成功',
-  *  data: ''
+  *  msg: '新增文章成功'
   *}
   * @apiErrorExample {json} Error:
   * {
-  *   code: 300,
-  *   msg: '参数异常'
+  *   code: 201,
+  *   msg: '新增文章失败'
   * }
   * @apiVersion 1.0.0
   */

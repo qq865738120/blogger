@@ -27,6 +27,14 @@ module.exports = {
     code: 300,
     msg: 'illustration参数异常'
   },
+  ADD_SUCCESS: {
+    code: 200,
+    msg: '新增文章成功'
+  },
+  ADD_FAIL: {
+    code: 201,
+    msg: '新增文章失败'
+  },
   NOT_ARTICLE: {
     code: 201,
     msg: '没有找到相关文章'

@@ -3,6 +3,7 @@ const sql = require('../model/db/sql')
 const utils = require('../common/utils')
 const emun = require('../common/authoEmun')
 const md5 = require('md5');
+const moment = require('moment')
 
 module.exports = {
 
@@ -18,12 +19,14 @@ module.exports = {
   返回：authoEmun枚举
   */
   async addArticle(id, title, authorId, classId, content, status, illustration) {
-    let row = await utils.dbQuery(pool, sql.insertArticle(id, title, authorId, new Date(), new Date(), classId, content, status, illustration))
-    // if (row.length != 0) {
-    //   return emun.USERNAME_REPEAT
-    // }
+    let dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    let row = await utils.dbQuery(pool, sql.insertArticle(id, title, authorId, dateTime, dateTime, classId, content, status, illustration))
     console.log('row', row);
-    return emun.REGISTERED_SUCCESS
+    if (row.fieldCount == 0) {
+      return emun.ADD_SUCCESS
+    } else {
+      return emun.ADD_FAIL
+    }
   }
 
 }
