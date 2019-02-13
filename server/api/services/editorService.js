@@ -1,7 +1,7 @@
 const pool = require('../model/db/connection')
 const sql = require('../model/db/sql')
 const utils = require('../common/utils')
-const emun = require('../common/authoEmun')
+const emun = require('../common/articleEmun')
 const md5 = require('md5');
 const moment = require('moment')
 
@@ -16,12 +16,11 @@ module.exports = {
        content String 文章内容
        status Number 文章状态
        illustration String 文章插图
-  返回：authoEmun枚举
+  返回：articleEmun枚举
   */
   async addArticle(id, title, authorId, classId, content, status, illustration) {
     let dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
     let row = await utils.dbQuery(pool, sql.insertArticle(id, title, authorId, dateTime, dateTime, classId, content, status, illustration))
-    console.log('row', row);
     if (row.fieldCount == 0) {
       return emun.ADD_SUCCESS
     } else {

@@ -9,6 +9,16 @@
         <upload-file :uid="articleId"></upload-file>
       </el-form-item>
       <quill-editor @onEditorChange="onEditorChange"></quill-editor>
+      <el-form-item :label="$t('header.classify')">
+        <el-select v-model="selectedValue" placeholder="请选择">
+          <el-option
+            v-for="item in classify"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item size="large">
         <el-button size="large"  type="primary" @click="onSubmit('form', '1')">{{ $t('common.public') }}</el-button>
         <el-button size="large" type="primary" @click="onSubmit('form', '0')">{{ $t('common.save') }}</el-button>
@@ -48,7 +58,14 @@ export default {
           { validator: validateName, trigger: 'blur' }
         ]
       },
-      content: '' //富文本编辑器内容
+      content: '', //富文本编辑器内容
+      classify: [
+        { value: '001', label: 'java' },
+        { value: '002', label: '前端' },
+        { value: '003', label: '架构' },
+        { value: '004', label: '云计算' },
+      ],
+      selectedValue: ''
     }
   },
 

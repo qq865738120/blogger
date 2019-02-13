@@ -6,6 +6,7 @@ const autho = require('./controller/autho.js')
 const user = require('./controller/user.js')
 const sts = require('./controller/STS.js')
 const editor = require('./controller/editor.js')
+const common = require('./controller/common.js')
 
 const apiMap = [
   {
@@ -57,6 +58,11 @@ const apiMap = [
     path: '/article/add',
     type: 'post',
     method: editor.addArticle
+  },
+  {
+    path: '/classify',
+    type: 'get',
+    method: common.showClassify
   },
 ]
 
