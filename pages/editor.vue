@@ -14,12 +14,12 @@ export default {
   components: {
     EditorArticle
   },
-  created() {
-
-  },
   mounted() {
     if (process.client) {
       document.getElementsByTagName('body')[0].style.background="white";
+      if (!this.$route.params.id || !this.$route.params.type) {
+        this.$router.push({name: 'personal'})
+      }
       console.log('e id', this.$route.params.id);
       console.log('e', this.$route.params.type);
     }

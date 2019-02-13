@@ -9,7 +9,7 @@
         <upload-file :uid="articleId"></upload-file>
       </el-form-item>
       <quill-editor @onEditorChange="onEditorChange"></quill-editor>
-      <el-form-item :label="$t('header.classify')" prop="selectedValue">
+      <el-form-item :label="$t('header.classify')" prop="selectedValue" style="margin-top: 30px;">
         <el-select v-model="form.selectedValue" :placeholder="$t('editor.selectClassify')">
           <el-option
             v-for="item in classify"

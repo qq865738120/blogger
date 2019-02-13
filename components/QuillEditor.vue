@@ -106,10 +106,6 @@
       @ready="onEditorReady($event)"
       v-quill:myQuillEditor="editorOption">
     </div>
-    <div v-html="html">
-
-    </div>
-    <el-button @click="onSubmit">提交</el-button>
   </section>
 </template>
 
@@ -153,18 +149,6 @@ export default {
       this.html = html;
       this.$emit('onEditorChange', this.content);
     },
-    onSubmit() {
-      console.log('submit');
-      var file = new File([this.html], 'test', {type: 'text/html'});
-      file.uid = new Date().getTime()
-      console.log(file);
-      this.$utils.upLoadFile(this, file, '111', data => {
-        console.log(data);
-
-      }, (err) => {
-        console.log('err', err);
-      })
-    }
   }
 }
 </script>
