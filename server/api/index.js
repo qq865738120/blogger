@@ -64,6 +64,11 @@ const apiMap = [
     type: 'get',
     method: common.showClassify
   },
+  {
+    path: '/uuid',
+    type: 'get',
+    method: common.getUUID
+  },
 ]
 
 for (let item of apiMap) {
