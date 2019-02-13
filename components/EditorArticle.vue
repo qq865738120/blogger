@@ -9,13 +9,29 @@
         <upload-file :uid="articleId"></upload-file>
       </el-form-item>
       <quill-editor @onEditorChange="onEditorChange"></quill-editor>
-      <el-form-item :label="$t('header.classify')">
-        <el-select v-model="selectedValue" placeholder="请选择">
+      <el-form-item :label="$t('header.classify')" prop="selectedValue">
+        <el-select v-model="form.selectedValue" :placeholder="$t('editor.selectClassify')">
           <el-option
             v-for="item in classify"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+            :key="item.id"
+            :label="item.classification"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item :label="$t('common.keyWords')" prop="selectedValue">
+        <el-select
+          v-model="form.keyWords"
+          multiple
+          filterable
+          allow-create
+          default-first-option
+          :placeholder="$t('editor.selectKeyWords')">
+          <el-option
+            v-for="item in keyWordsList"
+            :key="item"
+            :label="item"
+            :value="item">
           </el-option>
         </el-select>
       </el-form-item>
@@ -42,30 +58,48 @@ export default {
   },
 
   data() {
-    var validateName = (rule, value, callback) => {
+    var validateTitle = (rule, value, callback) => {
       if (value === '') {
         callback(new Error(this.$t('editor.titleTip')));
       } else {
         callback();
       }
     };
+    var validateClassify = (rule, value, callback) => {
+      console.log('value', value);
+      if (value === '') {
+        callback(new Error(this.$t('editor.classifyTip')));
+      } else {
+        callback();
+      }
+    };
     return {
       form: {
-        title: ''
+        title: '',
+        selectedValue: '',
+        keyWords: []
       },
       rules: {
         title: [
-          { validator: validateName, trigger: 'blur' }
+          { validator: validateTitle, trigger: 'blur' }
+        ],
+        selectedValue: [
+          { validator: validateClassify, trigger: 'blur' }
         ]
       },
       content: '', //富文本编辑器内容
-      classify: [
-        { value: '001', label: 'java' },
-        { value: '002', label: '前端' },
-        { value: '003', label: '架构' },
-        { value: '004', label: '云计算' },
-      ],
-      selectedValue: ''
+      classify: this.$store.state.classList,
+      keyWordsList: ['spring', 'vue', '框架', '教程', '心得', 'react']
+    }
+  },
+
+  mounted() {
+    if (!this.classify) {
+      this.$axios.get('/api/v1/classify').then(res => {
+        console.log(res.data.data);
+        this.$store.commit('SET_CLASSIFY', res.data.data)
+        this.classify = res.data.data
+      })
     }
   },
 
@@ -82,7 +116,22 @@ export default {
           console.log(file);
           this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, data => {
             console.log(data);
-
+            let keywords = ''
+            for (let item of this.form.keyWords) {
+              keywords += item + '##'
+            }
+            let postData = {
+              id: this.articleId,
+              title: this.form.title,
+              authorId: this.$store.state.userInfo.id,
+              classId: this.form.selectedValue,
+              content: 'https://' + data.Location,
+              status: status,
+              illustration: this.$store.state.oldIllustration,
+              keywords: keywords
+            }
+            console.log('postData', postData);
+            this.$axios.post('/api/v1/article/add', postData)
             loading.close()
           }, (err) => {
             loading.close()

@@ -83,15 +83,17 @@ module.exports = {
        content String 文章内容
        status Number 文章状态
        illustration String 文章插图
+       keyWords String 关键词
   */
-  insertArticle: ( id, title, authorId, createdDate, lastDate, classId, content, status, illustration ) => {
+  insertArticle: ( id, title, authorId, createdDate, lastDate, classId, content, status, illustration, keyWords ) => {
     let dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
     let mcreatedDate = createdDate ? createdDate : dateTime;
     let mlastDate = lastDate ? lastDate : dateTime;
     let mstatus = status ? status : 0;
     let millustration = illustration ? illustration : 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/article-illustration-default.png';
-    return `INSERT INTO article (id, title, author_id, created_date, last_date, class_id, content, status, illustration)
-    VALUES ('${id}', '${title}', '${authorId}', '${mcreatedDate}', '${mlastDate}', '${classId}', '${content}', '${mstatus}', '${illustration}')`
+    let mkeyWords = keyWords ? keyWords : ''
+    return `INSERT INTO article (id, title, author_id, created_date, last_date, class_id, content, status, illustration, keywords)
+    VALUES ('${id}', '${title}', '${authorId}', '${mcreatedDate}', '${mlastDate}', '${classId}', '${content}', '${mstatus}', '${illustration}', '${mkeyWords}')`
   },
 
   /*

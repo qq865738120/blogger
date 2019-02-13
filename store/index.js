@@ -4,6 +4,7 @@ export const state = () => ({
   isLogin: false, //是否处于登陆状态
   userInfo: '', //用户信息
   oldIllustration: '', //旧的插图路径
+  classList: [], //分类列表
 })
 export const mutations = {
   SET_LANG(state, locale) {
@@ -19,5 +20,8 @@ export const mutations = {
   },
   SET_OLD_ILLUSTRATION(state, value) {
     state.oldIllustration = value
+  },
+  SET_CLASSIFY(state, value) {
+    state.classList = value
   }
 }

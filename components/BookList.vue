@@ -50,7 +50,11 @@ export default {
       console.log('handleCurrentChange', e);
     },
     onAdd() {
-      this.$router.push({name: 'editor', params: { id: this.$utils.uuid(), type: 'book' }})
+      let loading = this.$utils.loading(this)
+      this.$axios.get('/api/v1/uuid').then(res => {
+        this.$router.push({name: 'editor', params: { id: res.data.data, type: 'book' }})
+        loading.close()
+      })
     }
   }
 }

@@ -51,7 +51,7 @@ export default {
         if (this.$store.state.oldIllustration) {
           this.$utils.deleteFile(this, this.$store.state.oldIllustration.split('.myqcloud.com/')[1], () => {}, () => {})
         }
-        this.$store.commit('SET_OLD_ILLUSTRATION', data.Location)
+        this.$store.commit('SET_OLD_ILLUSTRATION', 'https://' + data.Location)
       }, data => {
         this.$message.error(this.$t('personal.avatarTip3'));
         this.loading = false

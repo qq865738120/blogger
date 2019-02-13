@@ -15,6 +15,7 @@ module.exports = {
   * @apiParam {string} content 内容（必传）
   * @apiParam {string} status 文章状态（必传）
   * @apiParam {string} illustration 文章插图（选传）
+  * @apiParam {string} keywords 关键词（选传）
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccessExample {json} Success:
@@ -51,7 +52,8 @@ module.exports = {
         req.body.classId,
         req.body.content,
         req.body.status,
-        req.body.illustration
+        req.body.illustration,
+        req.body.keywords
       )
     }
     res.json(result)

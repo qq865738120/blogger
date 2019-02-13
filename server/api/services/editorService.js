@@ -16,11 +16,12 @@ module.exports = {
        content String 文章内容
        status Number 文章状态
        illustration String 文章插图
+       keyWords String 关键词
   返回：articleEmun枚举
   */
-  async addArticle(id, title, authorId, classId, content, status, illustration) {
+  async addArticle(id, title, authorId, classId, content, status, illustration, keyWords) {
     let dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
-    let row = await utils.dbQuery(pool, sql.insertArticle(id, title, authorId, dateTime, dateTime, classId, content, status, illustration))
+    let row = await utils.dbQuery(pool, sql.insertArticle(id, title, authorId, dateTime, dateTime, classId, content, status, illustration, keyWords))
     if (row.fieldCount == 0) {
       return emun.ADD_SUCCESS
     } else {

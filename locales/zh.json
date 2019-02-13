@@ -9,7 +9,8 @@
     "start": "始于",
     "enterContent": "请输入内容",
     "save": "保存",
-    "public": "发布"
+    "public": "发布",
+    "keyWords": "关键词"
   },
   "header": {
     "homePage": "首页",
@@ -108,6 +109,9 @@
     "editBook": "编辑连载",
     "title": "标题",
     "illustration": "插图",
-    "titleTip": "请输入标题"
+    "titleTip": "请输入标题",
+    "classifyTip": "请选择类别",
+    "selectClassify": "请选择文章类别",
+    "selectKeyWords": "请选择文章关键词"
   }
 }

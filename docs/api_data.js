@@ -57,6 +57,13 @@ define({ "api": [
             "optional": false,
             "field": "illustration",
             "description": "<p>文章插图（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "keywords",
+            "description": "<p>关键词（选传）</p>"
           }
         ]
       }
