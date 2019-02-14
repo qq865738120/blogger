@@ -147,7 +147,7 @@ export default {
     onEditorChange({ editor, html, text }) {
       // console.log('editor change!', editor, html, text)
       this.html = html;
-      this.$emit('onEditorChange', this.content);
+      this.$emit('onEditorChange', this.content, text);
     },
   }
 }

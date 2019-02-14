@@ -60,6 +60,11 @@ const apiMap = [
     method: editor.addArticle
   },
   {
+    path: '/article/modify',
+    type: 'post',
+    method: editor.updateArticle
+  },
+  {
     path: '/classify',
     type: 'get',
     method: common.showClassify

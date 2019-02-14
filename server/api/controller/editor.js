@@ -16,6 +16,7 @@ module.exports = {
   * @apiParam {string} status 文章状态（必传）
   * @apiParam {string} illustration 文章插图（选传）
   * @apiParam {string} keywords 关键词（选传）
+  * @apiParam {string} describe 文章描述（必传）
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccessExample {json} Success:
@@ -32,7 +33,9 @@ module.exports = {
   */
   async addArticle(req, res) {
     let result = {}
-    if (!req.body.id) {
+    if (!req.session.user) {
+      result = emun.NOT_LOGIN
+    } else if (!req.body.id) {
       result = emun.PAR_ARTICLE_ID_ERR
     } else if (!req.body.title) {
       result = emun.PAR_ARTICLE_TITLE_ERR
@@ -44,6 +47,8 @@ module.exports = {
       result = emun.PAR_CONTENT_ERR
     } else if (!req.body.status) {
       result = emun.PAR_STATUS_ERR
+    } else if (!req.body.describe) {
+      result = emun.PAR_DESCRIBE_ERR
     } else {
       result = await service.addArticle(
         req.body.id,
@@ -53,7 +58,65 @@ module.exports = {
         req.body.content,
         req.body.status,
         req.body.illustration,
-        req.body.keywords
+        req.body.keywords,
+        req.body.describe
+      )
+    }
+    res.json(result)
+  },
+
+  /**
+  * @api {post} /article/modify 修改文章
+  * @apiDescription 修改文章
+  * @apiName modify article
+  * @apiGroup Article
+  * @apiParam {string} id 文章id（必传）
+  * @apiParam {string} title 文章标题（选传）
+  * @apiParam {string} authorId 作者id（选传）
+  * @apiParam {string} lastDate 最后修改日期（选传）
+  * @apiParam {string} watchCount 查阅数（选传）
+  * @apiParam {string} classId 分类id（选传）
+  * @apiParam {string} modifyCount 分类id（选传）
+  * @apiParam {string} content 内容（选传）
+  * @apiParam {string} status 文章状态（选传）
+  * @apiParam {string} illustration 文章插图（选传）
+  * @apiParam {string} keywords 关键词（选传）
+  * @apiParam {string} describe 文章描述（选传）
+  * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '新增文章成功'
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 201,
+  *   msg: '新增文章失败'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async updateArticle(req, res) {
+    let result = {}
+    if (!req.session.user) {
+      result = emun.NOT_LOGIN
+    } else if (!req.body.id) {
+      result = emun.PAR_ARTICLE_ID_ERR
+    } else {
+      result = await service.updateArticle(
+        req.body.id,
+        req.body.title,
+        req.body.authorId,
+        '',
+        req.body.lastDate,
+        req.body.watchCount,
+        req.body.classId,
+        req.body.modifyCount,
+        req.body.content,
+        req.body.status,
+        req.body.illustration,
+        req.body.keywords,
+        req.body.describe
       )
     }
     res.json(result)

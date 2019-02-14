@@ -1,3 +1,5 @@
+const baseEmun = require('./baseEmun')
+
 module.exports = {
   PAR_ARTICLE_ID_ERR: {
     code: 300,
@@ -27,6 +29,10 @@ module.exports = {
     code: 300,
     msg: 'illustration参数异常'
   },
+  PAR_DESCRIBE_ERR: {
+    code: 300,
+    msg: 'describe参数异常'
+  },
   ADD_SUCCESS: {
     code: 200,
     msg: '新增文章成功'
@@ -34,6 +40,10 @@ module.exports = {
   ADD_FAIL: {
     code: 201,
     msg: '新增文章失败'
+  },
+  ADD_FAIL_ID: {
+    code: 201,
+    msg: 'id重复'
   },
   NOT_ARTICLE: {
     code: 201,
@@ -43,5 +53,14 @@ module.exports = {
     code: 200,
     msg: '成功',
     data: ''
-  }
+  },
+  NOT_LOGIN: baseEmun.NOT_LOGIN,
+  UPDATE_SUCCESS: {
+    code: 200,
+    msg: '更新成功'
+  },
+  UPDATE_FAIL: {
+    code: 200,
+    msg: '更新失败'
+  },
 }

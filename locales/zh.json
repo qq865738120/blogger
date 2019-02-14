@@ -10,7 +10,9 @@
     "enterContent": "请输入内容",
     "save": "保存",
     "public": "发布",
-    "keyWords": "关键词"
+    "keyWords": "关键词",
+    "tip": "提示",
+    "know": "知道了"
   },
   "header": {
     "homePage": "首页",
@@ -112,6 +114,12 @@
     "titleTip": "请输入标题",
     "classifyTip": "请选择类别",
     "selectClassify": "请选择文章类别",
-    "selectKeyWords": "请选择文章关键词"
+    "selectKeyWords": "请选择文章关键词",
+    "kewordsTip": "关键词不能大于6个",
+    "contentTip": "文章内容不能低于300个字符",
+    "saveSuccessTip": "保存成功！",
+    "saveFailTip": "保存失败！",
+    "publicSuccessTip": "发布成功！",
+    "publicFailTip": "发布失败！"
   }
 }

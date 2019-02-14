@@ -19,7 +19,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item :label="$t('common.keyWords')" prop="selectedValue">
+      <el-form-item :label="$t('common.keyWords')" prop="keyWords">
         <el-select
           v-model="form.keyWords"
           multiple
@@ -66,8 +66,15 @@ export default {
       }
     };
     var validateClassify = (rule, value, callback) => {
-      console.log('value', value);
       if (value === '') {
+        callback(new Error(this.$t('editor.classifyTip')));
+      } else {
+        callback();
+      }
+    };
+    var validateKeyWords = (rule, value, callback) => {
+      console.log('value', value);
+      if (value.length > 6) {
         callback(new Error(this.$t('editor.classifyTip')));
       } else {
         callback();
@@ -85,9 +92,13 @@ export default {
         ],
         selectedValue: [
           { validator: validateClassify, trigger: 'blur' }
+        ],
+        keyWords: [
+          { validator: validateKeyWords, trigger: 'blur' }
         ]
       },
       content: '', //富文本编辑器内容
+      text: '', //富文本编辑器纯文本内容
       classify: this.$store.state.classList,
       keyWordsList: ['spring', 'vue', '框架', '教程', '心得', 'react']
     }
@@ -105,8 +116,13 @@ export default {
 
   methods: {
     onSubmit(formName, status) {
+      if (this.text.length < 300) {
+        this.$alert(this.$t('editor.contentTip'), this.$t('common.tip'), {
+         confirmButtonText: this.$t('common.know')
+       });
+       return;
+      }
       this.$refs[formName].validate((valid) => {
-        console.log('valid',valid);
         if (valid) {
           let loading = this.$utils.loading(this)
           console.log('status', status);
@@ -128,10 +144,23 @@ export default {
               content: 'https://' + data.Location,
               status: status,
               illustration: this.$store.state.oldIllustration,
-              keywords: keywords
+              keywords: keywords,
+              describe: this.text.substring(0, 200)
             }
-            console.log('postData', postData);
-            this.$axios.post('/api/v1/article/add', postData)
+            this.$axios.post('/api/v1/article/add', postData).then(res => {
+              console.log('新增文章', res.data);
+              if (res.data.code == 200) {
+                this.$message({
+                  message: status == 0 ? this.$t('editor.saveSuccessTip') : this.$t('editor.publicSuccessTip'),
+                  type: 'success'
+                });
+              } else {
+                this.$message({
+                  message: status == 0 ? this.$t('editor.saveFailTip') : this.$t('editor.publicFailTip'),
+                  type: 'error'
+                });
+              }
+            })
             loading.close()
           }, (err) => {
             loading.close()
@@ -141,10 +170,10 @@ export default {
       });
     },
 
-    onEditorChange(content) {
+    onEditorChange(content, text) {
       this.content = content
-      console.log('id', this.articleId);
-      console.log('onchange', content);
+      this.text = text
+      console.log('text', text);
     },
 
   }
