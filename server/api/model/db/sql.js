@@ -63,13 +63,16 @@ module.exports = {
   按创建时间降序排列并分页处理
   参数：page Number 第几页
        row Number 一页多少行
+       isAsc Boolean 是否升序排列
+       status Number 文章状态
   */
-  showArticleByCreateTimeDescPage: ( page, row, isAsc ) => {
+  showArticleByCreateTimeDescPage: ( page, row, isAsc, status ) => {
     let mPage = page ? parseInt(page) : 0;
     let mRow = row ? parseInt(row) : 20;
     let asc = isAsc ? 'asc' : 'desc';
+    let mStatus = status ? 'where status=' + status : ''
     const start = (mPage - 1) * mRow;
-    return `select * from article order by created_date ${asc} limit ${start}, ${mRow}`
+    return `select * from article ${mStatus} order by created_date ${asc} limit ${start}, ${mRow}`
   },
 
   /*
@@ -136,5 +139,34 @@ module.exports = {
   showClassify: () => {
     return `select * from class`
   },
+
+  /*
+  将数据插入user_article表
+  参数：id String 主键id
+       userId String 用户id
+       articleId String 文章id
+  */
+  insertUserArticle: (id, userId, articleId) => {
+    return `INSERT INTO user_article VALUES ('${id}', '${userId}', '${articleId}')`
+  },
+
+  /*
+  查询user_article表
+  参数： userId String 用户id（选传）
+        articleId String 文章id（选传）
+  */
+  showUserArticle: (userId, articleId) => {
+    let muserId = userId ? 'user_id=' + userId : '';
+    let marticleId = articleId ? 'article_id=' + articleId : '';
+    let str = ''
+    if (muserId && marticleId) {
+      str = muserId + 'AND' + marticleId
+    } else if (muserId) {
+      str = muserId
+    } else if (marticleId) {
+      str = marticleId
+    }
+    return `select * from user_article WHERE ${str} limit 0, 2000`
+  }
 
 }

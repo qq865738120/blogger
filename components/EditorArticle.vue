@@ -3,7 +3,7 @@
     <p class="title">{{ $t('editor.editArtical') }}</p>
     <el-form :model="form" status-icon :rules="rules" ref="form" label-width="80px">
       <el-form-item :label="$t('editor.title')" prop="title" style="width: 600px;" >
-        <el-input type="text" v-model="form.title" autocomplete="off" max="30"></el-input>
+        <el-input type="text" v-model="form.title" autocomplete="off" maxlength="30"></el-input>
       </el-form-item>
       <el-form-item :label="$t('editor.illustration')" style="width: 600px;">
         <upload-file :uid="articleId"></upload-file>
@@ -75,7 +75,7 @@ export default {
     var validateKeyWords = (rule, value, callback) => {
       console.log('value', value);
       if (value.length > 6) {
-        callback(new Error(this.$t('editor.classifyTip')));
+        callback(new Error(this.$t('editor.kewordsTip')));
       } else {
         callback();
       }

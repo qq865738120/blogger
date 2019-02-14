@@ -234,7 +234,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success:",
-          "content": "{\n code: 200,\n msg: '新增文章成功'\n}",
+          "content": "{\n code: 200,\n msg: '更新成功'\n}",
           "type": "json"
         }
       ]
@@ -243,13 +243,87 @@ define({ "api": [
       "examples": [
         {
           "title": "Error:",
-          "content": "{\n  code: 201,\n  msg: '新增文章失败'\n}",
+          "content": "{\n  code: 201,\n  msg: '更新失败'\n}",
           "type": "json"
         }
       ]
     },
     "version": "1.0.0",
     "filename": "server/api/controller/editor.js",
+    "groupTitle": "Article"
+  },
+  {
+    "type": "get",
+    "url": "/author",
+    "title": "查询作者或者文章",
+    "description": "<p>根据用户id查询该用户所有相关文章或者根据文章id查询该文章所有用户</p>",
+    "name": "select_user_article",
+    "group": "Article",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>用户id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "articleId",
+            "description": "<p>文章id（选传）</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；201：没有找到相关作者</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据（没数据返回空）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功',\n data: ''\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 201,\n  msg: '没有找到相关作者'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/home.js",
     "groupTitle": "Article"
   },
   {
@@ -282,6 +356,13 @@ define({ "api": [
             "optional": false,
             "field": "asc",
             "description": "<p>是否升序排列（选传，默认降序）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<p>文章状态（选传）</p>"
           }
         ]
       }

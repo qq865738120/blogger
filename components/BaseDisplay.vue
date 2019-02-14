@@ -12,7 +12,7 @@
         <span>{{ data.title }}</span>
         <p class="describe" style="-webkit-box-orient: vertical">{{ data.describe }}</p>
         <p class="author" style="-webkit-box-orient: vertical">{{ data.author }}</p>
-        <div class="margin-top-10">
+        <div class="margin-top-10 tags">
           <el-tag
             v-for="(item, index) of data.tag"
             :key="index"
@@ -110,5 +110,10 @@ export default {
 }
 .img > img:hover {
   transform: scale(1.2);
+}
+.tags {
+  height: 21px;
+  overflow: hidden;
+  line-height: 20px;
 }
 </style>

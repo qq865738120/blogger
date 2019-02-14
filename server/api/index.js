@@ -55,6 +55,11 @@ const apiMap = [
     method: home.getArticleByCreateTime
   },
   {
+    path: '/author',
+    type: 'get',
+    method: home.getUserArticle
+  },
+  {
     path: '/article/add',
     type: 'post',
     method: editor.addArticle

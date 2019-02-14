@@ -11,7 +11,7 @@
       <div class="content-bottom">
         <p>{{ data.title }}</p>
         <p>{{ data.author }}</p>
-        <div>
+        <div class="tags">
           <el-tag
             v-for="(item, index) of data.tag"
             :key="index"
@@ -95,5 +95,10 @@ export default {
 }
 .img > img:hover {
   transform: scale(1.2);
+}
+.tags {
+  height: 21px;
+  overflow: hidden;
+  line-height: 20px;
 }
 </style>

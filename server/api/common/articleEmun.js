@@ -54,6 +54,10 @@ module.exports = {
     msg: '成功',
     data: ''
   },
+  NOT_USER_ARTICLE: {
+    code: 201,
+    msg: '没有找到相关作者'
+  },
   NOT_LOGIN: baseEmun.NOT_LOGIN,
   UPDATE_SUCCESS: {
     code: 200,

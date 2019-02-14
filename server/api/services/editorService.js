@@ -28,6 +28,7 @@ module.exports = {
     let dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
     let row = await utils.dbQuery(pool, sql.insertArticle(id, title, authorId, dateTime, dateTime, classId, content, status, illustration, keyWords, describe))
     if (row.fieldCount == 0) {
+      await utils.dbQuery(pool, sql.insertUserArticle(utils.uuid(), authorId, id))
       return emun.ADD_SUCCESS
     } else {
       return emun.ADD_FAIL

@@ -152,7 +152,7 @@ export default {
   },
 
   async asyncData({ app }) {
-    let res = await app.$axios.get('/api/v1/article/createtime', { params: { page: 1, row: 30 } })
+    let res = await app.$axios.get('/api/v1/article/createtime', { params: { page: 1, row: 30, status: 1 } })
     let result = {
       mainDisplay: {},
       subDisplay: [],
