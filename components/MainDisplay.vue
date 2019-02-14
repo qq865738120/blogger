@@ -10,8 +10,8 @@
       </div>
       <div class="content-right margin-left-30">
         <span>{{ data.title }}</span>
-        <p>{{ data.describe }}</p>
-        <p>{{ data.author }}</p>
+        <p class="describe" style="-webkit-box-orient: vertical">{{ data.describe }}</p>
+        <p class="author" style="-webkit-box-orient: vertical">{{ data.author }}</p>
         <div class="margin-top-10">
           <el-tag
             v-for="(item, index) of data.tag"
@@ -88,6 +88,13 @@ export default {
   content: '作者：';
   color: $--color-sub-black;
 }
+.describe {
+  line-height: 24px;
+  @include over-length(3);
+}
+.author {
+  @include over-length(1);
+}
 .content-right > div {
   position: absolute;
   bottom: 0;
@@ -99,6 +106,7 @@ export default {
   border-radius: 4px;
   overflow: hidden;
   transition: all 0.3s ease;
+  object-fit: cover;
 }
 .img > img:hover {
   transform: scale(1.2);

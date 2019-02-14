@@ -130,12 +130,13 @@ export default {
           var file = new File([this.content], 'fileName', {type: 'text/html'});
           file.uid = this.articleId
           console.log(file);
-          this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, data => {
+          this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, async data => {
             console.log(data);
             let keywords = ''
             for (let item of this.form.keyWords) {
               keywords += item + '##'
             }
+            let url = '/api/v1/article/'
             let postData = {
               id: this.articleId,
               title: this.form.title,
@@ -145,10 +146,16 @@ export default {
               status: status,
               illustration: this.$store.state.oldIllustration,
               keywords: keywords,
-              describe: this.text.substring(0, 200)
+              describe: this.text.replace(/\s+/g,"").substring(0, 200)
             }
-            this.$axios.post('/api/v1/article/add', postData).then(res => {
-              console.log('新增文章', res.data);
+            let resData = await this.$axios.get('/api/v1/article/id', { params: { id: this.articleId } })
+            if (resData.data.code == 200) {
+              url += 'modify'
+              postData.lastDate = this.$moment().format('YYYY-MM-DD HH:mm:ss');
+            } else {
+              url += 'add'
+            }
+            this.$axios.post(url, postData).then(res => {
               if (res.data.code == 200) {
                 this.$message({
                   message: status == 0 ? this.$t('editor.saveSuccessTip') : this.$t('editor.publicSuccessTip'),

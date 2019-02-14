@@ -87,12 +87,12 @@ module.exports = {
   * @apiSuccessExample {json} Success:
   *{
   *  code: 200,
-  *  msg: '新增文章成功'
+  *  msg: '更新成功'
   *}
   * @apiErrorExample {json} Error:
   * {
   *   code: 201,
-  *   msg: '新增文章失败'
+  *   msg: '更新失败'
   * }
   * @apiVersion 1.0.0
   */

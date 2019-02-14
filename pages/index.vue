@@ -146,8 +146,54 @@ export default {
           author: '覃云，徐川',
           tag: ['区块链', 'web']
         }
-      ]
+      ],
+      page: 1
     }
+  },
+
+  async asyncData({ app }) {
+    let res = await app.$axios.get('/api/v1/article/createtime', { params: { page: 1, row: 30 } })
+    let result = {
+      mainDisplay: {},
+      subDisplay: [],
+      baseDisplay: []
+    }
+    let data = res.data.data
+    for (let i = 0; i < data.length; i++) {
+      if (i == 0) {
+        let tags = data[i].keywords.split('##')
+        tags.pop()
+        result.mainDisplay = {
+          imgSrc: data[i].illustration,
+          title: data[i].title,
+          describe: data[i].description,
+          author: '12',
+          tag: tags
+        }
+      } else if (i > 0 && i < 4) {
+        let tags = data[i].keywords.split('##')
+        tags.pop()
+        result.subDisplay.push({
+          imgSrc: data[i].illustration,
+          title: data[i].title,
+          author: '12',
+          tag: tags
+        })
+      } else {
+        let tags = data[i].keywords.split('##')
+        tags.pop()
+        result.baseDisplay.push(
+          {
+            imgSrc: data[i].illustration,
+            title: data[i].title,
+            describe: data[i].description,
+            author: '12',
+            tag: tags
+          }
+        )
+      }
+    }
+    return result
   },
 
   async fetch({ app, store }) {

@@ -94,7 +94,7 @@ module.exports = {
     let millustration = illustration ? illustration : 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/article-illustration-default.png';
     let mkeyWords = keyWords ? keyWords : ''
     return `INSERT INTO article (id, title, author_id, created_date, last_date, class_id, content, status, illustration, keywords, description)
-    VALUES ('${id}', '${title}', '${authorId}', '${mcreatedDate}', '${mlastDate}', '${classId}', '${content}', '${mstatus}', '${illustration}', '${mkeyWords}', '${describe}')`
+    VALUES ('${id}', '${title}', '${authorId}', '${mcreatedDate}', '${mlastDate}', '${classId}', '${content}', '${mstatus}', '${millustration}', '${mkeyWords}', '${describe}')`
   },
 
   /*

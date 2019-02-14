@@ -123,7 +123,6 @@ export default {
       })
     }
     this.$axios.get('/api/v1/classify').then(res => {
-      console.log(res.data.data);
       this.$store.commit('SET_CLASSIFY', res.data.data)
     })
   },

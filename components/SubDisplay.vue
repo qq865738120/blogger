@@ -91,6 +91,7 @@ export default {
   border-radius: 4px;
   overflow: hidden;
   transition: all 0.3s ease;
+  object-fit: cover;
 }
 .img > img:hover {
   transform: scale(1.2);

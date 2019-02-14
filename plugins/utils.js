@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import moment from "moment";
 const COS = require('cos-js-sdk-v5')
 const config = require('@/configs/index')
 const MD5 = require('md5')
@@ -43,6 +44,8 @@ const getCos = function (that, action) {
     }
   });
 }
+
+Vue.prototype.$moment = moment;
 
 Vue.prototype.$utils = {
 

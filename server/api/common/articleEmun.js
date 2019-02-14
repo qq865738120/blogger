@@ -60,7 +60,7 @@ module.exports = {
     msg: '更新成功'
   },
   UPDATE_FAIL: {
-    code: 200,
+    code: 201,
     msg: '更新失败'
   },
 }
