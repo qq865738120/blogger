@@ -174,7 +174,7 @@ module.exports = {
   参数： articleId String 文章id（必传）
   */
   showAuthorByArticleId: (articleId) => {
-    return `SELECT user.id ,user.nickname, user.avatar FROM user_article, user WHERE article_id='${articleId}'`
+    return `SELECT user.id ,user.nickname, user.avatar FROM user_article, user WHERE user_article.article_id='${articleId}' AND user_article.user_id=user.id`
   }
 
 }

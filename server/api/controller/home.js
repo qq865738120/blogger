@@ -44,6 +44,7 @@ module.exports = {
   * @apiParam {Number} row 该页多少行（选传，默认20）
   * @apiParam {Boolean} asc 是否升序排列（选传，默认降序）
   * @apiParam {Number} status 文章状态（选传）
+  * @apiParam {Number} showAuthor 是否展示作者昵称（选传）
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccess {Object} data 数据（没数据返回空）
@@ -67,7 +68,7 @@ module.exports = {
     } else {
       let row = req.query.row ? parseInt(req.query.row) : 20;
       let asc = req.query.asc ? ( req.query.asc == 'true' ? true : false ) : false
-      result = await service.showArticleByCreateTime(req.query.page, row, asc, req.query.status)
+      result = await service.showArticleByCreateTime(req.query.page, row, asc, req.query.status, req.query.showAuthor)
     }
     res.json(result)
   },

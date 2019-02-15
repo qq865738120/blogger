@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <nuxt-link
-      :to="{ name: 'article-id', params: { id: 123 }}"
+      :to="{ name: 'article-id', params: { id: data.id }}"
       class="content">
       <div class="img">
         <img
@@ -36,6 +36,7 @@ export default {
       // required: true,
       default: function() {
         return {
+          id: '555',
           imgSrc:
             'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
           title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',

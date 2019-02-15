@@ -27,15 +27,26 @@ module.exports = {
        rows Number 有几行（选传，默认20）
        isAsc Boolean 是否升序（选传，默认降序）
        status Number 文章状态（选传）
+       isShowAuthor Boolean 是否需要展示作者昵称（选传，默认不展示）
   返回：articleEmun枚举
   */
-  async showArticleByCreateTime(page, rows, isAsc, status) {
+  async showArticleByCreateTime(page, rows, isAsc, status, isShowAuthor) {
     let row = await utils.dbQuery(pool, sql.showArticleByCreateTimeDescPage(page < 1 ? 1 : page, rows, isAsc, status))
     if (row.length == 0) {
       return emun.NOT_ARTICLE
     } else {
       let data = emun.ARTICLE_SUCCESS
       data.data = row
+      if (isShowAuthor) {
+        for (let i = 0; i < row.length; i++) {
+          let authorStr = ''
+          let rows = await utils.dbQuery(pool, sql.showAuthorByArticleId(row[i].id))
+          for (let it of rows) {
+            authorStr += (it.nickname + ',')
+          }
+          data.data[i].authorStr = authorStr.substring(0, authorStr.length - 2)
+        }
+      }
       return data
     }
   },

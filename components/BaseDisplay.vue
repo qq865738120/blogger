@@ -1,7 +1,7 @@
 <template>
   <div>
     <nuxt-link
-      :to="{ name: 'article-id', params: { id: 123 }}"
+      :to="{ name: 'article-id', params: { id: data.id }}"
       class="content">
       <div class="img flex-inline-center">
         <img
@@ -9,7 +9,7 @@
         >
       </div>
       <div class="content-right margin-left-30">
-        <span>{{ data.title }}</span>
+        <span style="-webkit-box-orient: vertical">{{ data.title }}</span>
         <p class="describe" style="-webkit-box-orient: vertical">{{ data.describe }}</p>
         <p class="author" style="-webkit-box-orient: vertical">{{ data.author }}</p>
         <div class="margin-top-10 tags">
@@ -37,6 +37,7 @@ export default {
       // required: true,
       default: function() {
         return {
+          id: '222',
           imgSrc:
             'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
           title: '2018 年终盘点：“年度爆款”的区块链真的结束？',
@@ -65,7 +66,7 @@ export default {
   font-size: $--large;
   max-height: 48px;
   line-height: 24px;
-  @include over-length(2);
+  @include over-length(1);
 }
 .content-right > span:nth-child(1):hover {
   color: $--color-main-light-2;

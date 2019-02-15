@@ -12,7 +12,9 @@
     "public": "发布",
     "keyWords": "关键词",
     "tip": "提示",
-    "know": "知道了"
+    "know": "知道了",
+    "loadingMore": "加载更多",
+    "bottomLine": "我是有底线的"
   },
   "header": {
     "homePage": "首页",
