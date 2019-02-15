@@ -254,6 +254,73 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/author/info",
+    "title": "查询作者详细信息",
+    "description": "<p>根据文章id查询所有参与该文章修改或编写的所有作者信息</p>",
+    "name": "select_author",
+    "group": "Article",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "articleId",
+            "description": "<p>文章id（必传）</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；201：没有找到相关作者</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据（没数据返回空）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功',\n data: ''\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 201,\n  msg: '没有找到相关作者'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/home.js",
+    "groupTitle": "Article"
+  },
+  {
+    "type": "get",
     "url": "/author",
     "title": "查询作者或者文章",
     "description": "<p>根据用户id查询该用户所有相关文章或者根据文章id查询该文章所有用户</p>",

@@ -60,6 +60,11 @@ const apiMap = [
     method: home.getUserArticle
   },
   {
+    path: '/author/info',
+    type: 'get',
+    method: home.getAuthor
+  },
+  {
     path: '/article/add',
     type: 'post',
     method: editor.addArticle

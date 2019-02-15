@@ -48,12 +48,27 @@ module.exports = {
   async showUserArticle(userId, articleId) {
     let row = await utils.dbQuery(pool, sql.showUserArticle(userId, articleId))
     if (row.length == 0) {
-      return emun.NOT_ARTICLE
+      return emun.NOT_USER_ARTICLE
     } else {
       let data = emun.ARTICLE_SUCCESS
       data.data = row
       return data
     }
-  }
+  },
+
+  /*
+  查询指定文章的所有作者/修改者
+  参数： articleId String 文章id（必传）
+  */
+  async showAuthorByArticleId(articleId) {
+    let row = await utils.dbQuery(pool, sql.showAuthorByArticleId(articleId))
+    if (row.length == 0) {
+      return emun.NOT_USER_ARTICLE
+    } else {
+      let data = emun.ARTICLE_SUCCESS
+      data.data = row
+      return data
+    }
+  },
 
 }

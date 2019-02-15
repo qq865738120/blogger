@@ -180,7 +180,6 @@ export default {
     onEditorChange(content, text) {
       this.content = content
       this.text = text
-      console.log('text', text);
     },
 
   }

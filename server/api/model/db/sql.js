@@ -156,17 +156,25 @@ module.exports = {
         articleId String 文章id（选传）
   */
   showUserArticle: (userId, articleId) => {
-    let muserId = userId ? 'user_id=' + userId : '';
-    let marticleId = articleId ? 'article_id=' + articleId : '';
+    let muserId = userId ? "user_id='" + userId + "'" : '';
+    let marticleId = articleId ? "article_id='" + articleId + "'" : '';
     let str = ''
     if (muserId && marticleId) {
-      str = muserId + 'AND' + marticleId
+      str = `WHERE ${muserId} AND ${marticleId}`
     } else if (muserId) {
-      str = muserId
+      str = `WHERE ${muserId}`
     } else if (marticleId) {
-      str = marticleId
+      str = `WHERE ${marticleId}`
     }
-    return `select * from user_article WHERE ${str} limit 0, 2000`
+    return `select * from user_article ${str} limit 0, 6000`
+  },
+
+  /*
+  查询指定文章的所有作者/修改者
+  参数： articleId String 文章id（必传）
+  */
+  showAuthorByArticleId: (articleId) => {
+    return `SELECT user.id ,user.nickname, user.avatar FROM user_article, user WHERE article_id='${articleId}'`
   }
 
 }
