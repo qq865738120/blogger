@@ -39,14 +39,36 @@ export default {
     }
   },
 
-  async asyncData({ app, params }) {
+  async asyncData({ app, params, route }) {
     let res = await app.$axios.get('/api/v1/article/id', { params: { id: params.id } })
-    // if ()
+    if (res.data.code == 200) {
+      let content = await app.$axios.get(res.data.data.content)
+      let authorData = await app.$axios.get('/api/v1/user/info/id', { params: { id: res.data.data.author_id } })
+      let author = ''
+      if (authorData.data.code == 200) {
+        author = authorData.data.data.nickname
+      }
+      return {
+        title: res.data.data.title,
+        author: author,
+        watchCount: res.data.data['watch_count'],
+        modifyCount: res.data.data['modify_count'],
+        createTime: res.data.data.created_date,
+        lastTime: res.data.data.last_date,
+        imgSrc: res.data.data.illustration,
+        articleContent: content.data.replace('<img ', '<img style="width: 100%"')
+      }
+
+    } else {
+      app.router.push({name: 'error', params: { statusCode: 404 }})
+    }
   },
 
   mounted() {
     if (process.client) {
       document.getElementsByTagName('body')[0].style.background="white";
+      this.createTime = this.$moment(this.createTime).format('YYYY/MM/DD')
+      this.lastTime = this.$moment(this.lastTime).format('YYYY/MM/DD')
     }
   },
 }

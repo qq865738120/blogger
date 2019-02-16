@@ -39,6 +39,22 @@ module.exports = {
     } else {
       return emun.UPDATE_SUCCESS
     }
+  },
+
+  /*
+  查询用户信息，通过id
+  参数：id 用户id
+  返回：userEmun枚举
+  */
+  async showUserInfoById(id) {
+    let row = await utils.dbQuery(pool, sql.showUserById(id))
+    if (row.length == 0) {
+      return emun.NOT_USESR
+    } else {
+      let data = emun.USER_SUCCESS
+      data.data = row[0]
+      return data
+    }
   }
 
 }

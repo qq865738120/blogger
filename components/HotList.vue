@@ -5,7 +5,7 @@
         v-for="(item, index) of data"
         :key="item.id"
         :data-index="index + 1"
-        class="font-small">
+        class="font-small hover-pointer">
         {{ item.title }}
       </li>
     </ul>
@@ -60,6 +60,9 @@ export default {
   line-height: 24px;
   font-weight: 400;
   position: relative;
+}
+.root ul li:hover {
+  color: $--color-main-light-2;
 }
 .root ul li::before {
   content: ' ';

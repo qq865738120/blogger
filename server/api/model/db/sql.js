@@ -7,7 +7,7 @@ module.exports = {
   根据id查找用户
   */
   showUserById: id => {
-    return `select * from user where id='${id}'`
+    return `select nickname, avatar, signature from user where id='${id}'`
   },
 
   /*

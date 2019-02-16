@@ -1,15 +1,14 @@
 <template>
   <div class="err-page-root color-main-light-8">
-    <div v-if="error.statusCode === 404" class="iconfont open-icon-err404"></div>
+    <div v-if="$route.params.statusCode === 404" class="iconfont open-icon-err404"></div>
     <div v-else class="iconfont open-icon-err500"></div>
-    <p>{{ error.statusCode  === 404 ? "很抱歉，您访问的页面不存在" : "服务器内部错误" }}</p>
+    <p>{{ $route.params.statusCode  === 404 ? "很抱歉，您访问的页面不存在" : "服务器内部错误" }}</p>
     <el-button type="primary" @click="onJump" round>{{ time + $t('common.jumpToHome') }}</el-button>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['error'],
   layout: 'main',
   data() {
     return {
@@ -39,7 +38,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'assets/style/common';
 
 .err-page-root {

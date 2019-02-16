@@ -35,6 +35,11 @@ const apiMap = [
     method: user.userInfo
   },
   {
+    path: '/user/info/id',
+    type: 'get',
+    method: user.userInfoById
+  },
+  {
     path: '/user/update',
     type: 'post',
     method: user.userUpdate
