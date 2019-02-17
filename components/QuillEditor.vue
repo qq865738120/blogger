@@ -145,8 +145,9 @@ export default {
       // console.log('editor ready!', editor)
     },
     onEditorChange({ editor, html, text }) {
-      // console.log('editor change!', editor, html, text)
       this.html = html;
+      this.content = this.content.replace('<p>', '<p style="line-height: 1.8; word-break: break-all"')
+      this.content = this.content.replace('<img ', '<img style="width: 100%" ')
       this.$emit('onEditorChange', this.content, text);
     },
   }

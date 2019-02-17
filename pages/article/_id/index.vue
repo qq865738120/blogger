@@ -56,7 +56,7 @@ export default {
         createTime: res.data.data.created_date,
         lastTime: res.data.data.last_date,
         imgSrc: res.data.data.illustration,
-        articleContent: content.data.replace('<img ', '<img style="width: 100%"')
+        articleContent: content.data.replace('<pre ', '<pre style="padding: 30px 25px 15px; background: #5a5b5d; border-radius: 3px;" ')
       }
 
     } else {

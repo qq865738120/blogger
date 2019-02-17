@@ -102,10 +102,6 @@ export default {
 
   },
   mounted() {
-    var scrollbar = new this.$geminiScrollbar({
-      element: document.body,
-      autoshow: true
-    }).create()
     this.logSrc = process.env.cosPath + '/system/logo.png';
     if (this.$store.state.isLogin && this.$store.state.userInfo == '') {
       const loading = this.$loading({
