@@ -104,6 +104,16 @@ const apiMap = [
     type: 'post',
     method: user.deleteCollectionArticle
   },
+  {
+    path: '/editor/modify',
+    type: 'post',
+    method: editor.articleModify
+  },
+  {
+    path: '/editor/modify',
+    type: 'get',
+    method: editor.getArticleModify
+  },
 ]
 
 for (let item of apiMap) {

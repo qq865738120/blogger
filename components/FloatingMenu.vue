@@ -27,6 +27,8 @@ export default {
       let res = await this.$axios.get('/api/v1/article/collection', { params: { userId: this.$store.state.userInfo.id, collectionId: this.articleId } })
       if (res.data.code == 200) {
         this.$store.commit('SET_HAS_COLLEC', true)
+      } else {
+        this.$store.commit('SET_HAS_COLLEC', false)
       }
     }
   },

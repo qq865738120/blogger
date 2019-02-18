@@ -208,7 +208,7 @@ module.exports = {
   },
 
   /*
-  删除user_collection_article表数据
+  删除user_collection_article表数据（三个参数至少传一个）
   参数： id String 主键id（选传）
         userId String 用户id（选传）
         collectionId String 收藏的文章id（选传）
@@ -227,10 +227,25 @@ module.exports = {
   参数：id String 主键id
        modifierId String 修改人id
        content String 内容
+       articleId String 文章id
   */
-  insertArticleModification: (id, modifierId, content) => {
+  insertArticleModification: (id, modifierId, content, articleId) => {
     let dateTime = moment().format('YYYY-MM-DD HH:mm:ss')
-    return `INSERT INTO article_modification VALUES ('${id}', '${modifierId}', '${content}', '${dateTime}')`
+    return `INSERT INTO article_modification VALUES ('${id}', '${modifierId}', '${content}', '${dateTime}', '${articleId}')`
+  },
+
+  /*
+  查询article_modification表（三个参数至少传一个）
+  参数：id String 主键id
+       modifierId String 修改人id
+       articleId String 文章id
+  */
+  showArticleModification: (id, modifierId, articleId) => {
+    let mid = id ? ` id='${id}' AND` : '';
+    let mmodifierId = modifierId ? ` modifier_id='${modifierId}' AND` : '';
+    let marticleId = articleId ? ` article_id='${articleId}' AND` : ''
+    let sql = `SELECT * FROM article_modification WHERE${mid}${mmodifierId}${marticleId}`
+    return sql.substring(0, sql.length - 3)
   }
 
 }

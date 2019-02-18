@@ -120,6 +120,79 @@ module.exports = {
       )
     }
     res.json(result)
+  },
+
+  /**
+  * @api {post} /editor/modify 读者修改文章
+  * @apiDescription 读者修改文章，非作者本人修改文章
+  * @apiName modify article for editor
+  * @apiGroup Article
+  * @apiParam {string} modifierId 修改人id（必传）
+  * @apiParam {string} content 文章内容（必传）
+  * @apiParam {string} articleId 文章id（必传）
+  * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功'
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 201,
+  *   msg: '失败'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async articleModify(req, res) {
+    let result = {}
+    if (!req.session.user) {
+      result = emun.NOT_LOGIN
+    } else if (!req.body.modifierId) {
+      result = emun.PAR_MODIFIER_ID_ERR
+    } else if (!req.body.content) {
+      result = emun.PAR_CONTENT_ERR
+    } else if (!req.body.articleId) {
+      result = emun.PAR_AUTHOR_ID_ERR
+    } else {
+      result = await service.addArticleModification(req.body.modifierId, req.body.content, req.body.articleId)
+    }
+    res.json(result)
+  },
+
+  /**
+  * @api {get} /editor/modify 查找读者修改文章（参数三选一）
+  * @apiDescription 读者修改文章，非作者本人修改文章
+  * @apiName show modify article for editor
+  * @apiGroup Article
+  * @apiParam {string} id id（选传）
+  * @apiParam {string} modifierId 修改人id（选传）
+  * @apiParam {string} articleId 文章id（选传）
+  * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccess {Array} data 数据
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功',
+  *  data: []
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 201,
+  *   msg: '失败'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async getArticleModify(req, res) {
+    let result = {}
+    console.log('req.query.modifierId', req.query.modifierId);
+    if (!req.query.id && !req.query.modifierId && !req.query.articleId) {
+      result = emun.PAR_ERR
+    } else {
+      result = await service.showArticleModification(req.query.id, req.query.modifierId, req.query.articleId)
+    }
+    res.json(result)
   }
 
 }

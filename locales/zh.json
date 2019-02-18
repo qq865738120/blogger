@@ -2,8 +2,10 @@
   "language": "简体中文",
   "common": {
     "notLoginTip": "您还没有登录，或者登录身份已过期！",
-    "modifySuccess": "修改成功！",
+    "modifySuccess": "修改成功，等待作者审核！",
+    "modifyFail": "修改失败！",
     "confirmChanges": "确认修改",
+    "commitModify": "提交修改",
     "passwdErr": "密码不正确!",
     "author": "作者",
     "start": "始于",
@@ -127,6 +129,7 @@
     "saveSuccessTip": "保存成功！",
     "saveFailTip": "保存失败！",
     "publicSuccessTip": "发布成功！",
-    "publicFailTip": "发布失败！"
+    "publicFailTip": "发布失败！",
+    "modifyLimitTip": "修改已达到上限，等待作者审批后再来提交吧！"
   }
 }

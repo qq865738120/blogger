@@ -69,4 +69,13 @@ module.exports = {
     code: 201,
     msg: '更新失败'
   },
+  PAR_MODIFIER_ID_ERR: {
+    code: 300,
+    msg: 'modifierId参数异常'
+  },
+  NOT_ARTICLE_MODIFICATION: {
+    code: 201,
+    msg: '没有找到相关文章修改记录'
+  },
+  PAR_ERR: baseEmun.PAR_ERR
 }

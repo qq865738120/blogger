@@ -65,12 +65,28 @@ module.exports = {
   参数：modifierId String 修改人id
        content String 内容
   */
-  async addArticleModification(modifierId, content) {
-    let row = await utils.dbQuery(pool, sql.insertArticleModification(utils.uuid(), modifierId, content))
+  async addArticleModification(modifierId, content, articleId) {
+    let row = await utils.dbQuery(pool, sql.insertArticleModification(utils.uuid(), modifierId, content, articleId))
     if (row.fieldCount == 0) {
       return emun.SUCCESS
     } else {
       return emun.FAIL
+    }
+  },
+
+  /*
+  查找文章修改记录（三个参数至少传一个）
+  参数：modifierId String 修改人id
+       content String 内容
+  */
+  async showArticleModification(id, modifierId, articleId) {
+    let row = await utils.dbQuery(pool, sql.showArticleModification(id, modifierId, articleId))
+    if (row.length == 0) {
+      return emun.NOT_ARTICLE_MODIFICATION
+    } else {
+      let data = emun.ARTICLE_SUCCESS
+      data.data = row
+      return data
     }
   },
 

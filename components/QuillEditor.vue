@@ -136,8 +136,6 @@ export default {
         this.content = content.data
       }
     }
-    console.log('this.content', this.content);
-
     hljs.configure({
       languages: ['c#','c++','css','coffeescript','html','xml','http','json','java','javascript','markdown','nginx','php','python','ruby','sql','shell']
     });
