@@ -55,6 +55,52 @@ module.exports = {
       data.data = row[0]
       return data
     }
-  }
+  },
+
+  /*
+  新增文章收藏
+  参数：userId String 用户id
+       collectionId String 收藏的文章id
+  */
+  async addCollectionArticle(userId, collectionId) {
+    let row = await utils.dbQuery(pool, sql.insertUserCollectionArticle(utils.uuid(), userId, collectionId))
+    if (row.fieldCount != 0) {
+      return emun.FAIL
+    } else {
+      return emun.SUCCESS
+    }
+  },
+
+  /*
+  查询user_collection_article表
+  参数： id String 主键id（选传）
+        userId String 用户id（选传）
+        collectionId String 收藏的文章id（选传）
+  */
+  async showCollectionArticle(id, userId, collectionId) {
+    let row = await utils.dbQuery(pool, sql.showUserCollectionArticle(id, userId, collectionId))
+    if (row.length == 0) {
+      return emun.NOT_COLLECTION
+    } else {
+      let data = emun.USER_SUCCESS
+      data.data = row
+      return data
+    }
+  },
+
+  /*
+  删除文章收藏
+  参数： id String 主键id（选传）
+        userId String 用户id（选传）
+        collectionId String 收藏的文章id（选传）
+  */
+  async deleteCollectionArticle(id, userId, collectionId) {
+    let row = await utils.dbQuery(pool, sql.deleteUserCollectionArticle(id, userId, collectionId))
+    if (row.fieldCount != 0) {
+      return emun.FAIL
+    } else {
+      return emun.SUCCESS
+    }
+  },
 
 }

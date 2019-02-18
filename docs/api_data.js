@@ -430,6 +430,13 @@ define({ "api": [
             "optional": false,
             "field": "status",
             "description": "<p>文章状态（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "showAuthor",
+            "description": "<p>是否展示作者昵称（选传）</p>"
           }
         ]
       }
@@ -735,6 +742,66 @@ define({ "api": [
     "groupTitle": "Other"
   },
   {
+    "type": "post",
+    "url": "/article/collection/delete",
+    "title": "取消文章收藏",
+    "description": "<p>取消文章收藏的接口，需要有登录权限</p>",
+    "name": "cancel_collection_article",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "collectionId",
+            "description": "<p>文章id（选传）</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：参数异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: 'collectionId参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/user.js",
+    "groupTitle": "User"
+  },
+  {
     "type": "get",
     "url": "/check",
     "title": "检验用户登录",
@@ -779,6 +846,73 @@ define({ "api": [
     },
     "version": "1.0.0",
     "filename": "server/api/controller/autho.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/article/collection",
+    "title": "收藏文章",
+    "description": "<p>收藏文章接口，需要有登录权限</p>",
+    "name": "collection_article",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>用户id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "collectionId",
+            "description": "<p>文章id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：参数异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: '参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/user.js",
     "groupTitle": "User"
   },
   {
@@ -964,6 +1098,87 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/article/collection",
+    "title": "获取收藏文章",
+    "description": "<p>获取收藏的文章接口，需要有登录权限</p>",
+    "name": "show_collection_article",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>收藏id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>用户id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "collectionId",
+            "description": "<p>文章id（选传）</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：参数异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功',\n data: []\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: '参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/user.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
     "url": "/user/info",
     "title": "查询用户信息",
     "description": "<p>查询用户信息，需要先登录获取用户权限</p>",
@@ -1010,6 +1225,60 @@ define({ "api": [
     "groupTitle": "User"
   },
   {
+    "type": "get",
+    "url": "/user/info/id",
+    "title": "查询用户信息",
+    "description": "<p>查询用户信息</p>",
+    "name": "userInfo_by_id",
+    "group": "User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：参数异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功',\n data: ''\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: '参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/user.js",
+    "groupTitle": "User"
+  },
+  {
     "type": "post",
     "url": "/user/update",
     "title": "更新用户信息",
@@ -1045,13 +1314,20 @@ define({ "api": [
             "optional": false,
             "field": "msg",
             "description": "<p>错误信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success:",
-          "content": "{\n code: 200,\n msg: '更新成功'\n}",
+          "content": "{\n code: 200,\n msg: '更新成功',\n data: ''\n}",
           "type": "json"
         }
       ]

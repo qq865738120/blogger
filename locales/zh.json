@@ -15,7 +15,11 @@
     "know": "知道了",
     "loadingMore": "加载更多",
     "bottomLine": "我是有底线的",
-    "jumpToHome": "秒后跳转到首页"
+    "jumpToHome": "秒后跳转到首页",
+    "collection": "收藏",
+    "edit": "编辑",
+    "collectionSuccess": "收藏成功",
+    "collectionFail": "收藏失败"
   },
   "header": {
     "homePage": "首页",

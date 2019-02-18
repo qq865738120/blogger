@@ -1,6 +1,9 @@
 <template>
   <div class="article-root">
     <!-- {{ $route.params.id }} -->
+    <div class="floating-menu" :hidden="!isShowMenu">
+      <floating-menu :articleId="$route.params.id"></floating-menu>
+    </div>
     <div class="content">
       <span class="title">{{ title }}</span>
       <p class="author font-small">{{ author }}</p>
@@ -19,13 +22,20 @@
       </div>
       <div class="article-content" v-html="articleContent"></div>
     </div>
+    <div style="width: 180px; margin: 0 auto;" class="margin-top-40">
+      <floating-menu :isRow="true" :articleId="$route.params.id"></floating-menu>
+    </div>
   </div>
 </template>
 
 <script>
+import FloatingMenu from '~/components/FloatingMenu.vue'
+
 export default {
   layout: 'main',
-
+  components: {
+    FloatingMenu
+  },
   data() {
     return {
       title: '标题标题标题标题标题标题标题',
@@ -35,7 +45,8 @@ export default {
       createTime: '2018年10月22日',
       lastTime: '2019年1月16日',
       imgSrc: 'https://static001.infoq.cn/resource/image/b3/2f/b3f838656a0f460890458dbec32c032f.jpg',
-      articleContent: ''
+      articleContent: '',
+      isShowMenu: true
     }
   },
 
@@ -69,8 +80,26 @@ export default {
       document.getElementsByTagName('body')[0].style.background="white";
       this.createTime = this.$moment(this.createTime).format('YYYY/MM/DD')
       this.lastTime = this.$moment(this.lastTime).format('YYYY/MM/DD')
+      window.addEventListener('scroll', this.handleScroll);
     }
   },
+
+  methods: {
+    handleScroll() {
+      var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+   		var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+   		var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+      if (scrollTop + windowHeight + 300 >= scrollHeight) {
+        if (this.isShowMenu) {
+          this.isShowMenu = false
+        }
+      } else {
+        if (!this.isShowMenu) {
+          this.isShowMenu = true
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -134,5 +163,13 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 3px;
+}
+.floating-menu {
+  position: fixed;
+  left: 50%;
+  top: calc(50% + 60px);
+  z-index: 300;
+  margin-left: -490px;
+  transform: translateY(-50%);
 }
 </style>

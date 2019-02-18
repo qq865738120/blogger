@@ -18,13 +18,13 @@ export default {
     }
   },
   async mounted() {
-    this.$utils.doLogin(this, { passwd: '1', username: '1' }, async () => {
+    // this.$utils.doLogin(this, { passwd: '1', username: '1' }, async () => {
 
-      let result = await this.$axios.get('/api/v1/author/info', { params: { articleId: '585A8ACA8AEA2C91046AEF67D243A5' } })
+      let result = await this.$axios.post('/api/v1/article/collection', { userId: '4CFD08792740050D9B5587B2DB0B7F', collectionId: '0C425132FB73CEACDD50CDF0825D3D' })
       console.log('result', result.data);
       this.result = result.data
 
-    }, '/test')
+    // }, '/test')
   }
 }
 </script>

@@ -89,6 +89,21 @@ const apiMap = [
     type: 'get',
     method: common.getUUID
   },
+  {
+    path: '/article/collection',
+    type: 'post',
+    method: user.addCollectionArticle
+  },
+  {
+    path: '/article/collection',
+    type: 'get',
+    method: user.showCollectionArticle
+  },
+  {
+    path: '/article/collection/delete',
+    type: 'post',
+    method: user.deleteCollectionArticle
+  },
 ]
 
 for (let item of apiMap) {

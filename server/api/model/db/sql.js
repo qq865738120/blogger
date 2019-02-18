@@ -175,6 +175,51 @@ module.exports = {
   */
   showAuthorByArticleId: (articleId) => {
     return `SELECT user.id ,user.nickname, user.avatar FROM user_article, user WHERE user_article.article_id='${articleId}' AND user_article.user_id=user.id`
+  },
+
+  /*
+  将数据插入user_collection_article表
+  参数：id String 主键id
+       userId String 用户id
+       collectionId String 收藏的文章id
+  */
+  insertUserCollectionArticle: (id, userId, collectionId) => {
+    return `INSERT INTO user_collection_article VALUES ('${id}', '${userId}', '${collectionId}')`
+  },
+
+  /*
+  查询user_collection_article表
+  参数： id String 主键id（选传）
+        userId String 用户id（选传）
+        collectionId String 收藏的文章id（选传）
+  */
+  showUserCollectionArticle: (id, userId, collectionId) => {
+    let mid = id ? ` id='${id}' AND` : '';
+    let muserId = userId ? ` user_id='${userId}' AND` : '';
+    let mcollectionId = collectionId ? ` collection_id='${collectionId}' AND` : ''
+    let sql = '';
+    if (!mid && !muserId && !mcollectionId) {
+      sql = `SELECT * FROM user_collection_article limit 0, 6000`
+    } else {
+      sql = `SELECT * FROM user_collection_article WHERE${mid}${muserId}${mcollectionId}`
+      sql = sql.substring(0, sql.length - 3)
+    }
+    return sql
+  },
+
+  /*
+  删除user_collection_article表数据
+  参数： id String 主键id（选传）
+        userId String 用户id（选传）
+        collectionId String 收藏的文章id（选传）
+  */
+  deleteUserCollectionArticle: (id, userId, collectionId) => {
+    let mid = id ? ` id='${id}' AND` : '';
+    let muserId = userId ? ` user_id='${userId}' AND` : '';
+    let mcollectionId = collectionId ? ` collection_id='${collectionId}' AND` : ''
+    let sql = `DELETE FROM user_collection_article WHERE${mid}${muserId}${mcollectionId}`
+    sql = sql.substring(0, sql.length - 3)
+    return sql
   }
 
 }

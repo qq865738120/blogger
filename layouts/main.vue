@@ -141,7 +141,11 @@ export default {
             type: res.data.code == 200 ? 'success' : 'error'
           });
           if (res.data.code == 200) {
-            location.reload();
+            this.$router.push('/');
+            setTimeout(() => {
+              location.reload();
+            }, 1000)
+
           }
         })
       }

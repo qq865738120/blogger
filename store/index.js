@@ -5,7 +5,7 @@ export const state = () => ({
   userInfo: '', //用户信息
   oldIllustration: '', //旧的插图路径
   classList: [], //分类列表
-  scrollbar: '', //滚动条实例
+  hasCollec: false, //是否已经收藏
 })
 export const mutations = {
   SET_LANG(state, locale) {
@@ -25,7 +25,7 @@ export const mutations = {
   SET_CLASSIFY(state, value) {
     state.classList = value
   },
-  SET_SCROLLBAR(state, value) {
-    state.scrollbar = value;
+  SET_HAS_COLLEC(state, value) {
+    state.hasCollec = value
   }
 }
