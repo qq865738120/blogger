@@ -1,6 +1,8 @@
 const baseEmun = require('./baseEmun')
 
 module.exports = {
+  FAIL: baseEmun.FAIL,
+  SUCCESS: baseEmun.SUCCESS,
   PAR_ARTICLE_ID_ERR: {
     code: 300,
     msg: '文章id参数异常'

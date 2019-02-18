@@ -112,6 +112,9 @@
 <script>
 
 export default {
+  props: {
+    articleId: String
+  },
   data () {
     return {
       content: '',
@@ -126,9 +129,15 @@ export default {
     }
   },
   async mounted() {
-    // let res = await this.$axios.get('https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/user/111/9906182432051.html')
-    // console.log('res', res.data);
-    // this.html = res.data
+    if (this.articleId) {
+      let article = await this.$axios.get('/api/v1/article/id', { params: { id: this.articleId } })
+      if (article.data.code == 200) {
+        let content = await this.$axios.get(article.data.data.content)
+        this.content = content.data
+      }
+    }
+    console.log('this.content', this.content);
+
     hljs.configure({
       languages: ['c#','c++','css','coffeescript','html','xml','http','json','java','javascript','markdown','nginx','php','python','ruby','sql','shell']
     });

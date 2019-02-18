@@ -58,6 +58,20 @@ module.exports = {
     } else {
       return emun.UPDATE_FAIL
     }
-  }
+  },
+
+  /*
+  新增文章修改记录
+  参数：modifierId String 修改人id
+       content String 内容
+  */
+  async addArticleModification(modifierId, content) {
+    let row = await utils.dbQuery(pool, sql.insertArticleModification(utils.uuid(), modifierId, content))
+    if (row.fieldCount == 0) {
+      return emun.SUCCESS
+    } else {
+      return emun.FAIL
+    }
+  },
 
 }

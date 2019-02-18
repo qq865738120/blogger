@@ -220,6 +220,17 @@ module.exports = {
     let sql = `DELETE FROM user_collection_article WHERE${mid}${muserId}${mcollectionId}`
     sql = sql.substring(0, sql.length - 3)
     return sql
+  },
+
+  /*
+  将数据插入article_modification表
+  参数：id String 主键id
+       modifierId String 修改人id
+       content String 内容
+  */
+  insertArticleModification: (id, modifierId, content) => {
+    let dateTime = moment().format('YYYY-MM-DD HH:mm:ss')
+    return `INSERT INTO article_modification VALUES ('${id}', '${modifierId}', '${content}', '${dateTime}')`
   }
 
 }
