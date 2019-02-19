@@ -44,7 +44,8 @@ module.exports = {
   * @apiParam {Number} row 该页多少行（选传，默认20）
   * @apiParam {Boolean} asc 是否升序排列（选传，默认降序）
   * @apiParam {Number} status 文章状态（选传）
-  * @apiParam {Number} showAuthor 是否展示作者昵称（选传）
+  * @apiParam {Boolean} showAuthor 是否展示作者昵称，默认不展示提升性能（选传）
+  * @apiParam {String} authorId 根据作者id筛选结果（选传）
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccess {Object} data 数据（没数据返回空）
@@ -68,7 +69,7 @@ module.exports = {
     } else {
       let row = req.query.row ? parseInt(req.query.row) : 20;
       let asc = req.query.asc ? ( req.query.asc == 'true' ? true : false ) : false
-      result = await service.showArticleByCreateTime(req.query.page, row, asc, req.query.status, req.query.showAuthor)
+      result = await service.showArticleByCreateTime(req.query.page, row, asc, req.query.status, req.query.showAuthor, req.query.authorId)
     }
     res.json(result)
   },
@@ -131,6 +132,39 @@ module.exports = {
     } else {
       result = await service.showAuthorByArticleId(req.query.articleId)
     }
+    res.json(result)
+  },
+
+  /**
+  * @api {get} /article/count 查询文章数量
+  * @apiDescription 根据指定条件查询文章数量
+  * @apiName select article count
+  * @apiGroup Article
+  * @apiParam {String} authorId 作者id（选传）
+  * @apiParam {String} classId 类别id（选传）
+  * @apiParam {String} title 标题（选传）
+  * @apiParam {String} keywords 关键字（选传）
+  * @apiSuccess {Number} code 错误码 200：成功；201：没有找到相关作者
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccess {Object} data 数据（没数据返回空）
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功',
+  *  data: {
+  *    count: 63
+  *  }
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 201,
+  *   msg: '查询失败'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async getArticleCount(req, res) {
+    let result = {}
+    result = await service.showCountArticle(req.query.authorId, req.query.classId, req.query.title, req.query.keywords)
     res.json(result)
   }
 

@@ -70,6 +70,11 @@ const apiMap = [
     method: home.getAuthor
   },
   {
+    path: '/article/count',
+    type: 'get',
+    method: home.getArticleCount
+  },
+  {
     path: '/article/add',
     type: 'post',
     method: editor.addArticle

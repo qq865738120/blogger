@@ -19,9 +19,9 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage"
-      :page-size="20"
+      :page-size="12"
       layout="prev, pager, next, jumper"
-      :total="1000">
+      :total="total">
     </el-pagination>
   </div>
 </template>
@@ -33,24 +33,36 @@ export default {
   components: {
     WorksCard
   },
+
   data() {
     return {
-      list: [
-        { id: '', date: '2019-01-29 13:54', title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？', img: 'http://www.haipic.com/icon/32d5903237.jpg' },
-        { id: '', date: '2019-01-29 13:54', title: '区块链真的结束了', img: 'http://www.haipic.com/icon/32d5903237.jpg' },
-        { id: '', date: '2019-01-29 13:54', title: '区块链真的结束了', img: 'http://www.haipic.com/icon/32d5903237.jpg' },
-        { id: '', date: '2019-01-29 13:54', title: '区块链真的结束了', img: 'http://www.haipic.com/icon/32d5903237.jpg' },
-        { id: '', date: '2019-01-29 13:54', title: '区块链真的结束了', img: 'http://www.haipic.com/icon/32d5903237.jpg' },
-      ],
-      currentPage: 3
+      list: [],
+      currentPage: 1,
+      total: 0
     }
   },
+
+  async created() {
+    if (process.client) {
+
+      await this.$utils.waitUserInfo(this, async () => {
+        this.$axios.get('/api/v1/article/count', { params: { authorId: this.$store.state.userInfo.id } }).then(res => {
+          if (res.data.code == 200) {
+            this.total = res.data.data.count
+          }
+        })
+        this.loadList();
+      })
+    }
+  },
+
   methods: {
     handleSizeChange(e) {
       console.log('handleSizeChange', e);
     },
     handleCurrentChange(e) {
       console.log('handleCurrentChange', e);
+      this.loadList(e);
     },
     onAdd() {
       let loading = this.$utils.loading(this)
@@ -58,6 +70,23 @@ export default {
         this.$router.push({name: 'editor', params: { id: res.data.data, type: 'article' }})
         loading.close()
       })
+    },
+    async loadList(page) {
+      let res = await this.$axios.get('/api/v1/article/createtime', { params: { page: page ? page : this.currentPage, row: 11, authorId: this.$store.state.userInfo.id } })
+      if (res.data.code == 200) {
+        let list = []
+        for (let item of res.data.data) {
+          list.push({
+            id: item.id,
+            date: this.$moment(item.created_date).format("YYYY-MM-DD"),
+            title: item.title,
+            img: item.illustration
+          })
+        }
+        this.list = list
+      } else {
+        this.$router.push({name: 'error', params: { statusCode: 500 }})
+      }
     }
   }
 }

@@ -65,14 +65,21 @@ module.exports = {
        row Number 一页多少行
        isAsc Boolean 是否升序排列
        status Number 文章状态
+       authorId String 作者id
   */
-  showArticleByCreateTimeDescPage: ( page, row, isAsc, status ) => {
+  showArticleByCreateTimeDescPage: ( page, row, isAsc, status, authorId ) => {
     let mPage = page ? parseInt(page) : 0;
     let mRow = row ? parseInt(row) : 20;
     let asc = isAsc ? 'asc' : 'desc';
-    let mStatus = status ? 'where status=' + status : ''
+    let whereStr = ''
+    if (status || authorId) {
+      whereStr = 'where'
+    }
+    let mStatus = status ? ' status=' + status + ' AND' : ''
+    let mauthorId = authorId ? " author_id='" + authorId + "' AND" : ''
+    let str = whereStr + mStatus + mauthorId
     const start = (mPage - 1) * mRow;
-    return `select * from article ${mStatus} order by created_date ${asc} limit ${start}, ${mRow}`
+    return `select * from article ${str.substring(0, str.length - 3)} order by created_date ${asc} limit ${start}, ${mRow}`
   },
 
   /*
@@ -246,6 +253,28 @@ module.exports = {
     let marticleId = articleId ? ` article_id='${articleId}' AND` : ''
     let sql = `SELECT * FROM article_modification WHERE${mid}${mmodifierId}${marticleId}`
     return sql.substring(0, sql.length - 3)
+  },
+
+  /*
+  根据指定条件查询文章个数
+  参数：authorId String 作者id（选传）
+       classId String 类型id（选传）
+       title String 标题，使用模糊匹配（选传）
+       keywords String 关键字，使用模糊匹配（选传）
+  */
+  showCountArticle: (authorId, classId, title, keywords) => {
+    let mauthorId = authorId ? ` author_id='${authorId}' AND` : '';
+    let mclassId = classId ? ` class_id='${classId}' AND` : '';
+    let mtitle = title ? ` title LIKE '%${title}%' AND` : '';
+    let mkeywords = keywords ? ` keywords LIKE '%${keywords}%' AND` : '';
+    let str = ''
+    if (mauthorId || mclassId || mtitle || mkeywords) {
+      let mstr = ` WHERE${mauthorId}${mclassId}${mtitle}${mkeywords}`
+      str = mstr.substring(0, mstr.length - 3)
+    } else {
+      str = ''
+    }
+    return `SELECT COUNT(*) AS count FROM article${str}`
   }
 
 }

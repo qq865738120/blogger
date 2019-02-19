@@ -14,5 +14,9 @@ module.exports = {
   PAR_ERR: {
     code: 300,
     msg: '参数异常'
+  },
+  SELECT_ERR: {
+    code: 201,
+    msg: '查询失败'
   }
 }

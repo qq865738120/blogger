@@ -77,5 +77,6 @@ module.exports = {
     code: 201,
     msg: '没有找到相关文章修改记录'
   },
-  PAR_ERR: baseEmun.PAR_ERR
+  PAR_ERR: baseEmun.PAR_ERR,
+  SELECT_ERR: baseEmun.SELECT_ERR
 }

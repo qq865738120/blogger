@@ -328,6 +328,94 @@
   },
   {
     "type": "get",
+    "url": "/article/count",
+    "title": "查询文章数量",
+    "description": "<p>根据指定条件查询文章数量</p>",
+    "name": "select_article_count",
+    "group": "Article",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "authorId",
+            "description": "<p>作者id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "classId",
+            "description": "<p>类别id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>标题（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keywords",
+            "description": "<p>关键字（选传）</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；201：没有找到相关作者</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据（没数据返回空）</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功',\n data: {\n   count: 63\n }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 201,\n  msg: '查询失败'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/home.js",
+    "groupTitle": "Article"
+  },
+  {
+    "type": "get",
     "url": "/author/info",
     "title": "查询作者详细信息",
     "description": "<p>根据文章id查询所有参与该文章修改或编写的所有作者信息</p>",
@@ -507,10 +595,17 @@
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "Boolean",
             "optional": false,
             "field": "showAuthor",
-            "description": "<p>是否展示作者昵称（选传）</p>"
+            "description": "<p>是否展示作者昵称，默认不展示提升性能（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "authorId",
+            "description": "<p>根据作者id筛选结果（选传）</p>"
           }
         ]
       }

@@ -211,4 +211,40 @@ Vue.prototype.$utils = {
     return uuid.join('');
   },
 
+  /*
+  等待某个任务执行完后继续执行后面的代码。需要在store中注册一个标志
+  ，并且需要使用异步函数或者是promise。
+  参数： context Object 页面this引用
+        valueName String store中用于判断的标志变量
+  */
+  waitTask(context, valueName) {
+    return new Promise(function(resolve) {
+      let timeout = 0
+      const id = setInterval(() => {
+        timeout++
+        if (context.$store.state[valueName]) {
+          clearInterval(id)
+          resolve(true)
+        } else if (timeout == 300) {
+          resolve(false)
+        }
+        resolve()
+      }, 100);
+    })
+  },
+
+  /*
+  等待获取用户信息
+  参数： context Object 页面this引用
+        callback Function 用户信息数据就位后的回调函数
+  */
+  async waitUserInfo(context, callback) {
+    let wait = await context.$utils.waitTask(context, 'userInfo')
+    if (wait) {
+      callback()
+    } else {
+      context.$utils.getUserInfo(context, callback, context.$route.fullPath)
+    }
+  }
+
 }

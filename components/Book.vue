@@ -51,6 +51,7 @@ export default {
   width: 100px;
   height: 140px;
   box-shadow: 0 7px 14px 0 rgba(199,209,215,.75);
+  object-fit: cover;
 }
 .title {
   @include over-length(2);

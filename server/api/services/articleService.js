@@ -28,10 +28,11 @@ module.exports = {
        isAsc Boolean 是否升序（选传，默认降序）
        status Number 文章状态（选传）
        isShowAuthor Boolean 是否需要展示作者昵称（选传，默认不展示）
+       authorId String 作者id
   返回：articleEmun枚举
   */
-  async showArticleByCreateTime(page, rows, isAsc, status, isShowAuthor) {
-    let row = await utils.dbQuery(pool, sql.showArticleByCreateTimeDescPage(page < 1 ? 1 : page, rows, isAsc, status))
+  async showArticleByCreateTime(page, rows, isAsc, status, isShowAuthor, authorId) {
+    let row = await utils.dbQuery(pool, sql.showArticleByCreateTimeDescPage(page < 1 ? 1 : page, rows, isAsc, status, authorId))
     if (row.length == 0) {
       return emun.NOT_ARTICLE
     } else {
@@ -78,6 +79,24 @@ module.exports = {
     } else {
       let data = emun.ARTICLE_SUCCESS
       data.data = row
+      return data
+    }
+  },
+
+  /*
+  根据指定条件查询文章个数
+  参数：authorId String 作者id（选传）
+       classId String 类型id（选传）
+       title String 标题，使用模糊匹配（选传）
+       keywords String 关键字，使用模糊匹配（选传）
+  */
+  async showCountArticle(authorId, classId, title, keywords) {
+    let row = await utils.dbQuery(pool, sql.showCountArticle(authorId, classId, title, keywords))
+    if (row.length == 0) {
+      return emun.SELECT_ERR
+    } else {
+      let data = emun.ARTICLE_SUCCESS
+      data.data = row[0]
       return data
     }
   },

@@ -40,6 +40,7 @@ export default {
   height: 180px;
   display: block;
   border: 0px !important;
+  object-fit: cover;
 }
 .title {
   @include over-length(1);
