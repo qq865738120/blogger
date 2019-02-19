@@ -120,6 +120,9 @@ $--px40: 40px;
 .margin-left-30 {
   @include spacing(margin, left, $--px30)
 }
+.margin-bottom-10 {
+  @include spacing(margin, bottom, $--px10)
+}
 .margin-bottom-20 {
   @include spacing(margin, bottom, $--px20)
 }

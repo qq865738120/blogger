@@ -133,6 +133,10 @@
     "modifyLimitTip": "修改已达到上限，等待作者审批后再来提交吧！",
     "bookName": "书名",
     "subTitle": "副标题",
-    "cover": "封面"
+    "cover": "封面",
+    "chapterSet": "章节设置",
+    "addChapter": "添加新章节",
+    "deleteChapter": "删除该章节",
+    "pleaseInputChapter": "请输入章节题目"
   }
 }

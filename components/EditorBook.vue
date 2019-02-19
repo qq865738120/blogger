@@ -9,9 +9,9 @@
         <el-input type="text" v-model="form.subTitle" autocomplete="off" maxlength="30"></el-input>
       </el-form-item>
       <el-form-item :label="$t('editor.cover')" style="width: 600px;">
-        <upload-file :url="url" :tip="uploadFileTip" :storeName="'oldIllustration'" :mutationName="'SET_OLD_ILLUSTRATION'"></upload-file>
+        <upload-file :url="url" :tip="uploadFileTip" :storeName="'oldCover'" :mutationName="'SET_OLD_COVER'"></upload-file>
       </el-form-item>
-      <el-form-item :label="$t('editor.cover')" style="width: 600px;">
+      <el-form-item :label="$t('editor.chapterSet')" style="width: 600px;">
         <list-edit></list-edit>
       </el-form-item>
       <el-form-item :label="$t('header.classify')" prop="selectedValue" style="margin-top: 30px;">
@@ -26,7 +26,6 @@
       </el-form-item>
       <el-form-item size="large">
         <el-button size="large"  type="primary" @click="onSubmit('form', '1')">{{ $t('common.public') }}</el-button>
-        <el-button size="large" type="primary" @click="onSubmit('form', '0')">{{ $t('common.save') }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -93,7 +92,7 @@ export default {
       classify: this.$store.state.classList,
       keyWordsList: ['spring', 'vue', '框架', '教程', '心得', 'react'],
       url: '',
-      uploadFileTip: ''
+      uploadFileTip: '只能上传jpg/png文件，且不超过2MB。上传3:4的图片效果更佳。'
     }
   },
 
@@ -124,63 +123,10 @@ export default {
 
   methods: {
     onSubmit(formName, status) {
-      if (this.text.length < 300) {
-        this.$alert(this.$t('editor.contentTip'), this.$t('common.tip'), {
-         confirmButtonText: this.$t('common.know')
-       });
-       return;
-      }
       this.$refs[formName].validate((valid) => {
         if (valid) {
           let loading = this.$utils.loading(this)
-          console.log('status', status);
-          console.log('submit article');
-          var file = new File([this.content], 'fileName', {type: 'text/html'});
-          file.uid = this.bookId
-          console.log(file);
-          this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, async data => {
-            console.log(data);
-            let keywords = ''
-            for (let item of this.form.keyWords) {
-              keywords += item + '##'
-            }
-            let url = '/api/v1/article/'
-            let postData = {
-              id: this.bookId,
-              title: this.form.title,
-              authorId: this.$store.state.userInfo.id,
-              classId: this.form.selectedValue,
-              content: 'https://' + data.Location,
-              status: status,
-              illustration: this.$store.state.oldIllustration,
-              keywords: keywords,
-              describe: this.text.replace(/\s+/g,"").substring(0, 200)
-            }
-            let resData = await this.$axios.get('/api/v1/article/id', { params: { id: this.bookId } })
-            if (resData.data.code == 200) {
-              url += 'modify'
-              postData.lastDate = this.$moment().format('YYYY-MM-DD HH:mm:ss');
-            } else {
-              url += 'add'
-            }
-            this.$axios.post(url, postData).then(res => {
-              if (res.data.code == 200) {
-                this.$message({
-                  message: status == 0 ? this.$t('editor.saveSuccessTip') : this.$t('editor.publicSuccessTip'),
-                  type: 'success'
-                });
-              } else {
-                this.$message({
-                  message: status == 0 ? this.$t('editor.saveFailTip') : this.$t('editor.publicFailTip'),
-                  type: 'error'
-                });
-              }
-            })
-            loading.close()
-          }, (err) => {
-            loading.close()
-            console.log('err', err);
-          })
+          loading.close()
         }
       });
     },

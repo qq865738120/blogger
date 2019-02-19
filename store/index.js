@@ -4,8 +4,10 @@ export const state = () => ({
   isLogin: false, //是否处于登陆状态
   userInfo: '', //用户信息
   oldIllustration: '', //旧的插图路径
+  oldCover: '', //旧的封面路径
   classList: [], //分类列表
   hasCollec: false, //是否已经收藏
+  listEdit: [{ text: '' }], //ListEdit组件属性
 })
 export const mutations = {
   SET_LANG(state, locale) {
@@ -22,10 +24,16 @@ export const mutations = {
   SET_OLD_ILLUSTRATION(state, value) {
     state.oldIllustration = value
   },
+  SET_OLD_COVER(state, value) {
+    state.oldCover = value
+  },
   SET_CLASSIFY(state, value) {
     state.classList = value
   },
   SET_HAS_COLLEC(state, value) {
     state.hasCollec = value
+  },
+  SET_LIST_EDIT(state, value) {
+    state.listEdit = value
   }
 }
