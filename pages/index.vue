@@ -165,79 +165,9 @@ export default {
   },
   data() {
     return {
-      mainDisplay: {
-        imgSrc:
-          'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
-        title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',
-        describe: '年终盘点之区块链：拨霾见日，大路朝天',
-        author: '覃云，徐川',
-        tag: ['区块链', 'web']
-      },
-      subDisplay: [
-        {
-          imgSrc:
-            'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
-          title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',
-          author: '覃云，徐川',
-          tag: ['区块链', 'web']
-        },
-        {
-          imgSrc:
-            'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
-          title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',
-          author: '覃云，徐川',
-          tag: ['区块链', 'web']
-        },
-        {
-          imgSrc:
-            'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
-          title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',
-          author: '覃云，徐川',
-          tag: ['区块链', 'web']
-        }
-      ],
-      baseDisplay: [
-        {
-          imgSrc:
-            'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
-          title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',
-          describe: '年终盘点之区块链：拨霾见日，大路朝天',
-          author: '覃云，徐川',
-          tag: ['区块链', 'web']
-        },
-        {
-          imgSrc:
-            'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
-          title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',
-          describe: '年终盘点之区块链：拨霾见日，大路朝天',
-          author: '覃云，徐川',
-          tag: ['区块链', 'web']
-        },
-        {
-          imgSrc:
-            'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
-          title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',
-          describe: '年终盘点之区块链：拨霾见日，大路朝天',
-          author: '覃云，徐川',
-          tag: ['区块链', 'web']
-        },
-        {
-          imgSrc:
-            'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
-          title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',
-          describe: '年终盘点之区块链：拨霾见日，大路朝天',
-          author: '覃云，徐川',
-          tag: ['区块链', 'web']
-        },
-        {
-          imgSrc:
-            'https://static001.infoq.cn/resource/image/ea/74/ea1ed1fe11dc85f2ffb37dda5c2b4574.jpg?x-oss-process=image/crop,y_145,w_999,h_514/resize,w_776,h_400',
-          title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？',
-          describe: '年终盘点之区块链：拨霾见日，大路朝天',
-          author: '覃云，徐川',
-          tag: ['区块链', 'web']
-        }
-      ],
+      mainDisplay: {},
+      subDisplay: [],
+      baseDisplay: [],
       page: 1,
       isLoadingMore: false, //加载更多按钮加载状态
       isShowNotMore: false
@@ -267,10 +197,6 @@ export default {
   mounted() {
     if (process.client) {
       document.getElementsByTagName('body')[0].style.background="#f4f4f4";
-      // var scrollbar = new this.$geminiScrollbar({
-      //   element: document.body,
-      //   autoshow: true
-      // }).create()
     }
   },
 

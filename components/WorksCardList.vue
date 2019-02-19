@@ -1,20 +1,23 @@
 <template>
-  <div class="works-card-list-root">
-    <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top-start">
-      <section @click="onAdd">
-        <el-card
-          class="hover-pointer card add-card"
-          :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
-          :style="{ height: '250px' }"
-          shadow="never"
-          >
-          <i class="el-icon-plus plus"></i>
-        </el-card>
-      </section>
-    </el-tooltip>
-    <template v-for="(item, index) of list">
-      <works-card class="card" :date="item.date" :title="item.title" :img="item.img"></works-card>
-    </template>
+  <div class="works-card-list-root" v-loading="loading">
+    <div>
+      <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top-start">
+        <section @click="onAdd">
+          <el-card
+            class="hover-pointer card add-card"
+            :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
+            :style="{ height: '250px' }"
+            shadow="never"
+            :hidden="currentPage != 1"
+            >
+            <i class="el-icon-plus plus"></i>
+          </el-card>
+        </section>
+      </el-tooltip>
+      <template v-for="(item, index) of list">
+        <works-card class="card" :id="item.id" :date="item.date" :title="item.title" :img="item.img"></works-card>
+      </template>
+    </div>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -38,7 +41,8 @@ export default {
     return {
       list: [],
       currentPage: 1,
-      total: 0
+      total: 0,
+      loading: false
     }
   },
 
@@ -62,6 +66,7 @@ export default {
     },
     handleCurrentChange(e) {
       console.log('handleCurrentChange', e);
+      this.currentPage = e
       this.loadList(e);
     },
     onAdd() {
@@ -72,13 +77,21 @@ export default {
       })
     },
     async loadList(page) {
-      let res = await this.$axios.get('/api/v1/article/createtime', { params: { page: page ? page : this.currentPage, row: 11, authorId: this.$store.state.userInfo.id } })
+      this.loading = true;
+      let res = await this.$axios.get(
+        '/api/v1/article/createtime',
+        { params: {
+          page: page ? page : this.currentPage,
+          row: this.currentPage == 1 ? 11 : 12,
+          authorId: this.$store.state.userInfo.id
+        } })
+      this.loading = false;
       if (res.data.code == 200) {
         let list = []
         for (let item of res.data.data) {
           list.push({
             id: item.id,
-            date: this.$moment(item.created_date).format("YYYY-MM-DD"),
+            date: this.$moment(item.created_date).format("YYYY-MM-DD hh:mm"),
             title: item.title,
             img: item.illustration
           })
@@ -95,7 +108,7 @@ export default {
 <style lang="scss" scoped>
 @import 'assets/style/common';
 
-.works-card-list-root {
+.works-card-list-root > div {
   display: flex;
   flex-wrap: wrap;
 }

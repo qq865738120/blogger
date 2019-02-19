@@ -6,9 +6,9 @@
         <el-input type="text" v-model="form.title" autocomplete="off" maxlength="30"></el-input>
       </el-form-item>
       <el-form-item :label="$t('editor.illustration')" style="width: 600px;">
-        <upload-file :uid="articleId"></upload-file>
+        <upload-file :uid="articleId" :url="url"></upload-file>
       </el-form-item>
-      <quill-editor @onEditorChange="onEditorChange"></quill-editor>
+      <quill-editor :articleId="articleId" @onEditorChange="onEditorChange"></quill-editor>
       <el-form-item :label="$t('header.classify')" prop="selectedValue" style="margin-top: 30px;">
         <el-select v-model="form.selectedValue" :placeholder="$t('editor.selectClassify')">
           <el-option
@@ -100,18 +100,37 @@ export default {
       content: '', //富文本编辑器内容
       text: '', //富文本编辑器纯文本内容
       classify: this.$store.state.classList,
-      keyWordsList: ['spring', 'vue', '框架', '教程', '心得', 'react']
+      keyWordsList: ['spring', 'vue', '框架', '教程', '心得', 'react'],
+      marticleId: '',
+      url: ''
     }
   },
 
-  mounted() {
-    if (!this.classify) {
-      this.$axios.get('/api/v1/classify').then(res => {
-        console.log(res.data.data);
-        this.$store.commit('SET_CLASSIFY', res.data.data)
-        this.classify = res.data.data
-      })
+  async created() {
+    if (process.client) {
+
     }
+  },
+
+  async mounted() {
+    let loading = this.$utils.loading(this)
+    if (!this.classify) {
+      let res = await this.$axios.get('/api/v1/classify')
+      console.log(res.data.data);
+      this.$store.commit('SET_CLASSIFY', res.data.data)
+      this.classify = res.data.data
+    }
+    let data = await this.$axios.get('/api/v1/article/id', { params: { id: this.articleId } })
+    if (data.data.code == 200) {
+      this.marticleId = this.articleId
+      this.form.title = data.data.data.title
+      this.url = data.data.data.illustration
+      this.form.selectedValue = data.data.data.class_id
+      let keys = data.data.data.keywords.split('##')
+      keys.pop()
+      this.form.keyWords = keys
+    }
+    loading.close()
   },
 
   methods: {

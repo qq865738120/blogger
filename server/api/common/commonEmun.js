@@ -9,11 +9,11 @@ module.exports = {
     msg: '失败'
   },
   PAR_UUID_LENGTH_ERR: {
-    code: 301,
+    code: 300,
     msg: 'length参数异常'
   },
   PAR_UUID_RADIXS_ERR: {
-    code: 301,
+    code: 300,
     msg: 'radixs参数异常'
   }
 }

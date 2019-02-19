@@ -15,7 +15,8 @@
 export default {
   props: {
     isRow: Boolean,
-    articleId: String
+    articleId: String,
+    authorId: String
   },
   data() {
     return {
@@ -55,6 +56,12 @@ export default {
             type: 'success'
           });
           this.$store.commit('SET_HAS_COLLEC', true)
+        } else if (res.data.code == 301) {
+          this.$message({
+            message: this.$t('common.notLoginTip'),
+            type: 'error'
+          });
+          this.$router.push('/signin');
         } else {
           this.$message({
             message: this.$t('common.collectionFail'),
@@ -68,7 +75,9 @@ export default {
     },
 
     onEdit() {
-      this.$router.push({name: 'editor', params: { id: this.articleId, type: 'subArticle' }})
+      console.log('authorId', this.authorId);
+      let type = this.$store.state.userInfo.id == this.authorId ? 'article' : 'subArticle'
+      this.$router.push({name: 'editor', params: { id: this.articleId, type: type }})
     }
   }
 }

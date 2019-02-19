@@ -6,7 +6,7 @@
       action=""
       :show-file-list="false"
       :http-request="onUpload">
-      <img v-if="imageUrl" :src="imageUrl" style="width: 100%; height: 100%; object-fit: cover;">
+      <img v-if="imageUrl ? imageUrl : url" :src="imageUrl ? imageUrl : url" style="width: 100%; height: 100%; object-fit: cover;">
       <div v-else>
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em> 点击上传</em></div>
@@ -20,7 +20,8 @@
 export default {
 
   props: {
-    uid: String
+    uid: String,
+    url: String
   },
 
   data() {

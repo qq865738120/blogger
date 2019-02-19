@@ -45,7 +45,7 @@ module.exports = {
           for (let it of rows) {
             authorStr += (it.nickname + ',')
           }
-          data.data[i].authorStr = authorStr.substring(0, authorStr.length - 2)
+          data.data[i].authorStr = authorStr.substring(0, authorStr.length - 1)
         }
       }
       return data

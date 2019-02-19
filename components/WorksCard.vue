@@ -1,12 +1,12 @@
 <template>
-  <div class="works-card-root">
+  <div class="works-card-root" @click="onClick">
     <el-card class="works-card-content hover-pointer" :body-style="{ padding: '0px' }" shadow="hover">
       <img v-lazy="img" class="image">
       <div style="padding: 14px;">
         <span class="title" style="-webkit-box-orient: vertical">{{ title }}</span>
         <div class="bottom">
           <span class="time">{{ date }}</span>
-          <div v-if="isShowButton" class="iconfont open-bianji font-extra-extra-small"></div>
+          <div v-if="isShowButton" class="iconfont open-bianji font-extra-extra-small" @click.stop="onEdit"></div>
           <div class="iconfont open-ai-share font-extra-extra-small"></div>
         </div>
       </div>
@@ -17,12 +17,21 @@
 <script>
 export default {
   props: {
+    id: String,
     title: String,
     date: String,
     img: String,
     isShowButton: {
       type: Boolean,
       default: true
+    }
+  },
+  methods: {
+    onClick() {
+      this.$router.push({ path: `/article/${this.id}` })
+    },
+    onEdit() {
+      this.$router.push({name: 'editor', params: { id: this.id, type: 'article' }})
     }
   }
 }

@@ -129,13 +129,6 @@ export default {
     }
   },
   async mounted() {
-    if (this.articleId) {
-      let article = await this.$axios.get('/api/v1/article/id', { params: { id: this.articleId } })
-      if (article.data.code == 200) {
-        let content = await this.$axios.get(article.data.data.content)
-        this.content = content.data
-      }
-    }
     hljs.configure({
       languages: ['c#','c++','css','coffeescript','html','xml','http','json','java','javascript','markdown','nginx','php','python','ruby','sql','shell']
     });
@@ -148,8 +141,16 @@ export default {
     onEditorFocus(editor) {
       // console.log('editor focus!', editor)
     },
-    onEditorReady(editor) {
-      // console.log('editor ready!', editor)
+    async onEditorReady(editor) {
+      if (this.articleId) {
+        let loading = this.$utils.loading(this)
+        let article = await this.$axios.get('/api/v1/article/id', { params: { id: this.articleId } })
+        loading.close()
+        if (article.data.code == 200) {
+          let content = await this.$axios.get(article.data.data.content)
+          this.content = content.data
+        }
+      }
     },
     onEditorChange({ editor, html, text }) {
       this.html = html;

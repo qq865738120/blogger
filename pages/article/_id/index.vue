@@ -2,7 +2,7 @@
   <div class="article-root">
     <!-- {{ $route.params.id }} -->
     <div class="floating-menu" :hidden="!isShowMenu">
-      <floating-menu :articleId="$route.params.id"></floating-menu>
+      <floating-menu :articleId="$route.params.id" :authorId="authorId"></floating-menu>
     </div>
     <div class="content">
       <span class="title">{{ title }}</span>
@@ -23,7 +23,7 @@
       <div class="article-content" v-html="articleContent"></div>
     </div>
     <div style="width: 180px; margin: 0 auto;" class="margin-top-40">
-      <floating-menu :isRow="true" :articleId="$route.params.id"></floating-menu>
+      <floating-menu :isRow="true" :articleId="$route.params.id" :authorId="authorId"></floating-menu>
     </div>
   </div>
 </template>
@@ -46,7 +46,8 @@ export default {
       lastTime: '2019年1月16日',
       imgSrc: 'https://static001.infoq.cn/resource/image/b3/2f/b3f838656a0f460890458dbec32c032f.jpg',
       articleContent: '',
-      isShowMenu: true
+      isShowMenu: true,
+      authorId: ''
     }
   },
 
@@ -67,7 +68,8 @@ export default {
         createTime: res.data.data.created_date,
         lastTime: res.data.data.last_date,
         imgSrc: res.data.data.illustration,
-        articleContent: content.data.replace('<pre ', '<pre style="padding: 30px 25px 15px; background: #5a5b5d; border-radius: 3px;" ')
+        articleContent: content.data.replace('<pre ', '<pre style="padding: 30px 25px 15px; background: #5a5b5d; border-radius: 3px;" '),
+        authorId: res.data.data.author_id
       }
 
     } else {
