@@ -11,6 +11,9 @@
       <el-form-item :label="$t('editor.cover')" style="width: 600px;">
         <upload-file :url="url" :tip="uploadFileTip" :storeName="'oldIllustration'" :mutationName="'SET_OLD_ILLUSTRATION'"></upload-file>
       </el-form-item>
+      <el-form-item :label="$t('editor.cover')" style="width: 600px;">
+        <list-edit></list-edit>
+      </el-form-item>
       <el-form-item :label="$t('header.classify')" prop="selectedValue" style="margin-top: 30px;">
         <el-select v-model="form.selectedValue" :placeholder="$t('editor.selectClassify')">
           <el-option
@@ -32,11 +35,13 @@
 <script>
 import UploadFile from '~/components/UploadFile.vue'
 import QuillEditor from '~/components/QuillEditor.vue'
+import ListEdit from '~/components/ListEdit.vue'
 
 export default {
   components: {
     UploadFile,
-    QuillEditor
+    QuillEditor,
+    ListEdit
   },
 
   props: {
