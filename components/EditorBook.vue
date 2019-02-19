@@ -92,7 +92,8 @@ export default {
       text: '', //富文本编辑器纯文本内容
       classify: this.$store.state.classList,
       keyWordsList: ['spring', 'vue', '框架', '教程', '心得', 'react'],
-      url: ''
+      url: '',
+      uploadFileTip: ''
     }
   },
 
