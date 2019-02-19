@@ -2,11 +2,13 @@
   <div class="editor-root">
     <editor-article v-if="$route.params.type == 'article'" :articleId="$route.params.id"></editor-article>
     <sub-editor-article v-if="$route.params.type == 'subArticle'" :articleId="$route.params.id"></sub-editor-article>
+    <editor-book v-if="$route.params.type == 'book'" :bookId="$route.params.id"></editor-book>
   </div>
 </template>
 
 <script>
 import EditorArticle from '~/components/EditorArticle.vue'
+import EditorBook from '~/components/EditorBook.vue'
 import SubEditorArticle from '~/components/SubEditorArticle.vue'
 
 export default {
@@ -15,7 +17,8 @@ export default {
   middleware: 'autho',
   components: {
     EditorArticle,
-    SubEditorArticle
+    SubEditorArticle,
+    EditorBook
   },
   mounted() {
     if (process.client) {

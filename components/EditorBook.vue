@@ -2,13 +2,15 @@
   <div class="editor-artical-root">
     <p class="title">{{ $t('editor.editArtical') }}</p>
     <el-form :model="form" status-icon :rules="rules" ref="form" label-width="80px">
-      <el-form-item :label="$t('editor.title')" prop="title" style="width: 600px;" >
+      <el-form-item :label="$t('editor.bookName')" prop="title" style="width: 600px;" >
         <el-input type="text" v-model="form.title" autocomplete="off" maxlength="30"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('editor.illustration')" style="width: 600px;">
+      <el-form-item :label="$t('editor.subTitle')" prop="subTitle" style="width: 600px;" >
+        <el-input type="text" v-model="form.subTitle" autocomplete="off" maxlength="30"></el-input>
+      </el-form-item>
+      <el-form-item :label="$t('editor.cover')" style="width: 600px;">
         <upload-file :url="url" :tip="uploadFileTip" :storeName="'oldIllustration'" :mutationName="'SET_OLD_ILLUSTRATION'"></upload-file>
       </el-form-item>
-      <quill-editor :articleId="articleId" @onEditorChange="onEditorChange"></quill-editor>
       <el-form-item :label="$t('header.classify')" prop="selectedValue" style="margin-top: 30px;">
         <el-select v-model="form.selectedValue" :placeholder="$t('editor.selectClassify')">
           <el-option
@@ -16,22 +18,6 @@
             :key="item.id"
             :label="item.classification"
             :value="item.id">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item :label="$t('common.keyWords')" prop="keyWords">
-        <el-select
-          v-model="form.keyWords"
-          multiple
-          filterable
-          allow-create
-          default-first-option
-          :placeholder="$t('editor.selectKeyWords')">
-          <el-option
-            v-for="item in keyWordsList"
-            :key="item"
-            :label="item"
-            :value="item">
           </el-option>
         </el-select>
       </el-form-item>
@@ -54,7 +40,7 @@ export default {
   },
 
   props: {
-    articleId: String
+    bookId: String
   },
 
   data() {
@@ -101,8 +87,7 @@ export default {
       text: '', //富文本编辑器纯文本内容
       classify: this.$store.state.classList,
       keyWordsList: ['spring', 'vue', '框架', '教程', '心得', 'react'],
-      url: '',
-      uploadFileTip: '只能上传jpg/png文件，且不超过2MB'
+      url: ''
     }
   },
 
@@ -119,7 +104,7 @@ export default {
       this.$store.commit('SET_CLASSIFY', res.data.data)
       this.classify = res.data.data
     }
-    let data = await this.$axios.get('/api/v1/article/id', { params: { id: this.articleId } })
+    let data = await this.$axios.get('/api/v1/article/id', { params: { id: this.bookId } })
     if (data.data.code == 200) {
       this.form.title = data.data.data.title
       this.url = data.data.data.illustration
@@ -145,7 +130,7 @@ export default {
           console.log('status', status);
           console.log('submit article');
           var file = new File([this.content], 'fileName', {type: 'text/html'});
-          file.uid = this.articleId
+          file.uid = this.bookId
           console.log(file);
           this.$utils.upLoadFile(this, file, this.$store.state.userInfo.username, async data => {
             console.log(data);
@@ -155,7 +140,7 @@ export default {
             }
             let url = '/api/v1/article/'
             let postData = {
-              id: this.articleId,
+              id: this.bookId,
               title: this.form.title,
               authorId: this.$store.state.userInfo.id,
               classId: this.form.selectedValue,
@@ -165,7 +150,7 @@ export default {
               keywords: keywords,
               describe: this.text.replace(/\s+/g,"").substring(0, 200)
             }
-            let resData = await this.$axios.get('/api/v1/article/id', { params: { id: this.articleId } })
+            let resData = await this.$axios.get('/api/v1/article/id', { params: { id: this.bookId } })
             if (resData.data.code == 200) {
               url += 'modify'
               postData.lastDate = this.$moment().format('YYYY-MM-DD HH:mm:ss');

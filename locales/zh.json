@@ -130,6 +130,9 @@
     "saveFailTip": "保存失败！",
     "publicSuccessTip": "发布成功！",
     "publicFailTip": "发布失败！",
-    "modifyLimitTip": "修改已达到上限，等待作者审批后再来提交吧！"
+    "modifyLimitTip": "修改已达到上限，等待作者审批后再来提交吧！",
+    "bookName": "书名",
+    "subTitle": "副标题",
+    "cover": "封面"
   }
 }
