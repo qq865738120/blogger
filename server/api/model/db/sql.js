@@ -289,6 +289,18 @@ module.exports = {
   */
   insertBook: (id, title, subTitle, cover, classId, status, authorId) => {
     return `INSERT INTO book VALUES ('${id}', '${title}', '${subTitle}', '${cover}', '${classId}', '${status ? status : 0}', '${authorId}')`
+  },
+
+  /*
+  将数据批量插入chapter表
+  参数： values Array 数据，示例 [{id: '', bookId: '', title: ''}, {id: '', bookId: '', title: ''}]
+  */
+  insertChapters: (values) => {
+    let str = ''
+    for (let i = 0; i < values.length; i++) {
+      str += ` (${values[i].id}, '${values[i].bookId}', '${values[i].title}', '${i}'),`
+    }
+    return `INSERT INTO chapter VALUES${str.substring(0, str.length - 1)};`
   }
 
 }

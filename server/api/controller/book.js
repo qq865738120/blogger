@@ -45,6 +45,38 @@ module.exports = {
       result = await service.addBook(req.body.name, req.body.subTitle, req.body.cover, req.body.classId, req.body.authorId)
     }
     res.json(result)
+  },
+
+  /**
+  * @api {post} /chapters 批量新增章节
+  * @apiDescription 批量新增章节
+  * @apiName add chapters
+  * @apiGroup Book
+  * @apiParam {Array} values 数据，示例：[{bookId: '', title: ''}, {bookId: '', title: ''}]
+  * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功'
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 300,
+  *   msg: 'name参数异常'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async addChapters(req, res) {
+    let result = {}
+    if (!req.session.user) {
+      result = emun.NOT_LOGIN
+    }  else if (!req.body.values) {
+      result = emun.PAR_NAME_ERR
+    } else {
+      result = await service.addChapters(req.body.values)
+    }
+    res.json(result)
   }
 
 }
