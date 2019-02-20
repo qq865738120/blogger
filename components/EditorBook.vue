@@ -25,7 +25,7 @@
         </el-select>
       </el-form-item>
       <el-form-item size="large">
-        <el-button size="large"  type="primary" @click="onSubmit('form', '1')">{{ $t('common.public') }}</el-button>
+        <el-button size="large"  type="primary" @click="onSubmit('form')">{{ $t('common.created') }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -89,12 +89,6 @@ export default {
     }
   },
 
-  async created() {
-    if (process.client) {
-
-    }
-  },
-
   async mounted() {
     let loading = this.$utils.loading(this)
     if (!this.classify) {
@@ -116,10 +110,47 @@ export default {
 
   methods: {
     onSubmit(formName, status) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
           let loading = this.$utils.loading(this)
-          loading.close()
+          let postData = {
+            id: this.bookId,
+            name: this.form.title,
+            subTitle: this.form.subTitle,
+            cover: this.$store.state.oldCover,
+            classId: this.form.selectedValue,
+            authorId: this.$store.state.userInfo.id
+          }
+          let bookRes = await this.$axios.post('/api/v1/book', postData)
+          if (res.data.code == 200) {
+            this.$message({
+              message: this.$t('common.createdSuccess'),
+              type: 'success'
+            });
+          } else {
+            this.$message({
+              message: this.$t('common.createdFail'),
+              type: 'error'
+            });
+          }
+          let listEdit = JSON.parse(JSON.stringify(this.$store.state.listEdit));
+          for (let item of listEdit) {
+            item.bookId = this.bookId
+          }
+          this.$axios.post('/api/v1/chapters', { values: listEdit }).then(res => {
+            loading.close()
+            if (res.data.code == 200) {
+              this.$message({
+                message: this.$t('common.createdSuccess'),
+                type: 'success'
+              });
+            } else {
+              this.$message({
+                message: this.$t('common.createdFail'),
+                type: 'error'
+              });
+            }
+          })
         }
       });
     },

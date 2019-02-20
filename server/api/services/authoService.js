@@ -8,26 +8,29 @@ module.exports = {
 
   /*
   验证用户名密码
-  参数：username 用户名
+  参数：req 请求对象
+       res 响应对象
+       username 用户名
        passwd 密码
-       callback 验证成功的回调函数
-  返回：authoEmun枚举
   */
-  async autho(username, passwd, callback) {
+  async autho(req, res, username, passwd) {
     let row = await utils.dbQuery(pool, sql.showUserByUsername(username))
     if (row.length == 0) {
-      return emun.USER_NAME_OR_PASSWD_ERR
+      res.json(emun.USER_NAME_OR_PASSWD_ERR)
     } else if (row[0].username == username && row[0].passwd == md5(passwd)) {
       req.session.regenerate(function(err) {
         if (err){
-          return res.json(emun.LOGIN_FAIL);
+          res.json(emun.LOGIN_FAIL);
         } else {
-          callback()
-          return res.json(emun.LOGIN_SUCCESS);
+          req.session.user = {
+            username: req.body.username,
+            passwd: md5(req.body.passwd)
+          }
+          res.json(emun.LOGIN_SUCCESS);
         }
       });
     } else {
-      return emun.USER_NAME_OR_PASSWD_ERR
+      res.json(emun.USER_NAME_OR_PASSWD_ERR)
     }
   },
 
@@ -42,19 +45,29 @@ module.exports = {
 
   /*
   用户注册
-  参数：username 用户名
+  参数：req 请求对象
+       res 响应对象
+       username 用户名
        passwd 密码
-       callback 注册成功回调
   返回：authoEmun枚举
   */
-  async registered(username, passwd, callback) {
+  async registered(req, res, username, passwd) {
     let row = await utils.dbQuery(pool, sql.showUserByUsername(username))
     if (row.length != 0) {
-      return emun.USERNAME_REPEAT
+      res.json(emun.USERNAME_REPEAT)
     }
     row = await utils.dbQuery(pool, sql.insertUser(username, md5(passwd)))
-    callback();
-    return emun.REGISTERED_SUCCESS
+    req.session.regenerate(function(err) {
+      if (err){
+        res.json(emun.LOGIN_FAIL);
+      } else {
+        req.session.user = {
+          username: req.body.username,
+          passwd: md5(req.body.passwd)
+        }
+        res.json(emun.REGISTERED_SUCCESS);
+      }
+    });
   }
 
 }

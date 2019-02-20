@@ -7,7 +7,7 @@ export const state = () => ({
   oldCover: '', //旧的封面路径
   classList: [], //分类列表
   hasCollec: false, //是否已经收藏
-  listEdit: [{ text: '' }], //ListEdit组件属性
+  listEdit: [{ title: '' }], //ListEdit组件属性
 })
 export const mutations = {
   SET_LANG(state, locale) {

@@ -26,20 +26,13 @@ module.exports = {
   * @apiVersion 1.0.0
   */
   async login(req, res) {
-    let result = {}
     if (!req.body.username) {
-      result = emun.PAR_USER_NAME_ERR
+      res.json(emun.PAR_USER_NAME_ERR)
     } else if (!req.body.passwd) {
-      result = emun.PAR_PASSWD_ERR
+      res.json(emun.PAR_PASSWD_ERR)
     } else {
-      result = await service.autho(req.body.username, req.body.passwd, () => {
-        req.session.user = {
-          username: req.body.username,
-          passwd: md5(req.body.passwd)
-        }
-      })
+      await service.autho(req, res, req.body.username, req.body.passwd)
     }
-    // res.json(result)
   },
 
   /**
@@ -64,21 +57,13 @@ module.exports = {
   * @apiVersion 1.0.0
   */
   async registered(req, res) {
-    let result = {}
     if (!req.body.username) {
-      result = emun.PAR_USER_NAME_ERR
+      res.json(emun.PAR_USER_NAME_ERR)
     } else if (!req.body.passwd) {
-      result = emun.PAR_PASSWD_ERR
+      res.json(emun.PAR_PASSWD_ERR)
     } else {
-      result = await service.registered(req.body.username, req.body.passwd, () => {
-        req.session.user = {
-          username: req.body.username,
-          passwd: md5(req.body.passwd)
-        }
-        console.log('sid', req.sessionID);
-      })
+      await service.registered(req, res, req.body.username, req.body.passwd)
     }
-    res.json(result)
   },
 
   /**

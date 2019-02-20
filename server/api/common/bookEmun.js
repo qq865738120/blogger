@@ -4,6 +4,10 @@ module.exports = {
   SUCCESS: baseEmun.SUCCESS,
   FAIL: baseEmun.FAIL,
   NOT_LOGIN: baseEmun.NOT_LOGIN,
+  PAR_ID_ERR: {
+    code: 300,
+    msg: 'id参数异常'
+  },
   PAR_NAME_ERR: {
     code: 300,
     msg: 'name参数异常'

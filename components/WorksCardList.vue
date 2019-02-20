@@ -98,7 +98,7 @@ export default {
         }
         this.list = list
       } else {
-        this.$router.push({name: 'error', params: { statusCode: 500 }})
+        // this.$router.push({name: 'error', params: { statusCode: 500 }})
       }
     }
   }

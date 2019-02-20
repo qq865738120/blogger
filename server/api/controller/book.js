@@ -8,6 +8,7 @@ module.exports = {
   * @apiDescription 添加新的数据或连载
   * @apiName add book
   * @apiGroup Book
+  * @apiParam {string} id 主键id
   * @apiParam {string} name 书名
   * @apiParam {string} subTitle 副标题
   * @apiParam {string} cover 封面图
@@ -31,7 +32,9 @@ module.exports = {
     let result = {}
     if (!req.session.user) {
       result = emun.NOT_LOGIN
-    }  else if (!req.body.name) {
+    } else if (!req.body.id) {
+      result = emun.PAR_ID_ERR
+    } else if (!req.body.name) {
       result = emun.PAR_NAME_ERR
     } else if (!req.body.subTitle) {
       result = emun.PAR_SUB_TITLE_ERR
@@ -42,7 +45,7 @@ module.exports = {
     } else if (!req.body.authorId) {
       result = emun.PAR_AUTHOR_ID_ERR
     } else {
-      result = await service.addBook(req.body.name, req.body.subTitle, req.body.cover, req.body.classId, req.body.authorId)
+      result = await service.addBook(req.body.id, req.body.name, req.body.subTitle, req.body.cover, req.body.classId, req.body.authorId)
     }
     res.json(result)
   },
