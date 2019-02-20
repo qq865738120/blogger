@@ -11,6 +11,10 @@ module.exports = {
     code: 200,
     msg: '登陆成功'
   },
+  LOGIN_FAIL: {
+    code: 201,
+    msg: '登陆失败'
+  },
   USER_NAME_OR_PASSWD_ERR: {
     code: 201,
     msg: '用户名或密码不正确'

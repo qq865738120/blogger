@@ -13,3 +13,4 @@ if (NODE_ENV == 'dev') {
 }
 
 module.exports = config
+// export default config

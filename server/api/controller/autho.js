@@ -33,14 +33,20 @@ module.exports = {
       result = emun.PAR_PASSWD_ERR
     } else {
       result = await service.autho(req.body.username, req.body.passwd, () => {
-        req.session.user = {
-          username: req.body.username,
-          passwd: md5(req.body.passwd)
-        }
-        console.log('sid', req.sessionID);
+        req.session.regenerate(function(err) {
+            if (err){
+              return res.json(emun.LOGIN_FAIL);
+            } else {
+              req.session.user = {
+                username: req.body.username,
+                passwd: md5(req.body.passwd)
+              }
+              return res.json(emun.LOGIN_SUCCESS);
+            }
+        });
       })
     }
-    res.json(result)
+    // res.json(result)
   },
 
   /**
@@ -103,6 +109,8 @@ module.exports = {
   */
   async check(req, res) {
     let result = {}
+    console.log('session', req.session);
+    console.log('sid', req.sessionID);
     if (service.check(req)) {
       result = emun.CHECK_PASS
     } else {

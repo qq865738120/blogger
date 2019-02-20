@@ -1,6 +1,6 @@
 <template>
   <div class="editor-artical-root">
-    <p class="title">{{ $t('editor.editArtical') }}</p>
+    <p class="title">{{ $t('editor.editBook') }}</p>
     <el-form :model="form" status-icon :rules="rules" ref="form" label-width="80px">
       <el-form-item :label="$t('editor.bookName')" prop="title" style="width: 600px;" >
         <el-input type="text" v-model="form.title" autocomplete="off" maxlength="30"></el-input>
@@ -39,7 +39,6 @@ import ListEdit from '~/components/ListEdit.vue'
 export default {
   components: {
     UploadFile,
-    QuillEditor,
     ListEdit
   },
 
@@ -74,7 +73,7 @@ export default {
       form: {
         title: '',
         selectedValue: '',
-        keyWords: []
+        subTitle: ''
       },
       rules: {
         title: [
@@ -82,15 +81,9 @@ export default {
         ],
         selectedValue: [
           { validator: validateClassify, trigger: 'blur' }
-        ],
-        keyWords: [
-          { validator: validateKeyWords, trigger: 'blur' }
         ]
       },
-      content: '', //富文本编辑器内容
-      text: '', //富文本编辑器纯文本内容
       classify: this.$store.state.classList,
-      keyWordsList: ['spring', 'vue', '框架', '教程', '心得', 'react'],
       url: '',
       uploadFileTip: '只能上传jpg/png文件，且不超过2MB。上传3:4的图片效果更佳。'
     }
@@ -109,15 +102,15 @@ export default {
       this.$store.commit('SET_CLASSIFY', res.data.data)
       this.classify = res.data.data
     }
-    let data = await this.$axios.get('/api/v1/article/id', { params: { id: this.bookId } })
-    if (data.data.code == 200) {
-      this.form.title = data.data.data.title
-      this.url = data.data.data.illustration
-      this.form.selectedValue = data.data.data.class_id
-      let keys = data.data.data.keywords.split('##')
-      keys.pop()
-      this.form.keyWords = keys
-    }
+    // let data = await this.$axios.get('/api/v1/article/id', { params: { id: this.bookId } })
+    // if (data.data.code == 200) {
+    //   this.form.title = data.data.data.title
+    //   this.url = data.data.data.illustration
+    //   this.form.selectedValue = data.data.data.class_id
+    //   let keys = data.data.data.keywords.split('##')
+    //   keys.pop()
+    //   this.form.keyWords = keys
+    // }
     loading.close()
   },
 
@@ -129,11 +122,6 @@ export default {
           loading.close()
         }
       });
-    },
-
-    onEditorChange(content, text) {
-      this.content = content
-      this.text = text
     },
 
   }

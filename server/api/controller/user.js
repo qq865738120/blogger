@@ -25,6 +25,7 @@ module.exports = {
   */
   async userInfo(req, res) {
     let result = {}
+    console.log('info', req.session);
     if (!req.session.user) {
       result = emun.NOT_LOGIN
     } else {

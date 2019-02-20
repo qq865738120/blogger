@@ -7,8 +7,8 @@ module.exports = {
   },
   session: {
     secret: 'cat',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
       // domain: 'xxx.xxx.xxx.xxx:xxxx', // 域名
       path: '/',
@@ -18,9 +18,6 @@ module.exports = {
   },
   redis: {
     prefix: 'blog-'
-  },
-  redisStore: {
-
   },
   STS: {
     secretId: 'AKID3xc1B6QEPL1RaUaXgZDn7G9oEOJypYVD', // 固定密钥

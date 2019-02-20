@@ -1,14 +1,19 @@
 import Vue from 'vue'
 import moment from "moment";
 const COS = require('cos-js-sdk-v5')
-const config = require('@/configs/index')
+const config = {
+  STS: {
+    bucket: 'weixin-1251663069', // 换成你的 bucket
+    region: 'ap-chengdu', // 换成 bucket 所在地区
+  }
+}
 const MD5 = require('md5')
 
 const apiErr = function(that, data, loading) {
   if (data.code && data.code == 301) {
     that.$message.error(that.$t('common.notLoginTip'));
-    location.reload();
-    that.$router.push(path ? path : '/signin')
+    // location.reload();
+    // that.$router.push(path ? path : '/signin')
   }
   if (loading) {
     loading.close()
