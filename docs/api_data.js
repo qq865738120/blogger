@@ -807,6 +807,94 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/book",
+    "title": "新增书籍/连载",
+    "description": "<p>添加新的数据或连载</p>",
+    "name": "add_book",
+    "group": "Book",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>书名</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "subTitle",
+            "description": "<p>副标题</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "cover",
+            "description": "<p>封面图</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "classId",
+            "description": "<p>分类id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "authorId",
+            "description": "<p>作者id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：传参异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: 'name参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/book.js",
+    "groupTitle": "Book"
+  },
+  {
+    "type": "post",
     "url": "/file/sts",
     "title": "对象存储临时凭证",
     "description": "<p>对象存储临时凭证，需要先登录获取用户权限</p>",

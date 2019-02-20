@@ -18,8 +18,14 @@ module.exports = {
     if (row.length == 0) {
       return emun.USER_NAME_OR_PASSWD_ERR
     } else if (row[0].username == username && row[0].passwd == md5(passwd)) {
-      callback()
-      return emun.LOGIN_SUCCESS
+      req.session.regenerate(function(err) {
+        if (err){
+          return res.json(emun.LOGIN_FAIL);
+        } else {
+          callback()
+          return res.json(emun.LOGIN_SUCCESS);
+        }
+      });
     } else {
       return emun.USER_NAME_OR_PASSWD_ERR
     }

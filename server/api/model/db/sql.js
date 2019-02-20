@@ -275,6 +275,20 @@ module.exports = {
       str = ''
     }
     return `SELECT COUNT(*) AS count FROM article${str}`
+  },
+
+  /*
+  将数据插入book表
+  参数：id String 主键id
+       title String 书名
+       subTitle String 附标题
+       cover String 封面
+       classId String 类别id
+       status String 状态（选填，默认为0）
+       authorId String 作者id
+  */
+  insertBook: (id, title, subTitle, cover, classId, status, authorId) => {
+    return `INSERT INTO book VALUES ('${id}', '${title}', '${subTitle}', '${cover}', '${classId}', '${status ? status : 0}', '${authorId}')`
   }
 
 }

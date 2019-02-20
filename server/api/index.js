@@ -4,6 +4,7 @@ const apiv1 = express.Router()
 const home = require('./controller/home.js')
 const autho = require('./controller/autho.js')
 const user = require('./controller/user.js')
+const book = require('./controller/book.js')
 const sts = require('./controller/STS.js')
 const editor = require('./controller/editor.js')
 const common = require('./controller/common.js')
@@ -118,6 +119,11 @@ const apiMap = [
     path: '/editor/modify',
     type: 'get',
     method: editor.getArticleModify
+  },
+  {
+    path: '/book',
+    type: 'post',
+    method: book.addBook
   },
 ]
 

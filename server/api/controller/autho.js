@@ -33,17 +33,10 @@ module.exports = {
       result = emun.PAR_PASSWD_ERR
     } else {
       result = await service.autho(req.body.username, req.body.passwd, () => {
-        req.session.regenerate(function(err) {
-            if (err){
-              return res.json(emun.LOGIN_FAIL);
-            } else {
-              req.session.user = {
-                username: req.body.username,
-                passwd: md5(req.body.passwd)
-              }
-              return res.json(emun.LOGIN_SUCCESS);
-            }
-        });
+        req.session.user = {
+          username: req.body.username,
+          passwd: md5(req.body.passwd)
+        }
       })
     }
     // res.json(result)
