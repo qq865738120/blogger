@@ -28,5 +28,9 @@ module.exports = {
     code: 300,
     msg: 'authorId参数异常'
   },
+  PAR_VALUES_ERR: {
+    code: 300,
+    msg: 'values参数异常'
+  },
   PAR_ERR: baseEmun.PAR_ERR
 }

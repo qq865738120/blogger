@@ -110,6 +110,25 @@ export default {
 
   methods: {
     onSubmit(formName, status) {
+      if (this.$store.state.listEdit.length <= 1 && !this.$store.state.listEdit[0].title) {
+        this.$message({
+          message: this.$t('editor.chapterNotNull'),
+          type: 'error'
+        });
+        return
+      }
+      let listEdit = JSON.parse(JSON.stringify(this.$store.state.listEdit));
+      for (let item of listEdit) {
+        item.bookId = this.bookId
+        item.title = item.title.replace(/\s+/g,"");
+        if (!item.title) {
+          this.$message({
+            message: this.$t('editor.chapterNotNull'),
+            type: 'error'
+          });
+          return
+        }
+      }
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           let loading = this.$utils.loading(this)
@@ -121,25 +140,14 @@ export default {
             classId: this.form.selectedValue,
             authorId: this.$store.state.userInfo.id
           }
+          let isSuccess = false
           let bookRes = await this.$axios.post('/api/v1/book', postData)
           if (bookRes.data.code == 200) {
-            this.$message({
-              message: this.$t('common.createdSuccess'),
-              type: 'success'
-            });
-          } else {
-            this.$message({
-              message: this.$t('common.createdFail'),
-              type: 'error'
-            });
-          }
-          let listEdit = JSON.parse(JSON.stringify(this.$store.state.listEdit));
-          for (let item of listEdit) {
-            item.bookId = this.bookId
+            isSuccess = true
           }
           this.$axios.post('/api/v1/chapters', { values: listEdit }).then(res => {
             loading.close()
-            if (res.data.code == 200) {
+            if (res.data.code == 200 && isSuccess) {
               this.$message({
                 message: this.$t('common.createdSuccess'),
                 type: 'success'

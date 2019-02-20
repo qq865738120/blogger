@@ -130,6 +130,16 @@ const apiMap = [
     type: 'post',
     method: book.addChapters
   },
+  {
+    path: '/book/update',
+    type: 'post',
+    method: book.updateBook
+  },
+  {
+    path: '/chapters/update',
+    type: 'post',
+    method: book.updateChapters
+  },
 ]
 
 for (let item of apiMap) {

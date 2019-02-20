@@ -288,7 +288,7 @@ module.exports = {
        authorId String 作者id
   */
   insertBook: (id, title, subTitle, cover, classId, status, authorId) => {
-    return `INSERT INTO book VALUES ('${id}', '${title}', '${subTitle}', '${cover}', '${classId}', '${status ? status : 0}', '${authorId}')`
+    return `INSERT INTO book VALUES ('${id}', '${title}', '${subTitle}', '${cover ? cover : 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/default-book.jpg'}', '${classId}', '${status ? status : 0}', '${authorId}')`
   },
 
   /*
@@ -298,9 +298,52 @@ module.exports = {
   insertChapters: (values) => {
     let str = ''
     for (let i = 0; i < values.length; i++) {
-      str += ` (${values[i].id}, '${values[i].bookId}', '${values[i].title}', '${i}'),`
+      str += ` ('${values[i].id}', '${values[i].bookId}', '${values[i].title}', '${i}'),`
     }
     return `INSERT INTO chapter VALUES${str.substring(0, str.length - 1)};`
-  }
+  },
+
+  /*
+  更新book表
+  参数：id String 书id（必传）
+       title String 书名（选传）
+       subTitle String 附标题（选传）
+       cover String 封面（选传）
+       classId String 类别id（选传）
+       status String 状态（选填）
+       authorId String （选传）
+  */
+  updateBook: (id, title, subTitle, cover, classId, status, authorId) => {
+    let mtitle = title ? ` title='${title}',` : '';
+    let msubTitle = subTitle ? ` sub_title='${subTitle}',` : '';
+    let mcover = cover ? ` cover='${cover}',` : '';
+    let mclassId = classId ? ` class_id='${classId}',` : '';
+    let mstatus = status ? ` status='${status}',` : '';
+    let mauthorId = authorId ? ` author_id='${authorId}',` : '';
+    let str = mtitle + msubTitle + mcover + mclassId + mstatus + mauthorId;
+    return `UPDATE article SET${str.substring(0, str.length - 1)} WHERE id = '${id}';`
+  },
+
+  /*
+  批量更新chapter表
+  参数： values Array 数据，示例 [{id: '', bookId: '', title: ''}, {id: '', bookId: '', title: ''}]
+  */
+  updateChapters: (values) => {
+    let idStr = ''
+    let bookIdStr = ' book_id = CASE id'
+    let titleStr = ' title = CASE id'
+    let serialStr = ' serial = CASE id'
+    for (let i = 0; i < values.length; i++) {
+      idStr += `'${values[i].id}',`
+      bookIdStr += ` WHEN '${values[i].id}' THEN '${values[i].bookId}'`
+      titleStr += ` WHEN '${values[i].id}' THEN '${values[i].title}'`
+      serialStr += ` WHEN '${values[i].id}' THEN '${i}'`
+    }
+    idStr = idStr.substring(0, idStr.length - 1)
+    bookIdStr += 'END,'
+    titleStr +='END,'
+    serialStr += 'END'
+    return `UPDATE chapter SET${bookIdStr}${titleStr}${serialStr} WHERE id IN (${idStr})`
+  },
 
 }

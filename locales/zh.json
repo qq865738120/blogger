@@ -141,6 +141,7 @@
     "addChapter": "添加新章节",
     "deleteChapter": "删除该章节",
     "pleaseInputChapter": "请输入章节题目",
-    "editBook": "编辑连载"
+    "editBook": "编辑连载",
+    "chapterNotNull": "章节题目不能为空"
   }
 }

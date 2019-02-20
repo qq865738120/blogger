@@ -41,6 +41,38 @@ module.exports = {
     } else {
       return emun.FAIL
     }
+  },
+
+  /*
+  更新book
+  参数：id String 书id（必传）
+       title String 书名（选传）
+       subTitle String 附标题（选传）
+       cover String 封面（选传）
+       classId String 类别id（选传）
+       status String 状态（选填）
+       authorId String （选传）
+  */
+  async updateBook(id, title, subTitle, cover, classId, status, authorId) {
+    let row = await utils.dbQuery(pool, sql.updateBook(id, title, subTitle, cover, classId, status, authorId))
+    if (row.fieldCount == 0) {
+      return emun.SUCCESS
+    } else {
+      return emun.FAIL
+    }
+  },
+
+  /*
+  批量更新chapter表
+  参数： values Array 数据，示例 [{id: '', bookId: '', title: ''}, {id: '', bookId: '', title: ''}]
+  */
+  async updateChapters(values) {
+    let row = await utils.dbQuery(pool, sql.updateChapters(values))
+    if (row.fieldCount == 0) {
+      return emun.SUCCESS
+    } else {
+      return emun.FAIL
+    }
   }
 
 }
