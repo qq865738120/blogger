@@ -122,7 +122,7 @@ export default {
             authorId: this.$store.state.userInfo.id
           }
           let bookRes = await this.$axios.post('/api/v1/book', postData)
-          if (res.data.code == 200) {
+          if (bookRes.data.code == 200) {
             this.$message({
               message: this.$t('common.createdSuccess'),
               type: 'success'

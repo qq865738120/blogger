@@ -87,8 +87,6 @@ module.exports = {
   */
   async check(req, res) {
     let result = {}
-    console.log('session', req.session);
-    console.log('sid', req.sessionID);
     if (service.check(req)) {
       result = emun.CHECK_PASS
     } else {
