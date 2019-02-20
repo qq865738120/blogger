@@ -30,7 +30,13 @@ module.exports = {
   },
   PAR_VALUES_ERR: {
     code: 300,
-    msg: 'values参数异常'
+    msg: '参数异常'
   },
-  PAR_ERR: baseEmun.PAR_ERR
+  PAR_ERR: baseEmun.PAR_ERR,
+  NOT_DATA: baseEmun.NOT_DATA,
+  BOOK_SUCCESS: {
+    code: 200,
+    msg: '成功',
+    data: ''
+  }
 }

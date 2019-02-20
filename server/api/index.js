@@ -140,6 +140,11 @@ const apiMap = [
     type: 'post',
     method: book.updateChapters
   },
+  {
+    path: '/book',
+    type: 'get',
+    method: book.getBook
+  },
 ]
 
 for (let item of apiMap) {

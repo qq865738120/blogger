@@ -18,5 +18,9 @@ module.exports = {
   SELECT_ERR: {
     code: 201,
     msg: '查询失败'
+  },
+  NOT_DATA: {
+    code: 201,
+    msg: '没有数据'
   }
 }

@@ -73,6 +73,26 @@ module.exports = {
     } else {
       return emun.FAIL
     }
-  }
+  },
+
+  /*
+  查询book表（至少传一个参数）
+  参数：id String 书id（选传）
+       title String 书名（选传）
+       subTitle String 附标题（选传）
+       classId String 类别id（选传）
+       status String 状态（选填）
+       authorId String （选传）
+  */
+  async showBook(id, title, subTitle, classId, status, authorId) {
+    let row = await utils.dbQuery(pool, sql.updateBook(id, title, subTitle, classId, status, authorId))
+    if (row.length == 0) {
+      return emun.NOT_DATA
+    } else {
+      let data = emun.BOOK_SUCCESS
+      data.data = row
+      return data
+    }
+  },
 
 }

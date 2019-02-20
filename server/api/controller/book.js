@@ -147,4 +147,36 @@ module.exports = {
     res.json(result)
   },
 
+  /**
+  * @api {get} /book 查询书籍/连载
+  * @apiDescription 查询书籍/连载（至少传一个参数）
+  * @apiName show book
+  * @apiGroup Book
+  * @apiParam {string} id 主键id（必传）
+  * @apiParam {string} name 书名（选传）
+  * @apiParam {string} subTitle 副标题（选传）
+  * @apiParam {string} classId 分类id（选传）
+  * @apiParam {string} authorId 作者id（选传）
+  * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccess {Array} data 数据
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功',
+  *  data: ''
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 300,
+  *   msg: '参数异常'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async getBook(req, res) {
+    let result = {}
+    result = await service.showBook(req.query.id, req.query.name, req.query.subTitle, req.query.classId, req.query.authorId)
+    res.json(result)
+  },
+
 }

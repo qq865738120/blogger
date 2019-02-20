@@ -346,4 +346,23 @@ module.exports = {
     return `UPDATE chapter SET${bookIdStr}${titleStr}${serialStr} WHERE id IN (${idStr})`
   },
 
+  /*
+  查询book表（至少传一个参数）
+  参数：id String 书id（选传）
+       title String 书名（选传）
+       subTitle String 附标题（选传）
+       classId String 类别id（选传）
+       status String 状态（选填）
+       authorId String （选传）
+  */
+  showBook: (id, title, subTitle, classId, status, authorId) => {
+    let mtitle = title ? ` title='${title}' AND` : '';
+    let msubTitle = subTitle ? ` sub_title='${subTitle}' AND` : '';
+    let mclassId = classId ? ` class_id='${classId}' AND` : '';
+    let mstatus = status ? ` status='${status}' AND` : '';
+    let mauthorId = authorId ? ` author_id='${authorId}' AND` : '';
+    let str = mtitle + msubTitle + mcover + mclassId + mstatus + mauthorId;
+    return `SELECT * FROM book WHERE${str.substring(0, str.length - 3)};`
+  },
+
 }
