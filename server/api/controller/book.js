@@ -158,6 +158,9 @@ module.exports = {
   * @apiParam {string} classId 分类id（选传）
   * @apiParam {Number} status 状态（选传）
   * @apiParam {string} authorId 作者id（选传）
+  * @apiParam {Number} page 第几页（选传，默认第一页）
+  * @apiParam {Number} row 一页多少行（选传，默认20行）
+  * @apiParam {Boolean} isAsc 是否升序排列（选传，默认按创建时间降序）
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccess {Array} data 数据
@@ -176,7 +179,7 @@ module.exports = {
   */
   async getBook(req, res) {
     let result = {}
-    result = await service.showBook(req.query.id, req.query.name, req.query.subTitle, req.query.classId, req.query.status, req.query.authorId)
+    result = await service.showBook(req.query.id, req.query.name, req.query.subTitle, req.query.classId, req.query.status, req.query.authorId, req.query.page, req.query.row, req.query.isAsc)
     res.json(result)
   },
 

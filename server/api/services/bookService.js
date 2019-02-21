@@ -76,16 +76,19 @@ module.exports = {
   },
 
   /*
-  查询book表（至少传一个参数）
+  查询book表
   参数：id String 书id（选传）
        title String 书名（选传）
        subTitle String 附标题（选传）
        classId String 类别id（选传）
        status String 状态（选填）
        authorId String （选传）
+       page Number 第几页（选传，默认第一页）
+       row Number 一页多少行（选传，默认20行）
+       isAsc Boolean 是否升序排列（选传，默认按创建时间降序）
   */
-  async showBook(id, title, subTitle, classId, status, authorId) {
-    let row = await utils.dbQuery(pool, sql.showBook(id, title, subTitle, classId, status, authorId))
+  async showBook(id, title, subTitle, classId, status, authorId, page, row, isAsc) {
+    let row = await utils.dbQuery(pool, sql.showBook(id, title, subTitle, classId, status, authorId, page, row, isAsc))
     if (row.length == 0) {
       return emun.NOT_DATA
     } else {

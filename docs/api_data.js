@@ -1011,6 +1011,27 @@ define({ "api": [
             "optional": false,
             "field": "authorId",
             "description": "<p>作者id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "page",
+            "description": "<p>第几页（选传，默认第一页）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "row",
+            "description": "<p>一页多少行（选传，默认20行）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isAsc",
+            "description": "<p>是否升序排列（选传，默认按创建时间降序）</p>"
           }
         ]
       }
@@ -1136,7 +1157,7 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "Object",
             "optional": false,
             "field": "data",
             "description": "<p>数据</p>"

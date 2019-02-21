@@ -347,24 +347,35 @@ module.exports = {
   },
 
   /*
-  查询book表（至少传一个参数）
+  查询book表
   参数：id String 书id（选传）
        title String 书名（选传）
        subTitle String 附标题（选传）
        classId String 类别id（选传）
        status String 状态（选填）
        authorId String （选传）
+       page Number 第几页（选传，默认第一页）
+       row Number 一页多少行（选传，默认20行）
+       isAsc Boolean 是否升序排列（选传，默认按创建时间降序）
   */
-  showBook: (id, title, subTitle, classId, status, authorId) => {
+  showBook: (id, title, subTitle, classId, status, authorId, page, row, isAsc) => {
     let mid = id ? ` id='${id}' AND` : '';
     let mtitle = title ? ` title LIKE '%${title}%' AND` : '';
     let msubTitle = subTitle ? ` sub_title LIKE '%${subTitle}%' AND` : '';
     let mclassId = classId ? ` class_id='${classId}' AND` : '';
     let mstatus = status ? ` status='${status}' AND` : '';
     let mauthorId = authorId ? ` author_id='${authorId}' AND` : '';
-    let str = mid + mtitle + msubTitle + mclassId + mstatus + mauthorId;
+    let mPage = page ? parseInt(page) : 0;
+    let mRow = row ? parseInt(row) : 20;
+    let asc = isAsc ? 'asc' : 'desc';
+    let str = ''
+    if (mid || mtitle || msubTitle || mclassId || mstatus || mauthorId) {
+      str = 'WHERE'
+    }
+    str = mid + mtitle + msubTitle + mclassId + mstatus + mauthorId;
+    const start = (mPage - 1) * mRow;
     console.log('showBook', `SELECT * FROM book WHERE${str.substring(0, str.length - 3)};`);
-    return `SELECT * FROM book WHERE${str.substring(0, str.length - 3)};`
+    return `SELECT * FROM book ${str.substring(0, str.length - 3)} order by created_date ${asc} limit ${start}, ${mRow};`
   },
 
   /*

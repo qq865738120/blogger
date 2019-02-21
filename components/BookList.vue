@@ -1,5 +1,5 @@
 <template>
-  <div class="book-list-root">
+  <div class="book-list-root" v-loading="loading">
     <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top-start">
       <section @click="onAdd">
         <el-card
@@ -41,7 +41,8 @@ export default {
         { id: '3', title: "标题啊标题标题啊标题标题啊标题" }
       ],
       currentPage: 1,
-      total: 0
+      total: 0,
+      loading: false
     }
   },
 
@@ -64,13 +65,42 @@ export default {
     handleCurrentChange(e) {
       console.log('handleCurrentChange', e);
     },
+
     onAdd() {
       let loading = this.$utils.loading(this)
       this.$axios.get('/api/v1/uuid').then(res => {
         this.$router.push({name: 'editor', params: { id: res.data.data, type: 'book' }})
         loading.close()
       })
+    },
+
+    async loadList(page) {
+      this.loading = true;
+      let res = await this.$axios.get(
+        '/api/v1/book',
+        { params: {
+          page: page ? page : this.currentPage,
+          row: this.currentPage == 1 ? 11 : 12,
+          authorId: this.$store.state.userInfo.id
+        } })
+      this.loading = false;
+      if (res.data.code == 200) {
+        let list = []
+        for (let item of res.data.data) {
+          list.push({
+            id: item.id,
+            date: this.$moment(item.created_date).format("YYYY-MM-DD hh:mm"),
+            title: item.title,
+            img: item.illustration,
+            status: item.status
+          })
+        }
+        this.list = list
+      } else {
+        // this.$router.push({name: 'error', params: { statusCode: 500 }})
+      }
     }
+
   }
 }
 </script>
