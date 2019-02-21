@@ -5,8 +5,8 @@
       <img v-lazy="url"/>
       <p class="webfont color-base-black-3">第{{ index }}章</p>
       <div class="line"></div>
-      <span class="font-extra-large color-main-light-2">{{ chapter }}</span>
-      <div class="head-left-bottom color-main-light-5 font-medium flex-col-center">
+      <span class="font-extra-large color-sub-black">{{ chapter }}</span>
+      <div class="head-left-bottom color-main-light-6 font-medium flex-col-center">
         <span>{{ author }}</span>
         <span>{{ date }}</span>
       </div>
@@ -24,6 +24,7 @@
 
     data() {
       return {
+        // url: 'https://images.gitbook.cn/6c7d5560-252d-11e9-bc2f-6d43685c46dc?imageMogr2/thumbnail/1500x625!',
         url: 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/default-book.jpg',
         index: 1,
         chapter: '喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森',
@@ -52,7 +53,7 @@
 .head > img {
   width: 100%;
   height: 100%;
-  filter: blur(12px);
+  filter: blur(20px) grayscale(36%) contrast(75%);
   object-fit: cover;
   position: absolute;
   top: 0;
