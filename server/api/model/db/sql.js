@@ -380,7 +380,34 @@ module.exports = {
     let mtitle = title ? ` title LIKE '%${title}%' AND` : '';
     let str = mid + mtitle + mbookId;
     console.log('showChapter', `SELECT * FROM book WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`);
-    return `SELECT * FROM book WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`
+    return `SELECT * FROM chapter WHERE${str.substring(0, str.length - 3)}order by serial ${isDesc ? 'desc' : 'asc'};`
+  },
+
+  /*
+  统计book表查询个数
+  参数：id String 书id（选传）
+       title String 书名（选传）
+       subTitle String 附标题（选传）
+       classId String 类别id（选传）
+       status String 状态（选填）
+       authorId String （选传）
+  */
+  showCountBook: (id, title, subTitle, classId, status, authorId) => {
+    let mid = id ? ` id='${id}' AND` : '';
+    let mtitle = title ? ` title LIKE '%${title}%' AND` : '';
+    let msubTitle = subTitle ? ` sub_title LIKE '%${subTitle}%' AND` : '';
+    let mclassId = classId ? ` class_id='${classId}' AND` : '';
+    let mstatus = status ? ` status='${status}' AND` : '';
+    let mauthorId = authorId ? ` author_id='${authorId}' AND` : '';
+    let str = ''
+    if (mid || mtitle || msubTitle || mclassId || mstatus || mauthorId) {
+      let mstr = ` WHERE${mid}${mtitle}${msubTitle}${mclassId}${mstatus}${mauthorId}`
+      str = mstr.substring(0, mstr.length - 3)
+    } else {
+      str = ''
+    }
+    console.log('showCountBook', `SELECT COUNT(*) AS count FROM book${str}`);
+    return `SELECT COUNT(*) AS count FROM book${str}`
   },
 
 }

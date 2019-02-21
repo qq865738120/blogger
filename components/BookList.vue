@@ -5,22 +5,22 @@
         <el-card
           class="hover-pointer book add-book"
           :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
-          :style="{ height: '241px' }"
+          :style="{ height: '256px' }"
           shadow="never">
           <i class="el-icon-plus plus"></i>
         </el-card>
       </section>
     </el-tooltip>
     <template v-for="(item, index) of bookList">
-      <book class="book" :title="item.title" :author="item.author" :startDate="item.startDate" :img="item.img"></book>
+      <book class="book" :id="item.id" :title="item.title" :author="item.author" :startDate="item.startDate" :img="item.img"></book>
     </template>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage"
-      :page-size="20"
+      :page-size="12"
       layout="prev, pager, next, jumper"
-      :total="1000">
+      :total="total">
     </el-pagination>
   </div>
 </template>
@@ -39,7 +39,8 @@ export default {
         { id: '2', title: "标题啊标题标题啊标题标题啊标题" },
         { id: '3', title: "标题啊标题标题啊标题标题啊标题" }
       ],
-      currentPage: 3
+      currentPage: 0,
+      total: 0
     }
   },
   methods: {

@@ -1,11 +1,15 @@
 <template>
-  <div class="book-root">
+  <div class="book-root" @click="onClick">
     <el-card class="content flex-col-center hover-pointer" :style="{ width: width, height: height }" shadow="hover">
       <div class="flex-col-center">
         <img v-lazy="img" />
         <p class="title color-base-black" :style="{ fontSize: titleSize, lineHeight: lineHeight }" style="-webkit-box-orient: vertical;">{{ title }}</p>
         <span v-if="author" class="font-extra-extra-small color-sub-black">{{ $t('common.author') }} <span class="color-main-color">{{ author }}</span></span>
         <span v-if="startDate" class="margin-top-10 font-extra-extra-small color-sub-black">{{ $t('common.start') }} {{ startDate }}</span>
+        <div class="bottom">
+          <div v-if="isShowButton" class="iconfont open-bianji font-extra-extra-small" @click.stop="onEdit"></div>
+          <div class="iconfont open-ai-share font-extra-extra-small"></div>
+        </div>
       </div>
     </el-card>
   </div>
@@ -14,6 +18,7 @@
 <script>
 export default {
   props: {
+    id: String,
     width: {
       type: String,
       default: '180px'
@@ -31,11 +36,23 @@ export default {
     },
     title: String,
     author: String,
-    startDate: String
+    startDate: String,
+    isShowButton: {
+      type: Boolean,
+      default: true
+    },
   },
   data() {
     return {
       lineHeight: parseInt(this.titleSize.split('px')[0]) + 5 + 'px'
+    }
+  },
+  methods: {
+    onClick() {
+      // this.$router.push({ path: `/article/${this.id}` })
+    },
+    onEdit() {
+      this.$router.push({name: 'editor', params: { id: this.id, type: 'book' }})
     }
   }
 }
@@ -56,5 +73,16 @@ export default {
 .title {
   @include over-length(2);
   height: 36px;
+}
+.bottom {
+  line-height: 12px;
+  display: flex;
+}
+.bottom>div {
+  margin-left: $--px8;
+  color: $--color-main-light-4;
+}
+.bottom>div:hover {
+  color: $--secondary-color;
 }
 </style>

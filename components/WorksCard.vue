@@ -1,6 +1,7 @@
 <template>
   <div class="works-card-root" @click="onClick">
-    <el-card class="works-card-content hover-pointer" :body-style="{ padding: '0px' }" shadow="hover">
+    <el-card class="works-card-content hover-pointer" :body-style="{ padding: '0px', position: 'relative' }" shadow="hover">
+      <el-badge :value="tagValue" :type="tagTpye" style="position: absolute; top: 12px; right: 6px;" />
       <img v-lazy="img" class="image">
       <div style="padding: 14px;">
         <span class="title" style="-webkit-box-orient: vertical">{{ title }}</span>
@@ -24,8 +25,30 @@ export default {
     isShowButton: {
       type: Boolean,
       default: true
+    },
+    status: {
+      type: Number,
+      default: 1
     }
   },
+
+  data() {
+    return {
+      tagValue: '',
+      tagTpye: 'danger'
+    }
+  },
+
+  created() {
+    if (process.client) {
+      switch(this.status) {
+        case 1: this.tagValue = '已发布'; this.tagTpye = 'danger'; break;
+        case 0: this.tagValue = '草稿'; this.tagTpye = 'info'; break;
+      }
+      console.log('tagTpye', this.tagTpye);
+    }
+  },
+
   methods: {
     onClick() {
       this.$router.push({ path: `/article/${this.id}` })

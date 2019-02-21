@@ -4,6 +4,7 @@
     "notLoginTip": "您还没有登录，或者登录身份已过期！",
     "modifySuccess": "修改成功，等待作者审核！",
     "modifyFail": "修改失败！",
+    "modifySuccess2": "修改成功!",
     "confirmChanges": "确认修改",
     "commitModify": "提交修改",
     "passwdErr": "密码不正确!",

@@ -15,7 +15,7 @@
         </section>
       </el-tooltip>
       <template v-for="(item, index) of list">
-        <works-card class="card" :id="item.id" :date="item.date" :title="item.title" :img="item.img"></works-card>
+        <works-card class="card" :id="item.id" :date="item.date" :title="item.title" :img="item.img" :status="item.status"></works-card>
       </template>
     </div>
     <el-pagination
@@ -48,7 +48,6 @@ export default {
 
   async created() {
     if (process.client) {
-
       await this.$utils.waitUserInfo(this, async () => {
         this.$axios.get('/api/v1/article/count', { params: { authorId: this.$store.state.userInfo.id } }).then(res => {
           if (res.data.code == 200) {
@@ -93,7 +92,8 @@ export default {
             id: item.id,
             date: this.$moment(item.created_date).format("YYYY-MM-DD hh:mm"),
             title: item.title,
-            img: item.illustration
+            img: item.illustration,
+            status: item.status
           })
         }
         this.list = list
