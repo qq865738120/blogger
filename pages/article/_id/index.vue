@@ -19,7 +19,7 @@
       <div class="img">
         <img v-lazy="imgSrc" />
       </div>
-      <div class="article-content" v-html="articleContent"></div>
+      <div v-html="articleContent"></div>
     </div>
     <div style="width: 180px; margin: 0 auto;" class="margin-top-40">
       <floating-menu :isRow="true" :articleId="$route.params.id" :authorId="authorId"></floating-menu>

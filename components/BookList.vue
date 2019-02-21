@@ -7,7 +7,8 @@
             class="hover-pointer book add-book"
             :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
             :style="{ height: '256px' }"
-            shadow="never">
+            shadow="never"
+            :hidden="currentPage != 1">
             <i class="el-icon-plus plus"></i>
           </el-card>
         </section>

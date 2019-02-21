@@ -2,7 +2,7 @@
   <div class="personal-root">
     <avatar style="margin-top: 40px" :name="$store.state.userInfo.nickname" :signature="$store.state.userInfo.signature" :src="$store.state.userInfo.avatar"></avatar>
     <el-card style="padding: 10px 0px;">
-      <el-tabs tab-position="left" style="width: 800px" :value="activeName">
+      <el-tabs tab-position="left" style="width: 800px" :value="activeName" @tab-click="onTabsTap">
         <el-tab-pane :label="$t('personal.personalInfo')" name="personalInfo">
           <div class="personal-information label-content">
             <p class="tab-item-title iconfont open-shouye">{{ $t('personal.personalise') }}</p>
@@ -60,7 +60,7 @@ export default {
   },
   created() {
     if (process.client) {
-      this.activeName = this.$route.params.tabsName ? this.$route.params.tabsName : 'personalInfo'
+      this.activeName = this.$route.params.tabsName ? this.$route.params.tabsName : ( localStorage.getItem('personalTabs') ? localStorage.getItem('personalTabs') : 'personalInfo' )
     }
   },
   mounted() {
@@ -69,7 +69,9 @@ export default {
     }
   },
   methods: {
-
+    onTabsTap(e) {
+      localStorage.setItem('personalTabs', e._props.name);
+    }
   }
 }
 </script>

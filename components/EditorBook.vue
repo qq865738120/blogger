@@ -151,6 +151,12 @@ export default {
           dataArr.push(item.id)
         }
         let delRes = await this.$axios.get('/api/v1/chapters/delete', { params: { ids: dataArr } })
+        if (delRes.data.code != 200) {
+          this.$message({
+            message: this.hasBook ? this.$t('common.modifyFail') : this.$t('common.createdFail'),
+            type: 'error'
+          });
+        }
       }
       let listEdit = JSON.parse(JSON.stringify(this.$store.state.listEdit));
       for (let item of listEdit) {
@@ -180,7 +186,7 @@ export default {
           if (bookRes.data.code == 200) {
             isSuccess = true
           }
-          this.$axios.post('/api/v1/chapters' + (this.hasBook ? '/update' : ''), { values: listEdit }).then(res => {
+          this.$axios.post('/api/v1/chapters', { values: listEdit }).then(res => {
             loading.close()
             this.$router.push({name: 'personal', params: { tabsName: 'workManagement' }})
             if (res.data.code == 200 && isSuccess) {
