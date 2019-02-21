@@ -45,7 +45,6 @@ export default {
         case 1: this.tagValue = '已发布'; this.tagTpye = 'danger'; break;
         case 0: this.tagValue = '草稿'; this.tagTpye = 'info'; break;
       }
-      console.log('tagTpye', this.tagTpye);
     }
   },
 

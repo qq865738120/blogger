@@ -110,7 +110,7 @@ module.exports = {
       return emun.NOT_DATA
     } else {
       let data = emun.BOOK_SUCCESS
-      data.data = row
+      data.data = row[0]
       return data
     }
   },

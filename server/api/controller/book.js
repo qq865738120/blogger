@@ -193,7 +193,7 @@ module.exports = {
   * @apiParam {string} authorId 作者id（选传）
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
-  * @apiSuccess {Array} data 数据
+  * @apiSuccess {Object} data 数据
   * @apiSuccessExample {json} Success:
   *{
   *  code: 200,

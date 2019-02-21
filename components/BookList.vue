@@ -32,6 +32,7 @@ export default {
   components: {
     Book
   },
+
   data() {
     return {
       bookList: [
@@ -39,10 +40,23 @@ export default {
         { id: '2', title: "标题啊标题标题啊标题标题啊标题" },
         { id: '3', title: "标题啊标题标题啊标题标题啊标题" }
       ],
-      currentPage: 0,
+      currentPage: 1,
       total: 0
     }
   },
+
+  async created() {
+    if (process.client) {
+      await this.$utils.waitUserInfo(this, async () => {
+        let res = await this.$axios.get('/api/v1/book/count', { params: { authorId: this.$store.state.userInfo.id } })
+        if (res.data.code == 200) {
+          this.total = res.data.data.count
+        }
+        // this.loadList();
+      })
+    }
+  },
+
   methods: {
     handleSizeChange(e) {
       console.log('handleSizeChange', e);
