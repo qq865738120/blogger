@@ -88,6 +88,7 @@ module.exports = {
   * @apiParam {string} subTitle 副标题（选传）
   * @apiParam {string} cover 封面图（选传）
   * @apiParam {string} classId 分类id（选传）
+  * @apiParam {Number} status 状态（选传）
   * @apiParam {string} authorId 作者id（选传）
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
@@ -110,7 +111,7 @@ module.exports = {
     } else if (!req.body.id) {
       result = emun.PAR_ID_ERR
     } else {
-      result = await service.updateBook(req.body.id, req.body.name, req.body.subTitle, req.body.cover, req.body.classId, req.body.authorId)
+      result = await service.updateBook(req.body.id, req.body.name, req.body.subTitle, req.body.cover, req.body.classId, req.body.status, req.body.authorId)
     }
     res.json(result)
   },
@@ -245,6 +246,38 @@ module.exports = {
   async getChapters(req, res) {
     let result = {}
     result = await service.showChapter(req.query.id, req.query.bookId, req.query.title, req.query.isDesc)
+    res.json(result)
+  },
+
+  /**
+  * @api {get} /chapters/delete 批量删除章节
+  * @apiDescription 批量删除章节
+  * @apiName delete chapters
+  * @apiGroup Book
+  * @apiParam {Array} ids 章节id数组，示例['1', '2']
+  * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功'
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 300,
+  *   msg: 'ids参数异常'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async deleteChapters(req, res) {
+    let result = {}
+    if (!req.session.user) {
+      result = emun.NOT_LOGIN
+    } else if (!req.query.ids) {
+      result = emun.PAR_IDS_ERR
+    } else {
+      result = await service.deleteChapters(req.query.ids)
+    }
     res.json(result)
   },
 

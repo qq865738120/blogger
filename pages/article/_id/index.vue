@@ -1,6 +1,5 @@
 <template>
   <div class="article-root">
-    <!-- {{ $route.params.id }} -->
     <div class="floating-menu" :hidden="!isShowMenu">
       <floating-menu :articleId="$route.params.id" :authorId="authorId"></floating-menu>
     </div>

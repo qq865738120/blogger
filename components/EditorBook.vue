@@ -12,7 +12,7 @@
         <upload-file :url="url" :tip="uploadFileTip" :storeName="'oldCover'" :mutationName="'SET_OLD_COVER'"></upload-file>
       </el-form-item>
       <el-form-item :label="$t('editor.chapterSet')" style="width: 600px;">
-        <list-edit></list-edit>
+        <list-edit :wait="wait"></list-edit>
       </el-form-item>
       <el-form-item :label="$t('header.classify')" prop="selectedValue" style="margin-top: 30px;">
         <el-select v-model="form.selectedValue" :placeholder="$t('editor.selectClassify')">
@@ -87,11 +87,13 @@ export default {
       url: '',
       uploadFileTip: '只能上传jpg/png文件，且不超过2MB。上传5:7的图片效果更佳。',
       hasBook: false, //该id对应的书是否已创建
+      wait: false
     }
   },
 
   async mounted() {
     let loading = this.$utils.loading(this)
+    this.$store.commit('SET_OLD_COVER', '')
     if (!this.classify) {
       let res = await this.$axios.get('/api/v1/classify')
       this.$store.commit('SET_CLASSIFY', res.data.data)
@@ -99,14 +101,29 @@ export default {
     }
     let data = await this.$axios.get('/api/v1/book', { params: { id: this.bookId } })
     if (data.data.code == 200) {
-      this.form.title = data.data.data.name
-      this.form.subTitle = data.data.data.sub_title
-      this.url = data.data.data.cover
-      this.form.selectedValue = data.data.data.class_id
-      this.$store.commit('SET_OLD_COVER', data.data.data.cover)
+      this.form.title = data.data.data[0].title
+      this.form.subTitle = data.data.data[0].sub_title
+      this.url = data.data.data[0].cover
+      this.form.selectedValue = data.data.data[0].class_id
+      this.$store.commit('SET_OLD_COVER', data.data.data[0].cover)
       this.hasBook = true
     } else {
       this.hasBook = false
+    }
+    if (this.hasBook) {
+      let chaptersData = await this.$axios.get('/api/v1/chapters', { params: { bookId: this.bookId } })
+      if (chaptersData.data.code == 200) {
+        let list = []
+        for (let item of chaptersData.data.data) {
+          list.push({
+            title: item.title
+          })
+        }
+        this.$store.commit('SET_LIST_EDIT', JSON.parse(JSON.stringify(list)))
+        this.wait = true
+      } else {
+        this.$router.push({ name: 'error', params: { statusCode: 500 } })
+      }
     }
     loading.close()
   },
@@ -129,12 +146,14 @@ export default {
             type: 'error'
           });
         }
+        let dataArr = []
+        for (let item of ids.data.data) {
+          dataArr.push(item.id)
+        }
+        let delRes = await this.$axios.get('/api/v1/chapters/delete', { params: { ids: dataArr } })
       }
       let listEdit = JSON.parse(JSON.stringify(this.$store.state.listEdit));
       for (let item of listEdit) {
-        if (this.hasBook) {
-          item.id = ids.data.data[i].id
-        }
         item.bookId = this.bookId
         item.title = item.title.replace(/\s+/g,"");
         if (!item.title) {
@@ -163,6 +182,7 @@ export default {
           }
           this.$axios.post('/api/v1/chapters' + (this.hasBook ? '/update' : ''), { values: listEdit }).then(res => {
             loading.close()
+            this.$router.push({name: 'personal', params: { tabsName: 'workManagement' }})
             if (res.data.code == 200 && isSuccess) {
               this.$message({
                 message: this.hasBook ? this.$t('common.modifySuccess2') : this.$t('common.createdSuccess'),

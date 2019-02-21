@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     onClick() {
-      // this.$router.push({ path: `/article/${this.id}` })
+      this.$router.push({ path: `/book/${this.id}` })
     },
     onEdit() {
       this.$router.push({name: 'editor', params: { id: this.id, type: 'book' }})

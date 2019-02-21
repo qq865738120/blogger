@@ -17,12 +17,21 @@
 
 <script>
 export default {
+  props: {
+    wait: Boolean
+  },
   data() {
     return {
       list: ''
     }
   },
-
+  watch:{
+    wait(val) {
+      if (val) {
+        this.list = JSON.parse(JSON.stringify(this.$store.state.listEdit));
+      }
+    }
+  },
   mounted() {
     this.list = JSON.parse(JSON.stringify(this.$store.state.listEdit));
   },

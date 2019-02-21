@@ -288,7 +288,7 @@ module.exports = {
        authorId String 作者id
   */
   insertBook: (id, title, subTitle, cover, classId, status, authorId) => {
-    return `INSERT INTO book VALUES ('${id}', '${title}', '${subTitle}', '${cover ? cover : 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/default-book.jpg'}', '${classId}', '${status ? status : 0}', '${authorId}')`
+    return `INSERT INTO book VALUES ('${id}', '${title}', '${subTitle}', '${cover ? cover : 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/default-book.jpg'}', '${classId}', '${status ? status : 0}', '${authorId}', '${moment().format('YYYY-MM-DD HH:mm:ss')}')`
   },
 
   /*
@@ -321,7 +321,8 @@ module.exports = {
     let mstatus = status ? ` status='${status}',` : '';
     let mauthorId = authorId ? ` author_id='${authorId}',` : '';
     let str = mtitle + msubTitle + mcover + mclassId + mstatus + mauthorId;
-    return `UPDATE article SET${str.substring(0, str.length - 1)} WHERE id = '${id}';`
+    console.log('updateBook', `UPDATE book SET${str.substring(0, str.length - 1)} WHERE id = '${id}';`);
+    return `UPDATE book SET${str.substring(0, str.length - 1)} WHERE id = '${id}';`
   },
 
   /*
@@ -419,6 +420,19 @@ module.exports = {
     }
     console.log('showCountBook', `SELECT COUNT(*) AS count FROM book${str}`);
     return `SELECT COUNT(*) AS count FROM book${str}`
+  },
+
+  /*
+  批量删除chapter表数据
+  参数：ids Array 章节id数组，示例['1', '2']
+  */
+  deleteChapters: (ids) => {
+    let str = ''
+    for (let item of ids) {
+      str += `'${item}',`
+    }
+    console.log('deleteChapters', `DELETE FROM chapter WHERE id IN (${str.substring(0, str.length - 1)});`);
+    return `DELETE FROM chapter WHERE id IN (${str.substring(0, str.length - 1)});`
   },
 
 }

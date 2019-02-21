@@ -151,6 +151,11 @@ const apiMap = [
     method: book.getChapters
   },
   {
+    path: '/chapters/delete',
+    type: 'get',
+    method: book.deleteChapters
+  },
+  {
     path: '/book/count',
     type: 'get',
     method: book.getBookCount

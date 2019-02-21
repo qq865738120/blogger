@@ -136,4 +136,17 @@ module.exports = {
     }
   },
 
+  /*
+  批量删除chapter表数据
+  参数： values Array 数据，示例 [{id: '', bookId: '', title: ''}, {id: '', bookId: '', title: ''}]
+  */
+  async deleteChapters(ids) {
+    let row = await utils.dbQuery(pool, sql.deleteChapters(ids))
+    if (row.fieldCount == 0) {
+      return emun.SUCCESS
+    } else {
+      return emun.FAIL
+    }
+  },
+
 }

@@ -114,6 +114,7 @@ export default {
 
   async mounted() {
     let loading = this.$utils.loading(this)
+    this.$store.commit('SET_OLD_ILLUSTRATION', '')
     if (!this.classify) {
       let res = await this.$axios.get('/api/v1/classify')
       this.$store.commit('SET_CLASSIFY', res.data.data)
@@ -186,6 +187,7 @@ export default {
                 });
               }
             })
+            this.$router.push({name: 'personal', params: { tabsName: 'workManagement' }})
             loading.close()
           }, (err) => {
             loading.close()

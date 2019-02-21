@@ -8,6 +8,10 @@ module.exports = {
     code: 300,
     msg: 'id参数异常'
   },
+  PAR_IDS_ERR: {
+    code: 300,
+    msg: 'ids参数异常'
+  },
   PAR_NAME_ERR: {
     code: 300,
     msg: 'name参数异常'

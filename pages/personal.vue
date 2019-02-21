@@ -2,20 +2,20 @@
   <div class="personal-root">
     <avatar style="margin-top: 40px" :name="$store.state.userInfo.nickname" :signature="$store.state.userInfo.signature" :src="$store.state.userInfo.avatar"></avatar>
     <el-card style="padding: 10px 0px;">
-      <el-tabs tab-position="left" style="width: 800px">
-        <el-tab-pane :label="$t('personal.personalInfo')">
+      <el-tabs tab-position="left" style="width: 800px" :value="activeName">
+        <el-tab-pane :label="$t('personal.personalInfo')" name="personalInfo">
           <div class="personal-information label-content">
             <p class="tab-item-title iconfont open-shouye">{{ $t('personal.personalise') }}</p>
             <personalise-form></personalise-form>
           </div>
         </el-tab-pane>
-        <el-tab-pane :label="$t('personal.accountSetting')">
+        <el-tab-pane :label="$t('personal.accountSetting')" name="accountSetting">
           <div class="personal-information label-content">
             <p class="tab-item-title iconfont open-anquan">{{ $t('personal.security') }}</p>
             <safety-setting-form></safety-setting-form>
           </div>
         </el-tab-pane>
-        <el-tab-pane :label="$t('personal.workManagement')">
+        <el-tab-pane :label="$t('personal.workManagement')" name="workManagement">
           <div class="personal-information label-content">
             <p class="tab-item-title iconfont open-wenzhang1">{{ $t('personal.article') }}</p>
             <works-card-list></works-card-list>
@@ -23,7 +23,7 @@
             <book-list></book-list>
           </div>
         </el-tab-pane>
-        <el-tab-pane :label="$t('personal.myCollection')">
+        <el-tab-pane :label="$t('personal.myCollection')" name="myCollection">
           <div class="personal-information label-content">
             <p class="tab-item-title iconfont open-shoucang">{{ $t('personal.allCollection') }}</p>
             <collection-list></collection-list>
@@ -55,11 +55,13 @@ export default {
   },
   data() {
     return {
-
+      activeName: 'personalInfo'
     }
   },
   created() {
-
+    if (process.client) {
+      this.activeName = this.$route.params.tabsName ? this.$route.params.tabsName : 'personalInfo'
+    }
   },
   mounted() {
     if (process.client) {
