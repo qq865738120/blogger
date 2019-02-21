@@ -356,13 +356,31 @@ module.exports = {
        authorId String （选传）
   */
   showBook: (id, title, subTitle, classId, status, authorId) => {
-    let mtitle = title ? ` title='${title}' AND` : '';
-    let msubTitle = subTitle ? ` sub_title='${subTitle}' AND` : '';
+    let mid = id ? ` id='${id}' AND` : '';
+    let mtitle = title ? ` title LIKE '%${title}%' AND` : '';
+    let msubTitle = subTitle ? ` sub_title LIKE '%${subTitle}%' AND` : '';
     let mclassId = classId ? ` class_id='${classId}' AND` : '';
     let mstatus = status ? ` status='${status}' AND` : '';
     let mauthorId = authorId ? ` author_id='${authorId}' AND` : '';
-    let str = mtitle + msubTitle + mcover + mclassId + mstatus + mauthorId;
+    let str = mid + mtitle + msubTitle + mclassId + mstatus + mauthorId;
+    console.log('showBook', `SELECT * FROM book WHERE${str.substring(0, str.length - 3)};`);
     return `SELECT * FROM book WHERE${str.substring(0, str.length - 3)};`
+  },
+
+  /*
+  查询chapter表（id，bookId，title至少传一个参数）
+  参数：id String 章节id（选传）
+       bookId String 书id（选传）
+       title String 书名（选传）
+       isDesc Boolean 是否降序（选传，默认升序）
+  */
+  showChapter: (id, bookId, title, isDesc) => {
+    let mid = id ? ` id='${id}' AND` : '';
+    let mbookId = bookId ? ` book_id='${bookId}' AND` : '';
+    let mtitle = title ? ` title LIKE '%${title}%' AND` : '';
+    let str = mid + mtitle + mbookId;
+    console.log('showChapter', `SELECT * FROM book WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`);
+    return `SELECT * FROM book WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`
   },
 
 }

@@ -85,7 +85,25 @@ module.exports = {
        authorId String （选传）
   */
   async showBook(id, title, subTitle, classId, status, authorId) {
-    let row = await utils.dbQuery(pool, sql.updateBook(id, title, subTitle, classId, status, authorId))
+    let row = await utils.dbQuery(pool, sql.showBook(id, title, subTitle, classId, status, authorId))
+    if (row.length == 0) {
+      return emun.NOT_DATA
+    } else {
+      let data = emun.BOOK_SUCCESS
+      data.data = row
+      return data
+    }
+  },
+
+  /*
+  查询章节（id，bookId，title至少传一个参数）
+  参数：id String 章节id（选传）
+       bookId String 书id（选传）
+       title String 书名（选传）
+       isDesc Boolean 是否降序（选传，默认升序）
+  */
+  async showChapter(id, bookId, title, isDesc) {
+    let row = await utils.dbQuery(pool, sql.showChapter(id, bookId, title, isDesc))
     if (row.length == 0) {
       return emun.NOT_DATA
     } else {

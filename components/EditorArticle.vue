@@ -127,6 +127,7 @@ export default {
       let keys = data.data.data.keywords.split('##')
       keys.pop()
       this.form.keyWords = keys
+      this.$store.commit('SET_OLD_ILLUSTRATION', data.data.data.illustration)
     }
     loading.close()
   },

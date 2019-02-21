@@ -25,7 +25,7 @@
         </el-select>
       </el-form-item>
       <el-form-item size="large">
-        <el-button size="large"  type="primary" @click="onSubmit('form')">{{ $t('common.created') }}</el-button>
+        <el-button size="large"  type="primary" @click="onSubmit('form')">{{ hasBook ? $t('common.modify') : $t('common.created') }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -85,7 +85,8 @@ export default {
       },
       classify: this.$store.state.classList,
       url: '',
-      uploadFileTip: '只能上传jpg/png文件，且不超过2MB。上传3:4的图片效果更佳。'
+      uploadFileTip: '只能上传jpg/png文件，且不超过2MB。上传5:7的图片效果更佳。',
+      hasBook: false, //该id对应的书是否已创建
     }
   },
 
@@ -96,15 +97,17 @@ export default {
       this.$store.commit('SET_CLASSIFY', res.data.data)
       this.classify = res.data.data
     }
-    // let data = await this.$axios.get('/api/v1/article/id', { params: { id: this.bookId } })
-    // if (data.data.code == 200) {
-    //   this.form.title = data.data.data.title
-    //   this.url = data.data.data.illustration
-    //   this.form.selectedValue = data.data.data.class_id
-    //   let keys = data.data.data.keywords.split('##')
-    //   keys.pop()
-    //   this.form.keyWords = keys
-    // }
+    let data = await this.$axios.get('/api/v1/book', { params: { id: this.bookId } })
+    if (data.data.code == 200) {
+      this.form.title = data.data.data.name
+      this.form.subTitle = data.data.data.sub_title
+      this.url = data.data.data.cover
+      this.form.selectedValue = data.data.data.class_id
+      this.$store.commit('SET_OLD_COVER', data.data.data.cover)
+      this.hasBook = true
+    } else {
+      this.hasBook = false
+    }
     loading.close()
   },
 
@@ -119,6 +122,9 @@ export default {
       }
       let listEdit = JSON.parse(JSON.stringify(this.$store.state.listEdit));
       for (let item of listEdit) {
+        if (this.hasBook) {
+          item.id =
+        }
         item.bookId = this.bookId
         item.title = item.title.replace(/\s+/g,"");
         if (!item.title) {
@@ -141,11 +147,11 @@ export default {
             authorId: this.$store.state.userInfo.id
           }
           let isSuccess = false
-          let bookRes = await this.$axios.post('/api/v1/book', postData)
+          let bookRes = await this.$axios.post('/api/v1/book' + this.hasBook ? '/update' : '', postData)
           if (bookRes.data.code == 200) {
             isSuccess = true
           }
-          this.$axios.post('/api/v1/chapters', { values: listEdit }).then(res => {
+          this.$axios.post('/api/v1/chapters' + this.hasBook ? '/update' : '', { values: listEdit }).then(res => {
             loading.close()
             if (res.data.code == 200 && isSuccess) {
               this.$message({

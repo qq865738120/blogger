@@ -145,6 +145,11 @@ const apiMap = [
     type: 'get',
     method: book.getBook
   },
+  {
+    path: '/chapters',
+    type: 'get',
+    method: book.getChapters
+  },
 ]
 
 for (let item of apiMap) {
