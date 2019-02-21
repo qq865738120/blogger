@@ -87,8 +87,8 @@ module.exports = {
        row Number 一页多少行（选传，默认20行）
        isAsc Boolean 是否升序排列（选传，默认按创建时间降序）
   */
-  async showBook(id, title, subTitle, classId, status, authorId, page, row, isAsc) {
-    let row = await utils.dbQuery(pool, sql.showBook(id, title, subTitle, classId, status, authorId, page, row, isAsc))
+  async showBook(id, title, subTitle, classId, status, authorId, page, mrow, isAsc) {
+    let row = await utils.dbQuery(pool, sql.showBook(id, title, subTitle, classId, status, authorId, page, mrow, isAsc))
     if (row.length == 0) {
       return emun.NOT_DATA
     } else {

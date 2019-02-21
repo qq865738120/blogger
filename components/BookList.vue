@@ -1,20 +1,23 @@
 <template>
   <div class="book-list-root" v-loading="loading">
-    <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top-start">
-      <section @click="onAdd">
-        <el-card
-          class="hover-pointer book add-book"
-          :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
-          :style="{ height: '256px' }"
-          shadow="never">
-          <i class="el-icon-plus plus"></i>
-        </el-card>
-      </section>
-    </el-tooltip>
-    <template v-for="(item, index) of bookList">
-      <book class="book" :id="item.id" :title="item.title" :author="item.author" :startDate="item.startDate" :img="item.img"></book>
-    </template>
+    <div>
+      <el-tooltip effect="dark" :content="$t('personal.addBook')" placement="top">
+        <section @click="onAdd">
+          <el-card
+            class="hover-pointer book add-book"
+            :body-style="{ padding: '0px', width: '180px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }"
+            :style="{ height: '256px' }"
+            shadow="never">
+            <i class="el-icon-plus plus"></i>
+          </el-card>
+        </section>
+      </el-tooltip>
+      <template v-for="(item, index) of bookList">
+        <book class="book" :id="item.id" :title="item.title" :author="item.author" :startDate="item.startDate" :img="item.img"></book>
+      </template>
+    </div>
     <el-pagination
+      class="flex-center margin-top-20"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage"
@@ -53,7 +56,7 @@ export default {
         if (res.data.code == 200) {
           this.total = res.data.data.count
         }
-        // this.loadList();
+        this.loadList();
       })
     }
   },
@@ -64,6 +67,8 @@ export default {
     },
     handleCurrentChange(e) {
       console.log('handleCurrentChange', e);
+      this.currentPage = e
+      this.loadList(e);
     },
 
     onAdd() {
@@ -89,13 +94,11 @@ export default {
         for (let item of res.data.data) {
           list.push({
             id: item.id,
-            date: this.$moment(item.created_date).format("YYYY-MM-DD hh:mm"),
             title: item.title,
-            img: item.illustration,
-            status: item.status
+            img: item.cover
           })
         }
-        this.list = list
+        this.bookList = list
       } else {
         // this.$router.push({name: 'error', params: { statusCode: 500 }})
       }
@@ -108,7 +111,7 @@ export default {
 <style lang="scss" scoped>
 @import 'assets/style/common';
 
-.book-list-root {
+.book-list-root > div {
   display: flex;
   flex-wrap: wrap;
 }

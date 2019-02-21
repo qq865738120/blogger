@@ -1,7 +1,7 @@
 <template>
   <div class="works-card-list-root" v-loading="loading">
     <div>
-      <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top-start">
+      <el-tooltip effect="dark" :content="$t('personal.addArtical')" placement="top">
         <section @click="onAdd">
           <el-card
             class="hover-pointer card add-card"
@@ -19,6 +19,7 @@
       </template>
     </div>
     <el-pagination
+      class="flex-center margin-top-20"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage"

@@ -365,16 +365,16 @@ module.exports = {
     let mclassId = classId ? ` class_id='${classId}' AND` : '';
     let mstatus = status ? ` status='${status}' AND` : '';
     let mauthorId = authorId ? ` author_id='${authorId}' AND` : '';
-    let mPage = page ? parseInt(page) : 0;
+    let mPage = page ? parseInt(page) : 1;
     let mRow = row ? parseInt(row) : 20;
     let asc = isAsc ? 'asc' : 'desc';
     let str = ''
     if (mid || mtitle || msubTitle || mclassId || mstatus || mauthorId) {
       str = 'WHERE'
     }
-    str = mid + mtitle + msubTitle + mclassId + mstatus + mauthorId;
+    str += mid + mtitle + msubTitle + mclassId + mstatus + mauthorId;
     const start = (mPage - 1) * mRow;
-    console.log('showBook', `SELECT * FROM book WHERE${str.substring(0, str.length - 3)};`);
+    console.log('showBook', `SELECT * FROM book ${str.substring(0, str.length - 3)} order by created_date ${asc} limit ${start}, ${mRow};`);
     return `SELECT * FROM book ${str.substring(0, str.length - 3)} order by created_date ${asc} limit ${start}, ${mRow};`
   },
 
