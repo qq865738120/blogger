@@ -4,105 +4,50 @@
       <span style="-webkit-box-orient: vertical;">{{ name }}</span>
     </div>
     <div class="content">
-      <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+      <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick">
+        <span
+          class="tree-node font-medium color-base-black-4"
+          slot-scope="{ node, data }"
+          :class="data.lv == 1 ? 'iconfont open-wenzhang2' : 'iconfont open-wenzhang'">
+          {{ node.label }}
+        </span>
+      </el-tree>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    name: String,
+    bookId: String
+  },
+
   data() {
     return {
-      name: '撒打发士大夫',
       treeData: [
         {
+          id: '1',
+          lv: '1',
           label: '一级 1',
           children: [
-            { label: '二级 1-1' }
+            { id: '2', lv: '2', label: '二级 1-1' }
           ]
         },
         {
+          id: '1',
+          lv: '1',
           label: '一级 1',
           children: [
-            { label: '二级 1-1' }
+            { id: '2', lv: '2', label: '二级 1-1' }
           ]
         },
         {
+          id: '1',
+          lv: '1',
           label: '一级 1',
           children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
-          ]
-        },
-        {
-          label: '一级 1',
-          children: [
-            { label: '二级 1-1' }
+            { id: '2', lv: '2', label: '二级 1-1' }
           ]
         },
       ],
@@ -112,9 +57,29 @@ export default {
       }
     }
   },
-  methods: {
-    handleNodeClick() {
 
+  async created() {
+    let res = await this.$axios.get('/api/v1/chapters', { params: { bookId: this.bookId } })
+    console.log('res', res);
+    if (res.data.code == 200) {
+      let treeArr = []
+      for (let item of res.data.data) {
+        treeArr.push({
+          id: item.id,
+          lv: '1',
+          label: item.title,
+          children: []
+        })
+      }
+      this.treeData = treeArr
+    } else {
+      this.$router.push({name: 'error', params: { statusCode: 500 }})
+    }
+  },
+
+  methods: {
+    handleNodeClick(e) {
+      console.log(e);
     }
   }
 }
@@ -139,6 +104,7 @@ export default {
 }
 .head > span {
   @include over-length(2)
+  text-align: center;
 }
 .content {
   padding: 20px 10px;

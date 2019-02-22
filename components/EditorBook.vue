@@ -1,6 +1,12 @@
 <template>
   <div class="editor-artical-root">
-    <p class="title">{{ $t('editor.editBook') }}</p>
+    <!-- <p class="title">{{ $t('editor.editBook') }}</p> -->
+    <div class="head">
+      <el-steps :active="stepActive">
+        <el-step title="编辑连载书" description="请编辑或修改您的连载书的基本信息"></el-step>
+        <el-step title="添加博文" description="选择需要添加到该连载书的博文"></el-step>
+      </el-steps>
+    </div>
     <el-form :model="form" status-icon :rules="rules" ref="form" label-width="80px">
       <el-form-item :label="$t('editor.bookName')" prop="title" style="width: 600px;" >
         <el-input type="text" v-model="form.title" autocomplete="off" maxlength="30"></el-input>
@@ -87,7 +93,8 @@ export default {
       url: '',
       uploadFileTip: '只能上传jpg/png文件，且不超过2MB。上传5:7的图片效果更佳。',
       hasBook: false, //该id对应的书是否已创建
-      wait: false
+      wait: false,
+      stepActive: 1, //步骤条当前激活
     }
   },
 
@@ -222,5 +229,9 @@ export default {
   border-bottom: 1px solid $--color-main-light-8;
   margin-block-start: $--px30;
   margin-block-end: $--px30;
+}
+.head {
+  width: 740px;
+  margin: 50px auto;
 }
 </style>

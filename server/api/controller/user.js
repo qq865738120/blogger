@@ -67,10 +67,11 @@ module.exports = {
   },
 
   /**
-  * @api {get} /user/info/id 查询用户信息
+  * @api {get} /user/info/id 使用id查询用户信息
   * @apiDescription 查询用户信息
   * @apiName userInfo by id
   * @apiGroup User
+  * @apiParam {string} id 用户id
   * @apiSuccess {Number} code 错误码 200：成功；300：参数异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccess {Object} data 数据

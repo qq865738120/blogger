@@ -2,7 +2,7 @@
   <div class="book-page-root">
     <!-- {{ $route.params.id }} -->
     <div class="table-contents">
-      <table-contents></table-contents>
+      <table-contents :name="name" :bookId="$route.params.id"></table-contents>
     </div>
     <div class="head flex-col-center">
       <img v-lazy="url"/>
@@ -35,14 +35,34 @@ export default {
   data() {
     return {
       // url: 'https://images.gitbook.cn/6c7d5560-252d-11e9-bc2f-6d43685c46dc?imageMogr2/thumbnail/1500x625!',
+      name: '',
       url: 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/default-book.jpg',
       index: 1,
       chapter: '喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森',
-      author: '糯米',
+      author: '',
       date: '2019/2/16',
       title: '的首发式地方撒旦发',
       articleContent: ''
     }
+  },
+
+  async created() {
+    let res = await this.$axios.get('/api/v1/book', { params: { id: this.$route.params.id } })
+    if (res.data.code == 200) {
+      this.url = res.data.data[0].cover,
+      this.date = this.$moment(res.data.data[0].created_date).format('YYYY/MM/DD')
+      this.name = res.data.data[0].title
+      let userRes = await this.$axios.get('/api/v1/user/info/id', { params: { id: res.data.data[0].author_id } })
+      if (userRes.data.code == 200) {
+        this.author = userRes.data.data.nickname
+      }
+    } else {
+      this.$router.push({name: 'error', params: { statusCode: 500 }})
+    }
+  },
+
+  async mounted() {
+
   }
 
 }
@@ -75,7 +95,7 @@ export default {
   object-fit: cover;
   position: absolute;
   top: 0;
-  z-index: -1;
+  z-index: -100;
 }
 .head > p {
   font-size: 60px;
