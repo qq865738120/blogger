@@ -1,6 +1,9 @@
 <template>
   <div class="book-page-root">
     <!-- {{ $route.params.id }} -->
+    <div class="table-contents">
+      <table-contents></table-contents>
+    </div>
     <div class="head flex-col-center">
       <img v-lazy="url"/>
       <p class="webfont color-base-black-3">第{{ index }}章</p>
@@ -19,28 +22,43 @@
 </template>
 
 <script>
-  export default {
-    layout: 'main',
+import FloatingMenu from '~/components/FloatingMenu.vue'
+import TableContents from '~/components/TableContents.vue'
 
-    data() {
-      return {
-        // url: 'https://images.gitbook.cn/6c7d5560-252d-11e9-bc2f-6d43685c46dc?imageMogr2/thumbnail/1500x625!',
-        url: 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/default-book.jpg',
-        index: 1,
-        chapter: '喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森',
-        author: '糯米',
-        date: '2019/2/16',
-        title: '的首发式地方撒旦发',
-        articleContent: ''
-      }
+export default {
+  layout: 'main',
+
+  components: {
+    TableContents
+  },
+
+  data() {
+    return {
+      // url: 'https://images.gitbook.cn/6c7d5560-252d-11e9-bc2f-6d43685c46dc?imageMogr2/thumbnail/1500x625!',
+      url: 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com/system/default-book.jpg',
+      index: 1,
+      chapter: '喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森喀什地方阿斯蒂芬安德森',
+      author: '糯米',
+      date: '2019/2/16',
+      title: '的首发式地方撒旦发',
+      articleContent: ''
     }
-
   }
+
+}
 </script>
 
 <style lang="scss" scoped>
 @import 'assets/style/common';
 
+.table-contents {
+  position: fixed;
+  left: 50%;
+  top: calc(50% + 60px);
+  z-index: 300;
+  margin-left: 430px;
+  transform: translateY(-50%);
+}
 .head {
   width: 800px;
   height: 380px;
@@ -53,7 +71,7 @@
 .head > img {
   width: 100%;
   height: 100%;
-  filter: blur(20px) grayscale(36%) contrast(75%);
+  filter: blur(20px) grayscale(45%) contrast(75%);
   object-fit: cover;
   position: absolute;
   top: 0;
