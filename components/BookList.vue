@@ -39,11 +39,7 @@ export default {
 
   data() {
     return {
-      bookList: [
-        { id: '1', title: "标题啊标题标题啊标题标题啊标题", img: "http://www.haipic.com/icon/32d5903237.jpg" },
-        { id: '2', title: "标题啊标题标题啊标题标题啊标题" },
-        { id: '3', title: "标题啊标题标题啊标题标题啊标题" }
-      ],
+      bookList: [],
       currentPage: 1,
       total: 0,
       loading: false

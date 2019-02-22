@@ -26,7 +26,8 @@
     "created": "创建",
     "modify": "修改",
     "createdSuccess": "创建成功！",
-    "createdFail": "创建失败！"
+    "createdFail": "创建失败！",
+    "nextStep": "下一步"
   },
   "header": {
     "homePage": "首页",
@@ -144,6 +145,9 @@
     "deleteChapter": "删除该章节",
     "pleaseInputChapter": "请输入章节题目",
     "editBook": "编辑连载",
-    "chapterNotNull": "章节题目不能为空"
+    "chapterNotNull": "章节题目不能为空",
+    "editingBook": "编辑连载书",
+    "editingBookTip": "请编辑或修改您的连载书的基本信息",
+    "addArticleTip": "选择需要添加到该连载书的博文"
   }
 }

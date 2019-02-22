@@ -3,37 +3,41 @@
     <!-- <p class="title">{{ $t('editor.editBook') }}</p> -->
     <div class="head">
       <el-steps :active="stepActive">
-        <el-step title="编辑连载书" description="请编辑或修改您的连载书的基本信息"></el-step>
-        <el-step title="添加博文" description="选择需要添加到该连载书的博文"></el-step>
+        <el-step :title="$t('editor.editingBook')" :description="$t('editor.editingBookTip')"></el-step>
+        <el-step :title="$t('personal.addArtical')" :description="$t('editor.addArticleTip')"></el-step>
       </el-steps>
     </div>
-    <el-form :model="form" status-icon :rules="rules" ref="form" label-width="80px">
-      <el-form-item :label="$t('editor.bookName')" prop="title" style="width: 600px;" >
-        <el-input type="text" v-model="form.title" autocomplete="off" maxlength="30"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('editor.subTitle')" prop="subTitle" style="width: 600px;" >
-        <el-input type="text" v-model="form.subTitle" autocomplete="off" maxlength="30"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('editor.cover')" style="width: 600px;">
-        <upload-file :url="url" :tip="uploadFileTip" :storeName="'oldCover'" :mutationName="'SET_OLD_COVER'"></upload-file>
-      </el-form-item>
-      <el-form-item :label="$t('editor.chapterSet')" style="width: 600px;">
-        <list-edit :wait="wait"></list-edit>
-      </el-form-item>
-      <el-form-item :label="$t('header.classify')" prop="selectedValue" style="margin-top: 30px;">
-        <el-select v-model="form.selectedValue" :placeholder="$t('editor.selectClassify')">
-          <el-option
-            v-for="item in classify"
-            :key="item.id"
-            :label="item.classification"
-            :value="item.id">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item size="large">
-        <el-button size="large"  type="primary" @click="onSubmit('form')">{{ hasBook ? $t('common.modify') : $t('common.created') }}</el-button>
-      </el-form-item>
-    </el-form>
+
+    <transition name="el-fade-in-linear">
+      <el-form v-show="stepActive == 1" :model="form" status-icon :rules="rules" ref="form" label-width="80px">
+        <el-form-item :label="$t('editor.bookName')" prop="title" style="width: 600px;" >
+          <el-input type="text" v-model="form.title" autocomplete="off" maxlength="30"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('editor.subTitle')" prop="subTitle" style="width: 600px;" >
+          <el-input type="text" v-model="form.subTitle" autocomplete="off" maxlength="30"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('editor.cover')" style="width: 600px;">
+          <upload-file :url="url" :tip="uploadFileTip" :storeName="'oldCover'" :mutationName="'SET_OLD_COVER'"></upload-file>
+        </el-form-item>
+        <el-form-item :label="$t('editor.chapterSet')" style="width: 600px;">
+          <list-edit :wait="wait"></list-edit>
+        </el-form-item>
+        <el-form-item :label="$t('header.classify')" prop="selectedValue" style="margin-top: 30px;">
+          <el-select v-model="form.selectedValue" :placeholder="$t('editor.selectClassify')">
+            <el-option
+              v-for="item in classify"
+              :key="item.id"
+              :label="item.classification"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item size="large">
+          <el-button size="large"  type="primary" @click="onSubmit('form')">{{ $t('common.nextStep') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </transition>
+
   </div>
 </template>
 
@@ -195,12 +199,13 @@ export default {
           }
           this.$axios.post('/api/v1/chapters', { values: listEdit }).then(res => {
             loading.close()
-            this.$router.push({name: 'personal', params: { tabsName: 'workManagement' }})
+            // this.$router.push({name: 'personal', params: { tabsName: 'workManagement' }})
             if (res.data.code == 200 && isSuccess) {
-              this.$message({
-                message: this.hasBook ? this.$t('common.modifySuccess2') : this.$t('common.createdSuccess'),
-                type: 'success'
-              });
+              this.stepActive = 2
+              // this.$message({
+              //   message: this.hasBook ? this.$t('common.modifySuccess2') : this.$t('common.createdSuccess'),
+              //   type: 'success'
+              // });
             } else {
               this.$message({
                 message: this.hasBook ? this.$t('common.modifyFail') : this.$t('common.createdFail'),
