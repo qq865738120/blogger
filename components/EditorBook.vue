@@ -20,7 +20,7 @@
           <upload-file :url="url" :tip="uploadFileTip" :storeName="'oldCover'" :mutationName="'SET_OLD_COVER'"></upload-file>
         </el-form-item>
         <el-form-item :label="$t('editor.chapterSet')" style="width: 600px;">
-          <list-edit :wait="wait"></list-edit>
+          <list-edit :wait="wait" :stateName="'listEdit'" :methodName="'SET_LIST_EDIT'"></list-edit>
         </el-form-item>
         <el-form-item :label="$t('header.classify')" prop="selectedValue" style="margin-top: 30px;">
           <el-select v-model="form.selectedValue" :placeholder="$t('editor.selectClassify')">
@@ -33,6 +33,28 @@
           </el-select>
         </el-form-item>
         <el-form-item size="large">
+          <el-button size="large"  type="primary" @click="onSubmit('form')">{{ $t('common.nextStep') }}</el-button>
+        </el-form-item>
+      </el-form>
+    </transition>
+
+    <transition name="el-fade-in-linear">
+      <el-form v-show="stepActive == 2" :model="form" status-icon label-width="80px">
+        <el-form-item :label="$t('editor.selectChapter')" style="margin-top: 30px;">
+          <el-select v-model="form.selectedChapter" :placeholder="$t('editor.selectClassify')">
+            <el-option
+              v-for="item in chapters"
+              :key="item.id"
+              :label="item.title"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('personal.addArtical')" style="width: 600px;">
+          <list-edit :wait="wait" :stateName="'chapterEdit'" :methodName="'SET_CHAPTER_EDIT'" :placeholder="'editor.pleaseInputSection'"></list-edit>
+        </el-form-item>
+        <el-form-item size="large">
+          <el-button size="large"  type="primary" @click="stepActive = 1">{{ $t('common.previous') }}</el-button>
           <el-button size="large"  type="primary" @click="onSubmit('form')">{{ $t('common.nextStep') }}</el-button>
         </el-form-item>
       </el-form>
@@ -82,8 +104,9 @@ export default {
     return {
       form: {
         title: '',
-        selectedValue: '',
-        subTitle: ''
+        selectedValue: '001',
+        subTitle: '',
+        selectedChapter: ''
       },
       rules: {
         title: [
@@ -94,6 +117,7 @@ export default {
         ]
       },
       classify: this.$store.state.classList,
+      chapters: [],
       url: '',
       uploadFileTip: '只能上传jpg/png文件，且不超过2MB。上传5:7的图片效果更佳。',
       hasBook: false, //该id对应的书是否已创建
@@ -201,6 +225,7 @@ export default {
             loading.close()
             // this.$router.push({name: 'personal', params: { tabsName: 'workManagement' }})
             if (res.data.code == 200 && isSuccess) {
+              this.nextStep()
               this.stepActive = 2
               // this.$message({
               //   message: this.hasBook ? this.$t('common.modifySuccess2') : this.$t('common.createdSuccess'),
@@ -217,6 +242,18 @@ export default {
       });
     },
 
+    async nextStep() {
+      let loading = this.$utils.loading(this)
+      let chaptersRes = await this.$axios.get('/api/v1/chapters', { params: { bookId: this.bookId } })
+      if (chaptersRes.data.code == 200) {
+        this.chapters = chaptersRes.data.data
+        this.form.selectedChapter = chaptersRes.data.data[0].id
+      } else {
+        this.$router.push({ name: 'error', params: { statusCode: 500 } })
+      }
+
+      loading.close()
+    }
   }
 }
 </script>

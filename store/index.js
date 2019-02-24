@@ -8,6 +8,7 @@ export const state = () => ({
   classList: [], //分类列表
   hasCollec: false, //是否已经收藏
   listEdit: [{ title: '' }], //ListEdit组件属性
+  chapterEdit: [{ title: '' }], //listEdit组件章节编辑属性
 })
 export const mutations = {
   SET_LANG(state, locale) {
@@ -35,5 +36,8 @@ export const mutations = {
   },
   SET_LIST_EDIT(state, value) {
     state.listEdit = value
+  },
+  SET_CHAPTER_EDIT(state, value) {
+    state.chapterEdit = value
   }
 }

@@ -65,7 +65,7 @@
         </el-col>
       </el-row>
     </el-header>
-    <el-main style="margin: 0 auto">
+    <el-main style="margin: 0 auto;" :style="{ minHeight: minHeight }">
       <nuxt/>
     </el-main>
     <el-footer
@@ -96,10 +96,8 @@ export default {
     return {
       searchInput: '',
       logSrc: '',
+      minHeight: window.innerHeight - 260 + 'px'
     }
-  },
-  async created() {
-
   },
   mounted() {
     this.logSrc = process.env.cosPath + '/system/logo.png';

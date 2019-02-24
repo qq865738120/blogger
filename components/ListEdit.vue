@@ -1,7 +1,7 @@
 <template>
   <div class="list-edit-root">
     <div v-for="(item, index) of list" :key="index">
-      <el-input v-model="item.title" :placeholder="$t('editor.pleaseInputChapter')" class="margin-bottom-10" maxlength="30" @input="onChange">
+      <el-input v-model="item.title" :placeholder="$t(placeholder)" class="margin-bottom-10" maxlength="30" @input="onChange">
         <div slot="append">
           <el-tooltip effect="dark" :content="$t('editor.addChapter')" placement="left">
             <el-button icon="el-icon-plus" @click="onAdd(index)" class="button"></el-button>
@@ -18,7 +18,13 @@
 <script>
 export default {
   props: {
-    wait: Boolean
+    wait: Boolean,
+    stateName: String,
+    methodName: String,
+    placeholder: {
+      type: String,
+      default: 'editor.pleaseInputChapter'
+    }
   },
   data() {
     return {
@@ -28,25 +34,29 @@ export default {
   watch:{
     wait(val) {
       if (val) {
-        this.list = JSON.parse(JSON.stringify(this.$store.state.listEdit));
+        this.list = JSON.parse(JSON.stringify(this.$store.state[this.stateName]));
       }
     }
   },
   mounted() {
-    this.list = JSON.parse(JSON.stringify(this.$store.state.listEdit));
+    console.log('this.$store.state[this.stateName]', this.$store.state[this.stateName]);
+    this.list = JSON.parse(JSON.stringify(this.$store.state[this.stateName]));
   },
 
   methods: {
     onAdd(index) {
       this.list.splice(index + 1, 0, { title: '' })
-      this.$store.commit('SET_LIST_EDIT', JSON.parse(JSON.stringify(this.list)))
+      this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
     },
     onRemove(index) {
+      if (this.list.length <= 1) {
+        return
+      }
       this.list.splice(index, 1)
-      this.$store.commit('SET_LIST_EDIT', JSON.parse(JSON.stringify(this.list)))
+      this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
     },
     onChange() {
-      this.$store.commit('SET_LIST_EDIT', JSON.parse(JSON.stringify(this.list)))
+      this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
     }
   }
 }
