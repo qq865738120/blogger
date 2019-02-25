@@ -4,15 +4,16 @@
       <el-input v-model="item.title" :placeholder="$t(placeholder)" class="margin-bottom-10" maxlength="30" @input="onChange">
 
         <el-select
+          v-if="showSelect"
+          style="width: 125px"
           slot="prepend"
           class="input-with-select"
-          v-model="selected"
-          multiple
+          v-model="item.id"
           filterable
           remote
-          reserve-keyword
-          placeholder="请输入关键词"
+          placeholder="输入标题搜索"
           :remote-method="onRemote"
+          @change="onSelectChange(index)"
           :loading="loading">
           <el-option
             v-for="item in selectList"
@@ -45,6 +46,10 @@ export default {
     placeholder: {
       type: String,
       default: 'editor.pleaseInputChapter'
+    },
+    showSelect: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -52,9 +57,7 @@ export default {
       list: '',
       selected: '',
       loading: false,
-      selectList: [
-        { value: '1', label: '11' }
-      ]
+      selectList: []
     }
   },
   watch:{
@@ -65,8 +68,21 @@ export default {
     }
   },
   mounted() {
-    console.log('this.$store.state[this.stateName]', this.$store.state[this.stateName]);
     this.list = JSON.parse(JSON.stringify(this.$store.state[this.stateName]));
+    if (this.showSelect) {
+      this.loading = true;
+      this.$axios.get('/api/v1/article/createtime', { params: { page: 1, row: 100, status: 1, authorId: this.$store.state.userInfo.id } }).then(res => {
+        this.loading = false;
+        if (res.data.code == 200) {
+          this.selectList = res.data.data.map(item => {
+            return { value: item.id, label: item.title }
+          })
+          this.list[0].id = this.selectList[0].value
+          this.list[0].title = this.selectList[0].label
+          this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
+        }
+      })
+    }
   },
 
   methods: {
@@ -82,10 +98,22 @@ export default {
       this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
     },
     onChange() {
-      this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
+      this.$nextTick(() => {
+        this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
+      })
     },
-    onRemote() {
-
+    onRemote(query) {
+      console.log(query);
+    },
+    onSelectChange(index) {
+      console.log('index', index);
+      for (let item of this.selectList) {
+        if (item.value == this.list[index].id) {
+          console.log('item.lebel', item.label);
+          this.list[index].title = item.label
+        }
+      }
+      this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
     }
   }
 }
@@ -96,11 +124,5 @@ export default {
 
 .button:hover {
   color: $--secondary-color;
-}
-.el-select .el-input {
-  width: 130px;
-}
-.input-with-select .el-input-group__prepend {
-  background-color: #fff;
 }
 </style>

@@ -101,7 +101,7 @@ export default {
   },
   created() {
     if (process.client) {
-      window.innerHeight - 260 + 'px'
+      this.minHeight = window.innerHeight - 260 + 'px'
     }
   },
   mounted() {

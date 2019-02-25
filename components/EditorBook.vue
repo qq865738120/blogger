@@ -51,7 +51,12 @@
           </el-select>
         </el-form-item>
         <el-form-item :label="$t('personal.addArtical')" style="width: 600px;">
-          <list-edit :wait="wait" :stateName="'chapterEdit'" :methodName="'SET_CHAPTER_EDIT'" :placeholder="'editor.pleaseInputSection'"></list-edit>
+          <list-edit
+            :wait="wait"
+            :stateName="'chapterEdit'"
+            :methodName="'SET_CHAPTER_EDIT'"
+            :placeholder="'editor.pleaseInputSection'"
+            :showSelect="true"></list-edit>
         </el-form-item>
         <el-form-item size="large">
           <el-button size="large"  type="primary" @click="stepActive = 1">{{ $t('common.previous') }}</el-button>
