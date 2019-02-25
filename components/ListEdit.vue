@@ -2,6 +2,26 @@
   <div class="list-edit-root">
     <div v-for="(item, index) of list" :key="index">
       <el-input v-model="item.title" :placeholder="$t(placeholder)" class="margin-bottom-10" maxlength="30" @input="onChange">
+
+        <el-select
+          slot="prepend"
+          class="input-with-select"
+          v-model="selected"
+          multiple
+          filterable
+          remote
+          reserve-keyword
+          placeholder="请输入关键词"
+          :remote-method="onRemote"
+          :loading="loading">
+          <el-option
+            v-for="item in selectList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+
         <div slot="append">
           <el-tooltip effect="dark" :content="$t('editor.addChapter')" placement="left">
             <el-button icon="el-icon-plus" @click="onAdd(index)" class="button"></el-button>
@@ -10,6 +30,7 @@
             <el-button icon="el-icon-close" @click="onRemove(index)" class="button"></el-button>
           </el-tooltip>
         </div>
+
       </el-input>
     </div>
   </div>
@@ -28,7 +49,12 @@ export default {
   },
   data() {
     return {
-      list: ''
+      list: '',
+      selected: '',
+      loading: false,
+      selectList: [
+        { value: '1', label: '11' }
+      ]
     }
   },
   watch:{
@@ -57,6 +83,9 @@ export default {
     },
     onChange() {
       this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
+    },
+    onRemote() {
+
     }
   }
 }
@@ -67,5 +96,11 @@ export default {
 
 .button:hover {
   color: $--secondary-color;
+}
+.el-select .el-input {
+  width: 130px;
+}
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
 }
 </style>

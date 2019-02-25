@@ -96,7 +96,12 @@ export default {
     return {
       searchInput: '',
       logSrc: '',
-      minHeight: window.innerHeight - 260 + 'px'
+      minHeight: ''
+    }
+  },
+  created() {
+    if (process.client) {
+      window.innerHeight - 260 + 'px'
     }
   },
   mounted() {

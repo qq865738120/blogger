@@ -31,6 +31,12 @@ i {
 .el-step__description.is-finish {
   color: $--secondary-color;
 }
+.el-select .el-input {
+  width: 130px;
+}
+.el-input-group__prepend {
+  background-color: #fff;
+}
 
 @font-face {font-family: 'webfont';
   src: url('//at.alicdn.com/t/webfont_y24vbjljgrf.eot'); /* IE9*/

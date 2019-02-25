@@ -13,7 +13,7 @@ module.exports = {
       // domain: 'xxx.xxx.xxx.xxx:xxxx', // 域名
       path: '/',
       httpOnly: true, // 开启后前端无法通过 JS 操作
-      maxAge: 30 * 60 * 1000
+      maxAge: 6 * 60 * 60 * 1000
     },
   },
   redis: {
