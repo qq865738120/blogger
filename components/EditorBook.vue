@@ -61,7 +61,7 @@
             ></list-edit>
         </el-form-item>
         <el-form-item size="large">
-          <el-button size="large"  type="primary" @click="stepActive = 1">{{ $t('common.previous') }}</el-button>
+          <el-button size="large"  type="primary" @click="onPrevious()">{{ $t('common.previous') }}</el-button>
           <el-button size="large"  type="primary" @click="onFinish()">{{ $t('common.finish') }}</el-button>
         </el-form-item>
       </el-form>
@@ -257,15 +257,56 @@ export default {
       } else {
         this.$router.push({ name: 'error', params: { statusCode: 500 } })
       }
-      this.$store.commit('SET_CHAPTER_EDIT', [{ chapterId: chaptersRes.data.data[0].id, title: '' }])
+      let chapterEditList = []
+      for (let item of chaptersRes.data.data) {
+        chapterEditList.push({ chapterId: item.id, title: '' })
+      }
+      this.$store.commit('SET_CHAPTER_EDIT', chapterEditList)
       loading.close()
+    },
+
+    onPrevious() {
+
+      this.$alert('返回上一步会丢失当前编辑的内容', '警告', {
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        callback: action => {
+          if (action == 'confirm') {
+            this.stepActive = 1;
+          }
+        }
+      });
     },
 
     async onFinish() {
       let loading = this.$utils.loading(this)
       let data = JSON.parse(JSON.stringify(this.$store.state.chapterEdit))
+      let sendData = []
+      for (let item of data) {
+        if (!item.chapterId && (!item.id || !item.title)) {
+          this.$message({
+            message: this.$t('editor.sectionTip'),
+            type: 'error'
+          });
+          return
+        } else if (item.chapterId && item.id && item.title) {
+          sendData.push({
+            bookId: this.bookId,
+            articleId: item.id,
+            sectionTitle: item.title,
+            chapterId: item.chapterId
+          })
+        }
+      }
       console.log('data', data);
-      // let bookRes = await this.$axios.post('/api/v1/book/article', data)
+      console.log('sendData', sendData);
+      loading.close()
+      if (sendData.length == 0) {
+
+      } else {
+        let bookRes = await this.$axios.post('/api/v1/book/article', { values: sendData })
+      }
     }
   }
 }

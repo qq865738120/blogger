@@ -1,6 +1,6 @@
 <template>
   <div class="list-edit-root">
-    <div v-for="(item, index) of list" :key="index">
+    <div v-for="(item, index) of list" :key="index" v-if="showSelect ? item.chapterId == chapterId : true">
       <el-input v-model="item.title" :placeholder="$t(placeholder)" class="margin-bottom-10" maxlength="30" @input="onChange">
 
         <el-select
@@ -69,17 +69,20 @@ export default {
     },
     chapterId(val) {
       if (val) {
-        let map = JSON.parse(JSON.stringify(this.$store.state[this.stateName].map(item => {
-          if (item.chapterId == this.chapterId) return item
-        })))
-        let objArr = [{ chapterId: this.chapterId, title: '' }]
-        this.list =  map.length == 0 ? objArr : map
-        if (map.length == 0) {
-          let data = this.$utils.clone(this.$store.state[this.stateName])
-          data.push({ chapterId: this.chapterId, title: '' })
-          this.$store.commit(this.methodName, data)
-        }
+      //   let map = JSON.parse(JSON.stringify(this.$store.state[this.stateName].map(item => {
+      //     if (item.chapterId == this.chapterId) return item
+      //   })))
+      //   let objArr = [{ chapterId: this.chapterId, title: '' }]
+      //   this.list =  !map[0] ? objArr : map
+      //   console.log('map', map);
+      //   if (!map[0]) {
+      //     let data = this.$utils.clone(this.$store.state[this.stateName])
+      //     data.push({ chapterId: this.chapterId, title: '' })
+      //     this.$store.commit(this.methodName, data)
+      //   }
+        this.list = JSON.parse(JSON.stringify(this.$store.state[this.stateName]))
       }
+
     }
   },
   mounted() {
