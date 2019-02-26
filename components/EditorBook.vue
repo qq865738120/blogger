@@ -60,7 +60,7 @@
         </el-form-item>
         <el-form-item size="large">
           <el-button size="large"  type="primary" @click="stepActive = 1">{{ $t('common.previous') }}</el-button>
-          <el-button size="large"  type="primary" @click="onSubmit('form')">{{ $t('common.nextStep') }}</el-button>
+          <el-button size="large"  type="primary" @click="onFinish()">{{ $t('common.finish') }}</el-button>
         </el-form-item>
       </el-form>
     </transition>
@@ -258,6 +258,11 @@ export default {
       }
 
       loading.close()
+    },
+
+    async onFinish() {
+      let loading = this.$utils.loading(this)
+      
     }
   }
 }

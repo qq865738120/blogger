@@ -160,6 +160,11 @@ const apiMap = [
     type: 'get',
     method: book.getBookCount
   },
+  {
+    path: '/book/article',
+    type: 'post',
+    method: book.addBookArticles
+  },
 ]
 
 for (let item of apiMap) {

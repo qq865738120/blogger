@@ -281,4 +281,36 @@ module.exports = {
     res.json(result)
   },
 
+  /**
+  * @api {post} /book/article 批量增加书与文章的关系
+  * @apiDescription 批量增加书与文章的关系
+  * @apiName add bookArticles
+  * @apiGroup Book
+  * @apiParam {Array} values 数据，示例：[{bookId: '', articleId: '', sectionTitle: '', chapterId: ''}]
+  * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功'
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 300,
+  *   msg: 'values参数异常'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async addBookArticles(req, res) {
+    let result = {}
+    if (!req.session.user) {
+      result = emun.NOT_LOGIN
+    }  else if (!req.body.values) {
+      result = emun.PAR_VALUES_ERR
+    } else {
+      result = await service.addBookArticles(req.body.values)
+    }
+    res.json(result)
+  },
+
 }

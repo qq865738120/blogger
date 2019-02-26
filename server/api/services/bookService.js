@@ -149,4 +149,24 @@ module.exports = {
     }
   },
 
+  /*
+  批量增加书与文章的关系
+  参数： values Array 数据，示例 [{bookId: '', articleId: '', sectionTitle: '', chapterId: ''}]
+  */
+  async addBookArticles(values) {
+    let va = values
+    for (let i = 0; i < va.length; i++) {
+      va[i].id = utils.uuid()
+      if (!va[i].bookId || !va[i].articleId || !va[i].sectionTitle || !va[i].chapterId) {
+        return emun.PAR_ERR
+      }
+    }
+    let row = await utils.dbQuery(pool, sql.insertBookArticles(va))
+    if (row.fieldCount == 0) {
+      return emun.SUCCESS
+    } else {
+      return emun.FAIL
+    }
+  },
+
 }

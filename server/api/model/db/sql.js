@@ -435,4 +435,22 @@ module.exports = {
     return `DELETE FROM chapter WHERE id IN (${str.substring(0, str.length - 1)});`
   },
 
+  /*
+  批量插入数据到book_article表
+  参数： values Array 数据数组示例[{id: '', bookId: '', articleId: '', sectionTitle: '', chapterId: ''}]参数说明如下
+         id String 主键id
+         bookId String 书id
+         articleId String 文章id
+         sectionTitle String 标题
+         chapterId String 章节id
+  */
+  insertBookArticles: (values) => {
+    let str = ''
+    for (let i = 0; i < values.length; i++) {
+      str += ` ('${values[i].id}', '${values[i].bookId}', '${values[i].articleId}', '${values[i].sectionTitle}', '${values[i].chapterId}', '${i}'),`
+    }
+    console.log('insertBookArticles', `INSERT INTO book_article VALUES${str.substring(0, str.length - 1)};`);
+    return `INSERT INTO book_article VALUES${str.substring(0, str.length - 1)};`
+  },
+
 }
