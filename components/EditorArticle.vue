@@ -187,7 +187,7 @@ export default {
                 });
               }
             })
-            this.$router.push({name: 'personal', params: { tabsName: 'workManagement' }})
+            this.$router.push({name: 'personal'})
             loading.close()
           }, (err) => {
             loading.close()

@@ -52,7 +52,7 @@
         </el-form-item>
         <el-form-item :label="$t('personal.addArtical')" style="width: 600px;">
           <list-edit
-            :wait="wait"
+            :wait="wait2"
             :stateName="'chapterEdit'"
             :methodName="'SET_CHAPTER_EDIT'"
             :placeholder="'editor.pleaseInputSection'"
@@ -128,7 +128,9 @@ export default {
       url: '',
       uploadFileTip: '只能上传jpg/png文件，且不超过2MB。上传5:7的图片效果更佳。',
       hasBook: false, //该id对应的书是否已创建
+      hasSection: false, //该id对应的小节是否有创建过
       wait: false,
+      wait2: false,
       stepActive: 1, //步骤条当前激活
     }
   },
@@ -150,6 +152,8 @@ export default {
       this.hasBook = true
     } else {
       this.hasBook = false
+      this.$store.commit('SET_LIST_EDIT', [{ title: '' }])
+      this.wait = this.wait ? false : true
     }
     if (this.hasBook) {
       let chaptersData = await this.$axios.get('/api/v1/chapters', { params: { bookId: this.bookId } })
@@ -157,11 +161,12 @@ export default {
         let list = []
         for (let item of chaptersData.data.data) {
           list.push({
+            id: item.id,
             title: item.title
           })
         }
         this.$store.commit('SET_LIST_EDIT', JSON.parse(JSON.stringify(list)))
-        this.wait = true
+        this.wait = this.wait ? false : true
       } else {
         this.$router.push({ name: 'error', params: { statusCode: 500 } })
       }
@@ -200,10 +205,13 @@ export default {
         }
       }
       let listEdit = JSON.parse(JSON.stringify(this.$store.state.listEdit));
-      for (let item of listEdit) {
-        item.bookId = this.bookId
-        item.title = item.title.replace(/\s+/g,"");
-        if (!item.title) {
+      for (let i = 0; i < listEdit.length; i++) {
+        if (ids && ids.data.code == 200 && ids.data.data[i]) {
+          listEdit[i].id = ids.data.data[i].id
+        }
+        listEdit[i].bookId = this.bookId
+        listEdit[i].title = listEdit[i].title.replace(/\s+/g,"");
+        if (!listEdit[i].title) {
           this.$message({
             message: this.$t('editor.chapterNotNull'),
             type: 'error'
@@ -211,6 +219,7 @@ export default {
           return
         }
       }
+      this.$store.commit('SET_LIST_EDIT', JSON.parse(JSON.stringify(listEdit)))
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           let loading = this.$utils.loading(this)
@@ -227,11 +236,12 @@ export default {
           if (bookRes.data.code == 200) {
             isSuccess = true
           }
-          this.$axios.post('/api/v1/chapters', { values: listEdit }).then(res => {
+          this.$axios.post('/api/v1/chapters', { values: listEdit }).then(async res => {
             loading.close()
             // this.$router.push({name: 'personal', params: { tabsName: 'workManagement' }})
             if (res.data.code == 200 && isSuccess) {
-              this.nextStep()
+              this.hasBook = true
+              await this.nextStep()
               this.stepActive = 2
               // this.$message({
               //   message: this.hasBook ? this.$t('common.modifySuccess2') : this.$t('common.createdSuccess'),
@@ -257,16 +267,37 @@ export default {
       } else {
         this.$router.push({ name: 'error', params: { statusCode: 500 } })
       }
-      let chapterEditList = []
-      for (let item of chaptersRes.data.data) {
-        chapterEditList.push({ chapterId: item.id, title: '' })
+      let getBookRes = await this.$axios.get('/api/v1/book/article', { params: { bookId: this.bookId } })
+      if (getBookRes.data.code == 200) {
+        this.hasSection = true
+        let chapterEditList = getBookRes.data.data.map(item => {
+          return { chapterId: item.chapter_id, id: item.article_id, title: item.section_title }
+        })
+        for (let item of chaptersRes.data.data) {
+          let count = 0
+          for (let it of chapterEditList) {
+            if (item.id == it.chapterId) {
+              count++
+            }
+          }
+          if (count <= 0) {
+            chapterEditList.push({ chapterId: item.id, title: '' })
+          }
+        }
+        this.$store.commit('SET_CHAPTER_EDIT', chapterEditList)
+      } else if (getBookRes.data.code == 201 && getBookRes.data.msg == "没有数据") {
+        this.hasSection = false
+        let chapterEditList = []
+        for (let item of chaptersRes.data.data) {
+          chapterEditList.push({ chapterId: item.id, title: '' })
+        }
+        this.$store.commit('SET_CHAPTER_EDIT', chapterEditList)
       }
-      this.$store.commit('SET_CHAPTER_EDIT', chapterEditList)
+      this.wait2 = this.wait2 ? false : true
       loading.close()
     },
 
     onPrevious() {
-
       this.$alert('返回上一步会丢失当前编辑的内容', '警告', {
         showCancelButton: true,
         confirmButtonText: '确定',
@@ -301,13 +332,37 @@ export default {
       }
       console.log('data', data);
       console.log('sendData', sendData);
-      loading.close()
-      if (sendData.length == 0) {
 
+      if (sendData.length == 0) {
+        loading.close()
       } else {
-        let bookRes = await this.$axios.post('/api/v1/book/article', { values: sendData })
+        let getBookRes = await this.$axios.get('/api/v1/book/article', { params: { bookId: this.bookId } })
+        if (getBookRes.data.code == 200) {
+          let delBookRes = await this.$axios.get('/api/v1/book/article/delete', { params: { ids: getBookRes.data.data.map(item => { return item.id }) } })
+          if (delBookRes.data.code == 200) {
+            let bookRes = await this.$axios.post('/api/v1/book/article', { values: sendData })
+            if (bookRes.data.code == 200) {
+              // this.$router.push({name: 'personal'})
+              this.$utils.showMessage(this, 'editor.saveSuccessTip', 'success', loading)
+            } else {
+              this.$utils.showMessage(this, 'editor.saveFailTip', 'error', loading)
+            }
+          } else {
+            this.$utils.showMessage(this, 'editor.saveFailTip', 'error', loading)
+          }
+        } else {
+          let bookRes = await this.$axios.post('/api/v1/book/article', { values: sendData })
+          if (bookRes.data.code == 200) {
+            // this.$router.push({name: 'personal'})
+            this.$utils.showMessage(this, 'editor.saveSuccessTip', 'success', loading)
+          } else {
+            this.$utils.showMessage(this, 'editor.saveFailTip', 'error', loading)
+          }
+        }
+
       }
-    }
+    },
+
   }
 }
 </script>

@@ -258,6 +258,21 @@ Vue.prototype.$utils = {
   */
   clone(param) {
     return JSON.parse(JSON.stringify(param))
+  },
+
+  /*
+  显示消息弹框
+  参数： context Object 页面this引用（必传）
+        tip String 提示字符串（必传）
+        type String 提示类型（选传，默认error）
+        loading Object loading对象，需要帮忙关闭loading时则传入即可（选传）
+  */
+  showMessage(context, tip, type, loading) {
+    if (loading) loading.close()
+    context.$message({
+      message: context.$t(tip),
+      type: type ? type : error
+    });
   }
 
 }

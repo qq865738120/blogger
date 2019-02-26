@@ -42,5 +42,9 @@ module.exports = {
     code: 200,
     msg: '成功',
     data: ''
+  },
+  NOT_REDUNDANCE: {
+    code: 300,
+    msg: '没有冗余数据'
   }
 }

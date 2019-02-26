@@ -975,7 +975,7 @@
             "type": "Array",
             "optional": false,
             "field": "values",
-            "description": "<p>数据，示例：[{bookId: '', title: ''}, {bookId: '', title: ''}]</p>"
+            "description": "<p>数据，示例：[{id: '', bookId: '', title: ''}, {bookId: '', title: ''}] id为选传</p>"
           }
         ]
       }
@@ -1072,6 +1072,66 @@
         {
           "title": "Error:",
           "content": "{\n  code: 300,\n  msg: 'ids参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/book.js",
+    "groupTitle": "Book"
+  },
+  {
+    "type": "get",
+    "url": "/redundance/book/article",
+    "title": "删除小节中冗余数据",
+    "description": "<p>删除小节中冗余数据</p>",
+    "name": "delete_book_article_redundance",
+    "group": "Book",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "bookId",
+            "description": "<p>书id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：没有冗余数据</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: '没有冗余数据'\n}",
           "type": "json"
         }
       ]

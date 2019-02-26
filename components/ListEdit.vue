@@ -63,9 +63,7 @@ export default {
   },
   watch:{
     wait(val) {
-      if (val) {
-        this.list = this.$utils.clone(this.$store.state[this.stateName])
-      }
+      this.list = this.$utils.clone(this.$store.state[this.stateName])
     },
     chapterId(val) {
       if (val) {

@@ -25,12 +25,12 @@ module.exports = {
 
   /*
   批量增加章节
-  参数： values Array 数据，示例 [{bookId: '', title: ''}, {bookId: '', title: ''}]
+  参数： values Array 数据，示例 [{id: '', bookId: '', title: ''}, {bookId: '', title: ''}] id为选传
   */
   async addChapters(values) {
     let va = values
     for (let i = 0; i < va.length; i++) {
-      va[i].id = utils.uuid()
+      va[i].id = va[i].id ? va[i].id : utils.uuid()
       if (!va[i].bookId || !va[i].title) {
         return emun.PAR_ERR
       }
@@ -201,5 +201,33 @@ module.exports = {
       return data
     }
   },
+
+  /*
+  删除book_article表中冗余数据
+  参数： bookId String 书id
+  */
+  async deleteRedundanceBookArticle(bookId) {
+    let ids = []
+    let row1 = await utils.dbQuery(pool, sql.showBookArticle('', bookId))
+    if (row1.length == 0) {
+      return emun.NOT_REDUNDANCE
+    } else {
+      for (let item of row1) {
+        let row2 = await utils.dbQuery(pool, sql.showChapter(item.chapter_id))
+        if (row2.length == 0) {
+          ids.push(item.id)
+        }
+      }
+    }
+    if (ids.length > 0) {
+      let row3 = await utils.dbQuery(pool, sql.deleteBookArticles(ids))
+      if (row3.fieldCount == 0) {
+        return emun.SUCCESS
+      } else {
+        return emun.FAIL
+      }
+    }
+    return emun.SUCCESS
+  }
 
 }

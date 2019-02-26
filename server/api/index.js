@@ -175,6 +175,11 @@ const apiMap = [
     type: 'get',
     method: book.getBookArticle
   },
+  {
+    path: '/redundance/book/article',
+    type: 'get',
+    method: book.deleteRedundanceBookArticle
+  },
 ]
 
 for (let item of apiMap) {

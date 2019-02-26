@@ -51,7 +51,7 @@ module.exports = {
   * @apiDescription 批量新增章节
   * @apiName add chapters
   * @apiGroup Book
-  * @apiParam {Array} values 数据，示例：[{bookId: '', title: ''}, {bookId: '', title: ''}]
+  * @apiParam {Array} values 数据，示例：[{id: '', bookId: '', title: ''}, {bookId: '', title: ''}] id为选传
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccessExample {json} Success:
@@ -376,6 +376,36 @@ module.exports = {
   async getBookArticle(req, res) {
     let result = {}
     result = await service.showBookArticle(req.query.id, req.query.bookId, req.query.articleId, req.query.sectionTitle, req.query.chapterId, req.query.isDesc)
+    res.json(result)
+  },
+
+  /**
+  * @api {get} /redundance/book/article 删除小节中冗余数据
+  * @apiDescription 删除小节中冗余数据
+  * @apiName delete book_article redundance
+  * @apiGroup Book
+  * @apiParam {String} bookId 书id
+  * @apiSuccess {Number} code 错误码 200：成功；300：没有冗余数据
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功'
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 300,
+  *   msg: '没有冗余数据'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async deleteRedundanceBookArticle(req, res) {
+    let result = {}
+    if (!req.query.bookId) {
+      result = emun.PAR_IDS_ERR
+    } else {
+      result = await service.deleteRedundanceBookArticle(req.query.bookId)
+    }
     res.json(result)
   },
 
