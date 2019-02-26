@@ -56,7 +56,9 @@
             :stateName="'chapterEdit'"
             :methodName="'SET_CHAPTER_EDIT'"
             :placeholder="'editor.pleaseInputSection'"
-            :showSelect="true"></list-edit>
+            :showSelect="true"
+            :chapterId="form.selectedChapter"
+            ></list-edit>
         </el-form-item>
         <el-form-item size="large">
           <el-button size="large"  type="primary" @click="stepActive = 1">{{ $t('common.previous') }}</el-button>
@@ -130,7 +132,6 @@ export default {
       stepActive: 1, //步骤条当前激活
     }
   },
-
   async mounted() {
     let loading = this.$utils.loading(this)
     this.$store.commit('SET_OLD_COVER', '')
@@ -256,13 +257,15 @@ export default {
       } else {
         this.$router.push({ name: 'error', params: { statusCode: 500 } })
       }
-
+      this.$store.commit('SET_CHAPTER_EDIT', [{ chapterId: chaptersRes.data.data[0].id, title: '' }])
       loading.close()
     },
 
     async onFinish() {
       let loading = this.$utils.loading(this)
-      
+      let data = JSON.parse(JSON.stringify(this.$store.state.chapterEdit))
+      console.log('data', data);
+      // let bookRes = await this.$axios.post('/api/v1/book/article', data)
     }
   }
 }

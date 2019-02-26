@@ -50,7 +50,8 @@ export default {
     showSelect: {
       type: Boolean,
       default: false
-    }
+    },
+    chapterId: String
   },
   data() {
     return {
@@ -63,7 +64,21 @@ export default {
   watch:{
     wait(val) {
       if (val) {
-        this.list = JSON.parse(JSON.stringify(this.$store.state[this.stateName]));
+        this.list = this.$utils.clone(this.$store.state[this.stateName])
+      }
+    },
+    chapterId(val) {
+      if (val) {
+        let map = JSON.parse(JSON.stringify(this.$store.state[this.stateName].map(item => {
+          if (item.chapterId == this.chapterId) return item
+        })))
+        let objArr = [{ chapterId: this.chapterId, title: '' }]
+        this.list =  map.length == 0 ? objArr : map
+        if (map.length == 0) {
+          let data = this.$utils.clone(this.$store.state[this.stateName])
+          data.push({ chapterId: this.chapterId, title: '' })
+          this.$store.commit(this.methodName, data)
+        }
       }
     }
   },
@@ -79,7 +94,7 @@ export default {
           })
           this.list[0].id = this.selectList[0].value
           this.list[0].title = this.selectList[0].label
-          this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
+          this.$store.commit(this.methodName, this.$utils.clone(this.list))
         }
       })
     }
@@ -87,19 +102,19 @@ export default {
 
   methods: {
     onAdd(index) {
-      this.list.splice(index + 1, 0, { title: '' })
-      this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
+      this.list.splice(index + 1, 0, this.showSelect ? { chapterId: this.chapterId, title: '' } : { title: '' })
+      this.$store.commit(this.methodName, this.$utils.clone(this.list))
     },
     onRemove(index) {
       if (this.list.length <= 1) {
         return
       }
       this.list.splice(index, 1)
-      this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
+      this.$store.commit(this.methodName, this.$utils.clone(this.list))
     },
     onChange() {
       this.$nextTick(() => {
-        this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
+        this.$store.commit(this.methodName, this.$utils.clone(this.list))
       })
     },
     onRemote(query) {
@@ -113,7 +128,7 @@ export default {
           this.list[index].title = item.label
         }
       }
-      this.$store.commit(this.methodName, JSON.parse(JSON.stringify(this.list)))
+      this.$store.commit(this.methodName, this.$utils.clone(this.list))
     }
   }
 }

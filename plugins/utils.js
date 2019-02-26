@@ -250,6 +250,14 @@ Vue.prototype.$utils = {
     } else {
       context.$utils.getUserInfo(context, callback, context.$route.fullPath)
     }
+  },
+
+  /*
+  简单深拷贝
+  参数： param Object/Array/String 需要拷贝的对象/数组
+  */
+  clone(param) {
+    return JSON.parse(JSON.stringify(param))
   }
 
 }
