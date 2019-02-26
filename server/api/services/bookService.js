@@ -182,4 +182,24 @@ module.exports = {
     }
   },
 
+  /*
+  查询book_article表（至少传一个参数）
+  参数：id String 章节id（选传）
+       bookId String 书id（选传）
+       articleId String 文章id（选传）
+       sectionTitle String 标题（选传）
+       chapterId String 章节id（选传）
+       isDesc Boolean 是否降序（选传，默认升序）
+  */
+  async showBookArticle(id, bookId, articleId, sectionTitle, chapterId, isDesc) {
+    let row = await utils.dbQuery(pool, sql.showBookArticle(id, bookId, articleId, sectionTitle, chapterId, isDesc))
+    if (row.length == 0) {
+      return emun.NOT_DATA
+    } else {
+      let data = emun.BOOK_SUCCESS
+      data.data = row
+      return data
+    }
+  },
+
 }

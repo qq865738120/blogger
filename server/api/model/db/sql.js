@@ -467,20 +467,22 @@ module.exports = {
   },
 
   /*
-  查询chapter表（id，bookId，title至少传一个参数）
+  查询book_article表（至少传一个参数）
   参数：id String 章节id（选传）
        bookId String 书id（选传）
-       title String 书名（选传）
+       articleId String 文章id（选传）
+       sectionTitle String 标题（选传）
+       chapterId String 章节id（选传）
        isDesc Boolean 是否降序（选传，默认升序）
   */
-  showBookArticles: (id, bookId, articleId, sectionTitle, chapterId, isDesc) => {
+  showBookArticle: (id, bookId, articleId, sectionTitle, chapterId, isDesc) => {
     let mid = id ? ` id='${id}' AND` : '';
     let mbookId = bookId ? ` book_id='${bookId}' AND` : '';
     let marticleId = articleId ? ` article_id='${articleId}' AND` : '';
     let msectionTitle = sectionTitle ? ` section_title LIKE '%${sectionTitle}%' AND` : '';
     let mchapterId = chapterId ? ` chapter_id='${chapterId}' AND` : '';
     let str = mid + mbookId + marticleId + msectionTitle + mchapterId;
-    console.log('showBookArticles', `SELECT * FROM book_article WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`);
+    console.log('showBookArticle', `SELECT * FROM book_article WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`);
     return `SELECT * FROM book_article WHERE${str.substring(0, str.length - 3)}order by serial ${isDesc ? 'desc' : 'asc'};`
   },
 

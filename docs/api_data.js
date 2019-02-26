@@ -1082,6 +1082,66 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/book/article/delete",
+    "title": "批量删除章节",
+    "description": "<p>批量删除章节</p>",
+    "name": "delete_chapters",
+    "group": "Book",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Array",
+            "optional": false,
+            "field": "ids",
+            "description": "<p>章节id数组，示例['1', '2']</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：传参异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: 'ids参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/book.js",
+    "groupTitle": "Book"
+  },
+  {
+    "type": "get",
     "url": "/book",
     "title": "查询书籍/连载",
     "description": "<p>查询书籍/连载（至少传一个参数）</p>",
@@ -1152,6 +1212,115 @@ define({ "api": [
             "optional": false,
             "field": "isAsc",
             "description": "<p>是否升序排列（选传，默认按创建时间降序）</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "code",
+            "description": "<p>错误码 200：成功；300：传参异常</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>错误信息</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>数据</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success:",
+          "content": "{\n code: 200,\n msg: '成功',\n data: ''\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error:",
+          "content": "{\n  code: 300,\n  msg: '参数异常'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "1.0.0",
+    "filename": "server/api/controller/book.js",
+    "groupTitle": "Book"
+  },
+  {
+    "type": "get",
+    "url": "/book/article",
+    "title": "查询小节的数据",
+    "description": "<p>查询小节的数据（至少传一个参数）</p>",
+    "name": "show_book_article",
+    "group": "Book",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>主键id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "bookId",
+            "description": "<p>书id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "articleId",
+            "description": "<p>文章id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "sectionTitle",
+            "description": "<p>标题（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "chapterId",
+            "description": "<p>章节id（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isDesc",
+            "description": "<p>是否降序根据序号排列（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "authorId",
+            "description": "<p>作者id（选传）</p>"
           }
         ]
       }

@@ -345,4 +345,38 @@ module.exports = {
     res.json(result)
   },
 
+  /**
+  * @api {get} /book/article 查询小节的数据
+  * @apiDescription 查询小节的数据（至少传一个参数）
+  * @apiName show book_article
+  * @apiGroup Book
+  * @apiParam {string} id 主键id（选传）
+  * @apiParam {string} bookId 书id（选传）
+  * @apiParam {string} articleId 文章id（选传）
+  * @apiParam {string} sectionTitle 标题（选传）
+  * @apiParam {string} chapterId 章节id（选传）
+  * @apiParam {Boolean} isDesc 是否降序根据序号排列（选传）
+  * @apiParam {string} authorId 作者id（选传）
+  * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccess {Array} data 数据
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功',
+  *  data: ''
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 300,
+  *   msg: '参数异常'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async getBookArticle(req, res) {
+    let result = {}
+    result = await service.showBookArticle(req.query.id, req.query.bookId, req.query.articleId, req.query.sectionTitle, req.query.chapterId, req.query.isDesc)
+    res.json(result)
+  },
+
 }
