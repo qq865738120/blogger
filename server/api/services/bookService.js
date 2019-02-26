@@ -169,4 +169,17 @@ module.exports = {
     }
   },
 
+  /*
+  批量删除book_article表数据
+  参数：ids Array 章节id数组，示例['1', '2']
+  */
+  async deleteBookArticles(ids) {
+    let row = await utils.dbQuery(pool, sql.deleteBookArticles(ids))
+    if (row.fieldCount == 0) {
+      return emun.SUCCESS
+    } else {
+      return emun.FAIL
+    }
+  },
+
 }

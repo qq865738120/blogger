@@ -313,4 +313,36 @@ module.exports = {
     res.json(result)
   },
 
+  /**
+  * @api {get} /book/article/delete 批量删除章节
+  * @apiDescription 批量删除章节
+  * @apiName delete chapters
+  * @apiGroup Book
+  * @apiParam {Array} ids 章节id数组，示例['1', '2']
+  * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功'
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 300,
+  *   msg: 'ids参数异常'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async deleteBookArticles(req, res) {
+    let result = {}
+    if (!req.session.user) {
+      result = emun.NOT_LOGIN
+    } else if (!req.query.ids) {
+      result = emun.PAR_IDS_ERR
+    } else {
+      result = await service.deleteChapters(req.query.ids)
+    }
+    res.json(result)
+  },
+
 }

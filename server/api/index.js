@@ -165,6 +165,11 @@ const apiMap = [
     type: 'post',
     method: book.addBookArticles
   },
+  {
+    path: '/book/article/delete',
+    type: 'get',
+    method: book.deleteBookArticles
+  },
 ]
 
 for (let item of apiMap) {

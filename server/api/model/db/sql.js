@@ -391,7 +391,7 @@ module.exports = {
     let mbookId = bookId ? ` book_id='${bookId}' AND` : '';
     let mtitle = title ? ` title LIKE '%${title}%' AND` : '';
     let str = mid + mtitle + mbookId;
-    console.log('showChapter', `SELECT * FROM book WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`);
+    console.log('showChapter', `SELECT * FROM chapter WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`);
     return `SELECT * FROM chapter WHERE${str.substring(0, str.length - 3)}order by serial ${isDesc ? 'desc' : 'asc'};`
   },
 
@@ -451,6 +451,37 @@ module.exports = {
     }
     console.log('insertBookArticles', `INSERT INTO book_article VALUES${str.substring(0, str.length - 1)};`);
     return `INSERT INTO book_article VALUES${str.substring(0, str.length - 1)};`
+  },
+
+  /*
+  批量删除book_article表数据
+  参数：ids Array 章节id数组，示例['1', '2']
+  */
+  deleteBookArticles: (ids) => {
+    let str = ''
+    for (let item of ids) {
+      str += `'${item}',`
+    }
+    console.log('deleteBookArticles', `DELETE FROM book_article WHERE id IN (${str.substring(0, str.length - 1)});`);
+    return `DELETE FROM book_article WHERE id IN (${str.substring(0, str.length - 1)});`
+  },
+
+  /*
+  查询chapter表（id，bookId，title至少传一个参数）
+  参数：id String 章节id（选传）
+       bookId String 书id（选传）
+       title String 书名（选传）
+       isDesc Boolean 是否降序（选传，默认升序）
+  */
+  showBookArticles: (id, bookId, articleId, sectionTitle, chapterId, isDesc) => {
+    let mid = id ? ` id='${id}' AND` : '';
+    let mbookId = bookId ? ` book_id='${bookId}' AND` : '';
+    let marticleId = articleId ? ` article_id='${articleId}' AND` : '';
+    let msectionTitle = sectionTitle ? ` section_title LIKE '%${sectionTitle}%' AND` : '';
+    let mchapterId = chapterId ? ` chapter_id='${chapterId}' AND` : '';
+    let str = mid + mbookId + marticleId + msectionTitle + mchapterId;
+    console.log('showBookArticles', `SELECT * FROM book_article WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`);
+    return `SELECT * FROM book_article WHERE${str.substring(0, str.length - 3)}order by serial ${isDesc ? 'desc' : 'asc'};`
   },
 
 }
