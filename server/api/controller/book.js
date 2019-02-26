@@ -314,9 +314,9 @@ module.exports = {
   },
 
   /**
-  * @api {get} /book/article/delete 批量删除章节
-  * @apiDescription 批量删除章节
-  * @apiName delete chapters
+  * @api {get} /book/article/delete 批量删除小节
+  * @apiDescription 批量删除小节
+  * @apiName delete book_article
   * @apiGroup Book
   * @apiParam {Array} ids 章节id数组，示例['1', '2']
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
@@ -340,7 +340,7 @@ module.exports = {
     } else if (!req.query.ids) {
       result = emun.PAR_IDS_ERR
     } else {
-      result = await service.deleteChapters(req.query.ids)
+      result = await service.deleteBookArticles(req.query.ids)
     }
     res.json(result)
   },

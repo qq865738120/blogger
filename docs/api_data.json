@@ -1022,10 +1022,10 @@
   },
   {
     "type": "get",
-    "url": "/chapters/delete",
-    "title": "批量删除章节",
-    "description": "<p>批量删除章节</p>",
-    "name": "delete_chapters",
+    "url": "/book/article/delete",
+    "title": "批量删除小节",
+    "description": "<p>批量删除小节</p>",
+    "name": "delete_book_article",
     "group": "Book",
     "parameter": {
       "fields": {
@@ -1082,7 +1082,7 @@
   },
   {
     "type": "get",
-    "url": "/book/article/delete",
+    "url": "/chapters/delete",
     "title": "批量删除章节",
     "description": "<p>批量删除章节</p>",
     "name": "delete_chapters",
