@@ -32,6 +32,10 @@ module.exports = {
     code: 300,
     msg: 'authorId参数异常'
   },
+  PAR_BOOK_ID_ERR: {
+    code: 300,
+    msg: 'bookId参数异常'
+  },
   PAR_VALUES_ERR: {
     code: 300,
     msg: '参数异常'
@@ -44,7 +48,7 @@ module.exports = {
     data: ''
   },
   NOT_REDUNDANCE: {
-    code: 300,
+    code: 301,
     msg: '没有冗余数据'
   }
 }

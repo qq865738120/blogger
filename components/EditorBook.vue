@@ -359,8 +359,8 @@ export default {
             this.$utils.showMessage(this, 'editor.saveFailTip', 'error', loading)
           }
         }
-
       }
+      this.$axios.get('/api/v1/redundance/book/article', { params: { bookId: this.bookId } })
     },
 
   }

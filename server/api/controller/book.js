@@ -385,7 +385,7 @@ module.exports = {
   * @apiName delete book_article redundance
   * @apiGroup Book
   * @apiParam {String} bookId 书id
-  * @apiSuccess {Number} code 错误码 200：成功；300：没有冗余数据
+  * @apiSuccess {Number} code 错误码 200：成功；301：没有冗余数据
   * @apiSuccess {String} msg 错误信息
   * @apiSuccessExample {json} Success:
   *{
@@ -394,7 +394,7 @@ module.exports = {
   *}
   * @apiErrorExample {json} Error:
   * {
-  *   code: 300,
+  *   code: 301,
   *   msg: '没有冗余数据'
   * }
   * @apiVersion 1.0.0
@@ -402,7 +402,7 @@ module.exports = {
   async deleteRedundanceBookArticle(req, res) {
     let result = {}
     if (!req.query.bookId) {
-      result = emun.PAR_IDS_ERR
+      result = emun.PAR_BOOK_ID_ERR
     } else {
       result = await service.deleteRedundanceBookArticle(req.query.bookId)
     }
