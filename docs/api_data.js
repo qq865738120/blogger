@@ -2441,29 +2441,8 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "id",
-            "description": "<p>收藏id（选传）</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
             "field": "userId",
-            "description": "<p>用户id（选传）</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "collectionId",
-            "description": "<p>文章id（选传）</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "type",
-            "description": "<p>收藏类型0表示文章，1表示书籍（选传）</p>"
+            "description": "<p>用户id</p>"
           }
         ]
       }

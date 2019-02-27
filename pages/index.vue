@@ -175,7 +175,6 @@ export default {
   },
 
   async asyncData({ app }) {
-    if (process.client) {}
     return await _updateArticleList(app, 1, true)
   },
 
