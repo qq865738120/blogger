@@ -211,10 +211,7 @@ module.exports = {
   * @apiDescription 获取用户所有收藏列表（需要登录）
   * @apiName show collection article
   * @apiGroup User
-  * @apiParam {string} id 收藏id（选传）
-  * @apiParam {string} userId 用户id（选传）
-  * @apiParam {string} collectionId 文章id（选传）
-  * @apiParam {Number} type 收藏类型0表示文章，1表示书籍（选传）
+  * @apiParam {string} userId 用户id
   * @apiSuccess {Number} code 错误码 200：成功；201：没有数据
   * @apiSuccess {String} msg 错误信息
   * @apiSuccess {Array} data 数据

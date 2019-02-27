@@ -68,8 +68,8 @@ module.exports = {
     for (let item of ids) {
       str += ` '${item}',`
     }
-    console.log('showArticles', `SELECT * FROM article WHERE id IN (${str});`);
-    return `SELECT * FROM article WHERE id IN (${str});`
+    console.log('showArticles', `SELECT * FROM article WHERE id IN (${str.substring(0, str.length - 1)});`);
+    return `SELECT * FROM article WHERE id IN (${str.substring(0, str.length - 1)});`
   },
 
   /*
@@ -404,7 +404,7 @@ module.exports = {
     for (let item of ids) {
       str += ` '${item}',`
     }
-    console.log('showArticles', `SELECT * FROM article WHERE id IN (${str.substring(0, str.length - 1)});`);
+    console.log('showBooks', `SELECT * FROM article WHERE id IN (${str.substring(0, str.length - 1)});`);
     return `SELECT * FROM book WHERE id IN (${str.substring(0, str.length - 1)});`
   },
 

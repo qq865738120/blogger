@@ -1,7 +1,7 @@
 <template>
   <div class="works-card-root" @click="onClick">
     <el-card class="works-card-content hover-pointer" :body-style="{ padding: '0px', position: 'relative' }" shadow="hover">
-      <el-badge :value="tagValue" :type="tagTpye" style="position: absolute; top: 12px; right: 6px;" />
+      <el-badge v-if="status != -1" :value="tagValue" :type="tagTpye" style="position: absolute; top: 12px; right: 6px;" />
       <img v-lazy="img" class="image">
       <div style="padding: 14px;">
         <span class="title" style="-webkit-box-orient: vertical">{{ title }}</span>

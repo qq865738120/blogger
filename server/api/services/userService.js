@@ -4,6 +4,7 @@ const sql = require('../model/db/sql')
 const utils = require('../common/utils')
 const emun = require('../common/userEmun')
 const md5 = require('md5');
+const moment = require('moment')
 
 module.exports = {
 
@@ -132,8 +133,19 @@ module.exports = {
       return emun.NOT_COLLECTION
     } else {
       let data = emun.USER_SUCCESS
-      row2.push(row3)
-      data.data = row2
+      let d1 = []
+      let d2 = []
+      for (let item of row2) {
+        item.createdTimestamp = item.created_date.getTime()
+        item.type = 'works'
+        d1.push(item)
+      }
+      for (let item of row3) {
+        item.createdTimestamp = item.created_date.getTime()
+        item.type = 'book'
+        d2.push(item)
+      }
+      data.data = d1.concat(d2)
       return data
     }
   },

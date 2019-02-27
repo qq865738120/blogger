@@ -1,17 +1,17 @@
 <template>
-  <div class="collection-list">
+  <div class="collection-list" v-loading="loading">
     <template v-for="(item, index) of list">
-      <works-card class="list-item" v-if="item.type == 'works'" :isShowButton="item.isShowButton" :date="item.data.date" :title="item.data.title" :img="item.data.img"></works-card>
-      <book class="list-item" v-if="item.type == 'book'" :title="item.data.title" :author="item.data.author" :startDate="item.data.startDate" :img="item.data.img"></book>
+      <works-card class="list-item" v-if="item.type == 'works'" :id="item.id" :isShowButton="item.isShowButton" :status="item.status" :date="item.data.date" :title="item.data.title" :img="item.data.img"></works-card>
+      <book class="list-item" v-if="item.type == 'book'" :id="item.id" :isShowButton="item.isShowButton" :title="item.data.title" :author="item.data.author" :startDate="item.data.startDate" :img="item.data.img"></book>
     </template>
-    <el-pagination
+    <!-- <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage"
       :page-size="20"
       layout="prev, pager, next, jumper"
       :total="1000">
-    </el-pagination>
+    </el-pagination> -->
   </div>
 </template>
 
@@ -26,16 +26,51 @@ export default {
   },
   data() {
     return {
-      list: [
-        { id: '1', type: 'book', data: { title: "标题啊标题标题啊标题标题啊标题", img: "http://www.haipic.com/icon/32d5903237.jpg" } },
-        { id: '2', type: 'works', isShowButton: false, data: { date: '2019-01-29 13:54', title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？', img: 'http://www.haipic.com/icon/32d5903237.jpg' } },
-        { id: '3', type: 'works', isShowButton: false, data: { date: '2019-01-29 13:54', title: '2018 年终盘点：“年度爆款”的区块链真的结束了吗？', img: 'http://www.haipic.com/icon/32d5903237.jpg' } },
-        { id: '4', type: 'book', data: { title: "标题啊标题标题啊标题标题啊标题", img: "http://www.haipic.com/icon/32d5903237.jpg" } },
-        { id: '5', type: 'book', data: { title: "标题啊标题标题啊标题标题啊标题", img: "http://www.haipic.com/icon/32d5903237.jpg" } },
-      ],
-      currentPage: 3
+      list: [],
+      currentPage: 3,
+      loading: false
     }
   },
+
+  async created() {
+    if (process.client) {
+      this.loading = true
+      await this.$utils.waitUserInfo(this, async () => {
+        let row = await this.$axios.get('/api/v1/user/collection', { params: { userId: this.$store.state.userInfo.id } })
+        this.loading = false
+        if (row.data.code == 200) {
+          let list = []
+          for (let item of row.data.data) {
+            if (item.type == "works") {
+              list.push({
+                id: item.id,
+                type: 'works',
+                isShowButton: false,
+                status: -1,
+                data: {
+                  date: this.$moment(item.last_date).format('YYYY-MM-DD hh:mm'),
+                  title: item.title,
+                  img: item.illustration
+                }
+              })
+            } else if (item.type == "book") {
+              list.push({
+                id: item.id,
+                type: 'book',
+                isShowButton: false,
+                data: {
+                  title: item.title,
+                  img: item.cover
+                }
+              })
+            }
+          }
+          this.list = list
+        }
+      })
+    }
+  },
+
   methods: {
     handleSizeChange(e) {
       console.log('handleSizeChange', e);
@@ -43,6 +78,8 @@ export default {
     handleCurrentChange(e) {
       console.log('handleCurrentChange', e);
     }
+
+
   }
 }
 </script>

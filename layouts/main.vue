@@ -9,22 +9,23 @@
         <el-col
           :span="2"
           class="flex-inline-center">
-          <div class="iconfont open-logo logo hover-pointer" @click="$router.push('/')"/>
+          <div class="iconfont open-logo logo hover-pointer"/>
         </el-col>
         <el-col :span="9">
           <el-menu
             class="header-menu"
             mode="horizontal"
-            default-active="1"
+            default-active="/"
             background-color="#2B3843"
             text-color="#fff"
-            active-text-color="#FF9C00">
+            active-text-color="#FF9C00"
+            router>
             <el-menu-item
-              index="1">
+              index="/">
               {{ $t('header.homePage') }}
             </el-menu-item>
             <el-menu-item
-              index="2">
+              index="/classify">
               {{ $t('header.classify') }}
             </el-menu-item>
           </el-menu>
@@ -96,7 +97,7 @@ export default {
     return {
       searchInput: '',
       logSrc: '',
-      minHeight: ''
+      minHeight: '',
     }
   },
   created() {
@@ -152,7 +153,8 @@ export default {
           }
         })
       }
-    }
+    },
+
   }
 }
 </script>
