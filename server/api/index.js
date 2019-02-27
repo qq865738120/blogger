@@ -180,6 +180,11 @@ const apiMap = [
     type: 'get',
     method: book.deleteRedundanceBookArticle
   },
+  {
+    path: '/user/collection',
+    type: 'get',
+    method: user.showUserCollection
+  },
 ]
 
 for (let item of apiMap) {
