@@ -3,10 +3,11 @@
     <div class="head bg-color-main-color font-large flex-center">
       <span style="-webkit-box-orient: vertical;">{{ name }}</span>
     </div>
-    <div class="content">
+    <div class="content" v-loading="loading">
       <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick">
         <span
           class="tree-node font-medium color-base-black-4"
+          style="-webkit-box-orient: vertical;"
           slot-scope="{ node, data }"
           :class="data.lv == 1 ? 'iconfont open-wenzhang2' : 'iconfont open-wenzhang'">
           {{ node.label }}
@@ -25,42 +26,18 @@ export default {
 
   data() {
     return {
-      treeData: [
-        {
-          id: '1',
-          lv: '1',
-          label: '一级 1',
-          children: [
-            { id: '2', lv: '2', label: '二级 1-1' }
-          ]
-        },
-        {
-          id: '1',
-          lv: '1',
-          label: '一级 1',
-          children: [
-            { id: '2', lv: '2', label: '二级 1-1' }
-          ]
-        },
-        {
-          id: '1',
-          lv: '1',
-          label: '一级 1',
-          children: [
-            { id: '2', lv: '2', label: '二级 1-1' }
-          ]
-        },
-      ],
+      treeData: [],
       defaultProps: {
         children: 'children',
         label: 'label'
-      }
+      },
+      loading: true
     }
   },
 
   async created() {
+    let loading = this.$utils.loading(this)
     let res = await this.$axios.get('/api/v1/chapters', { params: { bookId: this.bookId } })
-    console.log('res', res);
     if (res.data.code == 200) {
       let treeArr = []
       for (let item of res.data.data) {
@@ -75,11 +52,39 @@ export default {
     } else {
       this.$router.push({name: 'error', params: { statusCode: 500 }})
     }
+    let res2 = await this.$axios.get('/api/v1/book/article', { params: { bookId: this.bookId } })
+    if (res2.data.code == 200) {
+      let isFirst = true
+      for (let i = 0; i < this.treeData.length; i++) {
+        let childrenArr = []
+        for (let it of res2.data.data) {
+          if (it.chapter_id == this.treeData[i].id) {
+            if (isFirst) {
+              this.handleNodeClick({ id: it.article_id, lv: '2', serial: i + 1 })
+              isFirst = false
+            }
+            childrenArr.push({
+              id: it.article_id,
+              lv: '2',
+              label: it.section_title,
+              serial: i + 1
+            })
+          }
+        }
+        this.treeData[i].children = childrenArr
+      }
+    }
+    this.$store.commit('SET_TREE_DATA', this.$utils.clone(this.treeData))
+    this.loading = false
+    loading.close();
   },
 
   methods: {
-    handleNodeClick(e) {
+    async handleNodeClick(e) {
       console.log(e);
+      if (e.lv == '2') {
+        this.$emit('onNodeTap', e)
+      }
     }
   }
 }
@@ -111,5 +116,9 @@ export default {
   overflow-y: scroll;
   min-height: 280px;
   max-height: 480px;
+}
+.tree-node {
+  width: 100%;
+  @include over-length(1)
 }
 </style>

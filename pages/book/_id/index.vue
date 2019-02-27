@@ -2,7 +2,7 @@
   <div class="book-page-root">
     <!-- {{ $route.params.id }} -->
     <div class="table-contents">
-      <table-contents :name="name" :bookId="$route.params.id"></table-contents>
+      <table-contents :name="name" :bookId="$route.params.id" @onNodeTap="onNodeTap"></table-contents>
     </div>
     <div class="head flex-col-center">
       <img v-lazy="url"/>
@@ -63,6 +63,22 @@ export default {
 
   async mounted() {
 
+  },
+
+  methods: {
+    async onNodeTap(e) {
+      console.log('e', e);
+      this.index = e.serial
+      this.chapter = this.$store.state.treeData[e.serial - 1].label
+      let loading = this.$utils.loading(this)
+      let res = await this.$axios.get('/api/v1/article/id', { params: { id: e.id } })
+      if (res.data.code == 200) {
+        this.title = res.data.data.title
+        let content = await this.$axios.get(res.data.data.content)
+        this.articleContent = content.data
+      }
+      loading.close();
+    }
   }
 
 }

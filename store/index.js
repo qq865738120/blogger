@@ -9,6 +9,7 @@ export const state = () => ({
   hasCollec: false, //是否已经收藏
   listEdit: [{ title: '' }], //ListEdit组件属性
   chapterEdit: [{ chapterId: '', title: '' }], //listEdit组件章节编辑属性
+  treeData: [], //TableContents章节列表组件数据
 })
 export const mutations = {
   SET_LANG(state, locale) {
@@ -39,5 +40,8 @@ export const mutations = {
   },
   SET_CHAPTER_EDIT(state, value) {
     state.chapterEdit = value
+  },
+  SET_TREE_DATA(state, value) {
+    state.treeData = value
   }
 }

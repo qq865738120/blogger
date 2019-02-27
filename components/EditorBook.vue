@@ -330,11 +330,9 @@ export default {
           })
         }
       }
-      console.log('data', data);
-      console.log('sendData', sendData);
 
       if (sendData.length == 0) {
-        loading.close()
+        this.$utils.showMessage(this, 'editor.nullSectionTip', 'error', loading)
       } else {
         let getBookRes = await this.$axios.get('/api/v1/book/article', { params: { bookId: this.bookId } })
         if (getBookRes.data.code == 200) {
@@ -342,7 +340,7 @@ export default {
           if (delBookRes.data.code == 200) {
             let bookRes = await this.$axios.post('/api/v1/book/article', { values: sendData })
             if (bookRes.data.code == 200) {
-              // this.$router.push({name: 'personal'})
+              this.$router.push({name: 'personal'})
               this.$utils.showMessage(this, 'editor.saveSuccessTip', 'success', loading)
             } else {
               this.$utils.showMessage(this, 'editor.saveFailTip', 'error', loading)
@@ -353,7 +351,7 @@ export default {
         } else {
           let bookRes = await this.$axios.post('/api/v1/book/article', { values: sendData })
           if (bookRes.data.code == 200) {
-            // this.$router.push({name: 'personal'})
+            this.$router.push({name: 'personal'})
             this.$utils.showMessage(this, 'editor.saveSuccessTip', 'success', loading)
           } else {
             this.$utils.showMessage(this, 'editor.saveFailTip', 'error', loading)

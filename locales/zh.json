@@ -153,6 +153,7 @@
     "editingBookTip": "请编辑或修改您的连载书的基本信息",
     "addArticleTip": "选择需要添加到该连载书的博文",
     "selectChapter": "选择章节",
-    "sectionTip": "每个小节都需要绑定一篇博文"
+    "sectionTip": "每个小节都需要绑定一篇博文",
+    "nullSectionTip": "请至少绑定一篇博文"
   }
 }

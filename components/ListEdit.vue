@@ -67,17 +67,6 @@ export default {
     },
     chapterId(val) {
       if (val) {
-      //   let map = JSON.parse(JSON.stringify(this.$store.state[this.stateName].map(item => {
-      //     if (item.chapterId == this.chapterId) return item
-      //   })))
-      //   let objArr = [{ chapterId: this.chapterId, title: '' }]
-      //   this.list =  !map[0] ? objArr : map
-      //   console.log('map', map);
-      //   if (!map[0]) {
-      //     let data = this.$utils.clone(this.$store.state[this.stateName])
-      //     data.push({ chapterId: this.chapterId, title: '' })
-      //     this.$store.commit(this.methodName, data)
-      //   }
         this.list = JSON.parse(JSON.stringify(this.$store.state[this.stateName]))
       }
 
@@ -110,6 +99,18 @@ export default {
       if (this.list.length <= 1) {
         return
       }
+      if (this.showSelect) {
+        let count = 0
+        for (let item of this.list) {
+          if (item.chapterId == this.list[index].chapterId) {
+            count ++
+          }
+        }
+        if (count <= 1) {
+          return
+        }
+      }
+
       this.list.splice(index, 1)
       this.$store.commit(this.methodName, this.$utils.clone(this.list))
     },
