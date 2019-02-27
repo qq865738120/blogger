@@ -53,6 +53,7 @@ export default {
       this.$router.push({name: 'error', params: { statusCode: 500 }})
     }
     let res2 = await this.$axios.get('/api/v1/book/article', { params: { bookId: this.bookId } })
+    let firstObj = ''
     if (res2.data.code == 200) {
       let isFirst = true
       for (let i = 0; i < this.treeData.length; i++) {
@@ -60,7 +61,7 @@ export default {
         for (let it of res2.data.data) {
           if (it.chapter_id == this.treeData[i].id) {
             if (isFirst) {
-              this.handleNodeClick({ id: it.article_id, lv: '2', serial: i + 1 })
+              firstObj = { id: it.article_id, lv: '2', serial: i + 1 }
               isFirst = false
             }
             childrenArr.push({
@@ -75,13 +76,13 @@ export default {
       }
     }
     this.$store.commit('SET_TREE_DATA', this.$utils.clone(this.treeData))
+    this.handleNodeClick(firstObj)
     this.loading = false
     loading.close();
   },
 
   methods: {
     async handleNodeClick(e) {
-      console.log(e);
       if (e.lv == '2') {
         this.$emit('onNodeTap', e)
       }

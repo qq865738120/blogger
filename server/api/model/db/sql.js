@@ -60,6 +60,19 @@ module.exports = {
   },
 
   /*
+  批量查询article表
+  参数： ids Array id列表，数组不能为空。示例['1', '2']
+  */
+  showArticles: ( ids ) => {
+    let str = ""
+    for (let item of ids) {
+      str += ` '${item}',`
+    }
+    console.log('showArticles', `SELECT * FROM article WHERE id IN (${str});`);
+    return `SELECT * FROM article WHERE id IN (${str});`
+  },
+
+  /*
   按创建时间降序排列并分页处理
   参数：page Number 第几页
        row Number 一页多少行
@@ -189,9 +202,10 @@ module.exports = {
   参数：id String 主键id
        userId String 用户id
        collectionId String 收藏的文章id
+       type Number 收藏类型0表示文章，1表示书籍（选传，默认0）
   */
-  insertUserCollectionArticle: (id, userId, collectionId) => {
-    return `INSERT INTO user_collection_article VALUES ('${id}', '${userId}', '${collectionId}')`
+  insertUserCollectionArticle: (id, userId, collectionId, type) => {
+    return `INSERT INTO user_collection_article VALUES ('${id}', '${userId}', '${collectionId}', '${type ? type : 0}')`
   },
 
   /*
@@ -199,16 +213,18 @@ module.exports = {
   参数： id String 主键id（选传）
         userId String 用户id（选传）
         collectionId String 收藏的文章id（选传）
+        type Number 收藏类型0表示文章，1表示书籍（选传）
   */
-  showUserCollectionArticle: (id, userId, collectionId) => {
+  showUserCollectionArticle: (id, userId, collectionId, type) => {
     let mid = id ? ` id='${id}' AND` : '';
     let muserId = userId ? ` user_id='${userId}' AND` : '';
     let mcollectionId = collectionId ? ` collection_id='${collectionId}' AND` : ''
+    let mtype = type ? ` type='${type}' AND` : ''
     let sql = '';
-    if (!mid && !muserId && !mcollectionId) {
+    if (!mid && !muserId && !mcollectionId && !mtype) {
       sql = `SELECT * FROM user_collection_article limit 0, 6000`
     } else {
-      sql = `SELECT * FROM user_collection_article WHERE${mid}${muserId}${mcollectionId}`
+      sql = `SELECT * FROM user_collection_article WHERE${mid}${muserId}${mcollectionId}${mtype}`
       sql = sql.substring(0, sql.length - 3)
     }
     return sql
@@ -380,6 +396,19 @@ module.exports = {
   },
 
   /*
+  批量查询book表
+  参数： ids Array id列表，数组不能为空。示例['1', '2']
+  */
+  showBooks: ( ids ) => {
+    let str = ""
+    for (let item of ids) {
+      str += ` '${item}',`
+    }
+    console.log('showArticles', `SELECT * FROM article WHERE id IN (${str.substring(0, str.length - 1)});`);
+    return `SELECT * FROM book WHERE id IN (${str.substring(0, str.length - 1)});`
+  },
+
+  /*
   查询chapter表（id，bookId，title至少传一个参数）
   参数：id String 章节id（选传）
        bookId String 书id（选传）
@@ -485,5 +514,7 @@ module.exports = {
     console.log('showBookArticle', `SELECT * FROM book_article WHERE${str.substring(0, str.length - 3)} order by serial ${isDesc ? 'desc' : 'asc'};`);
     return `SELECT * FROM book_article WHERE${str.substring(0, str.length - 3)}order by serial ${isDesc ? 'desc' : 'asc'};`
   },
+
+
 
 }

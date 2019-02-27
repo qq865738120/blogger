@@ -4,7 +4,7 @@
       <div class="flex-center iconfont open-shoucang1" :class="$store.state.hasCollec ? 'collected' : ''"></div>
       <p>{{ $t('common.collection') }}</p>
     </div>
-    <div class="flex-col-center margin-top-8 hover-pointer" @click="onEdit">
+    <div class="flex-col-center margin-top-8 hover-pointer" @click="onEdit" v-if="mType == 0">
       <div class="flex-center iconfont open-bianjibi"></div>
       <p>{{ $t('common.edit') }}</p>
     </div>
@@ -16,7 +16,11 @@ export default {
   props: {
     isRow: Boolean,
     articleId: String,
-    authorId: String
+    authorId: String,
+    mType: { //类型，0表示文章收藏，1表示书籍收藏
+      type: Number,
+      default: 0
+    }
   },
   data() {
     return {
@@ -49,7 +53,7 @@ export default {
         return
       }
       if (!this.$store.state.hasCollec) {
-        let res = await this.$axios.post('/api/v1/article/collection', { userId: this.$store.state.userInfo.id, collectionId: this.articleId })
+        let res = await this.$axios.post('/api/v1/article/collection', { userId: this.$store.state.userInfo.id, collectionId: this.articleId, type: this.mType })
         if (res.data.code == 200) {
           this.$message({
             message: this.$t('common.collectionSuccess'),

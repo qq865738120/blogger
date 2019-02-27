@@ -104,7 +104,8 @@ module.exports = {
   * @apiName collection article
   * @apiGroup User
   * @apiParam {string} userId 用户id
-  * @apiParam {string} collectionId 文章id
+  * @apiParam {string} collectionId 文章id/书籍id
+  * @apiParam {Number} type 收藏类型0表示文章，1表示书籍（选传，默认0）
   * @apiSuccess {Number} code 错误码 200：成功；300：参数异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccessExample {json} Success:
@@ -128,19 +129,20 @@ module.exports = {
     } else if (!req.body.collectionId) {
       result = emun.PR_COLLECTION_ID_ERR
     } else {
-      result = await service.addCollectionArticle(req.body.userId, req.body.collectionId)
+      result = await service.addCollectionArticle(req.body.userId, req.body.collectionId, req.body.type)
     }
     res.json(result)
   },
 
   /**
-  * @api {get} /article/collection 获取收藏文章
-  * @apiDescription 获取收藏的文章接口，需要有登录权限
-  * @apiName show collection article
+  * @api {get} /article/collection 获取收藏
+  * @apiDescription 获取收藏，需要有登录权限
+  * @apiName show collection
   * @apiGroup User
   * @apiParam {string} id 收藏id（选传）
   * @apiParam {string} userId 用户id（选传）
-  * @apiParam {string} collectionId 文章id（选传）
+  * @apiParam {string} collectionId 文章id/书籍id（选传）
+  * @apiParam {Number} type 收藏类型0表示文章，1表示书籍（选传）
   * @apiSuccess {Number} code 错误码 200：成功；300：参数异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccess {Array} data 数据
@@ -162,17 +164,17 @@ module.exports = {
     if (!req.session.user) {
       result = emun.NOT_LOGIN
     } else {
-      result = await service.showCollectionArticle(req.query.id, req.query.userId, req.query.collectionId)
+      result = await service.showCollectionArticle(req.query.id, req.query.userId, req.query.collectionId, req.query.type)
     }
     res.json(result)
   },
 
   /**
-  * @api {post} /article/collection/delete 取消文章收藏
-  * @apiDescription 取消文章收藏的接口，需要有登录权限
-  * @apiName cancel collection article
+  * @api {post} /article/collection/delete 取消收藏
+  * @apiDescription 取消收藏的接口，需要有登录权限
+  * @apiName cancel collection
   * @apiGroup User
-  * @apiParam {string} collectionId 文章id（选传）
+  * @apiParam {string} collectionId 文章id/书籍id（选传）
   * @apiSuccess {Number} code 错误码 200：成功；300：参数异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccessExample {json} Success:
@@ -203,4 +205,40 @@ module.exports = {
     }
     res.json(result)
   },
+
+  /**
+  * @api {get} /user/collection 获取用户所有收藏列表
+  * @apiDescription 获取用户所有收藏列表（需要登录）
+  * @apiName show collection article
+  * @apiGroup User
+  * @apiParam {string} id 收藏id（选传）
+  * @apiParam {string} userId 用户id（选传）
+  * @apiParam {string} collectionId 文章id（选传）
+  * @apiParam {Number} type 收藏类型0表示文章，1表示书籍（选传）
+  * @apiSuccess {Number} code 错误码 200：成功；201：没有数据
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccess {Array} data 数据
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功',
+  *  data: []
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 201,
+  *   msg: '没有数据'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async showUserCollection(req, res) {
+    let result = {}
+    if (!req.session.user) {
+      result = emun.NOT_LOGIN
+    } else {
+      result = await service.showUserCollection(req.query.userId)
+    }
+    res.json(result)
+  },
+
 }

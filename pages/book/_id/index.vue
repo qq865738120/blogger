@@ -1,6 +1,9 @@
 <template>
   <div class="book-page-root">
     <!-- {{ $route.params.id }} -->
+    <div class="floating-menu">
+      <floating-menu :articleId="$route.params.id" :authorId="authorId" :mType="1"></floating-menu>
+    </div>
     <div class="table-contents">
       <table-contents :name="name" :bookId="$route.params.id" @onNodeTap="onNodeTap"></table-contents>
     </div>
@@ -29,7 +32,8 @@ export default {
   layout: 'main',
 
   components: {
-    TableContents
+    TableContents,
+    FloatingMenu
   },
 
   data() {
@@ -42,7 +46,8 @@ export default {
       author: '',
       date: '2019/2/16',
       title: '的首发式地方撒旦发',
-      articleContent: ''
+      articleContent: '',
+      authorId: ''
     }
   },
 
@@ -52,6 +57,7 @@ export default {
       this.url = res.data.data[0].cover,
       this.date = this.$moment(res.data.data[0].created_date).format('YYYY/MM/DD')
       this.name = res.data.data[0].title
+      this.authorId = res.data.data[0].author_id
       let userRes = await this.$axios.get('/api/v1/user/info/id', { params: { id: res.data.data[0].author_id } })
       if (userRes.data.code == 200) {
         this.author = userRes.data.data.nickname
@@ -67,8 +73,8 @@ export default {
 
   methods: {
     async onNodeTap(e) {
-      console.log('e', e);
       this.index = e.serial
+
       this.chapter = this.$store.state.treeData[e.serial - 1].label
       let loading = this.$utils.loading(this)
       let res = await this.$axios.get('/api/v1/article/id', { params: { id: e.id } })
@@ -157,5 +163,13 @@ export default {
   color: $--color-base-black;
   font-size: 28px;
   font-weight: 500;
+}
+.floating-menu {
+  position: fixed;
+  left: 50%;
+  top: calc(50% + 60px);
+  z-index: 300;
+  margin-left: -490px;
+  transform: translateY(-50%);
 }
 </style>

@@ -61,9 +61,10 @@ module.exports = {
   新增文章收藏
   参数：userId String 用户id
        collectionId String 收藏的文章id
+       type Number 收藏类型0表示文章，1表示书籍（选传，默认0）
   */
-  async addCollectionArticle(userId, collectionId) {
-    let row = await utils.dbQuery(pool, sql.insertUserCollectionArticle(utils.uuid(), userId, collectionId))
+  async addCollectionArticle(userId, collectionId, type) {
+    let row = await utils.dbQuery(pool, sql.insertUserCollectionArticle(utils.uuid(), userId, collectionId, type))
     if (row.fieldCount != 0) {
       return emun.FAIL
     } else {
@@ -76,9 +77,10 @@ module.exports = {
   参数： id String 主键id（选传）
         userId String 用户id（选传）
         collectionId String 收藏的文章id（选传）
+        type Number 收藏类型0表示文章，1表示书籍（选传）
   */
-  async showCollectionArticle(id, userId, collectionId) {
-    let row = await utils.dbQuery(pool, sql.showUserCollectionArticle(id, userId, collectionId))
+  async showCollectionArticle(id, userId, collectionId, type) {
+    let row = await utils.dbQuery(pool, sql.showUserCollectionArticle(id, userId, collectionId, type))
     if (row.length == 0) {
       return emun.NOT_COLLECTION
     } else {
@@ -100,6 +102,39 @@ module.exports = {
       return emun.FAIL
     } else {
       return emun.SUCCESS
+    }
+  },
+
+  /*
+  展示用户所有收藏
+  参数：userId String 用户id
+  */
+  async showUserCollection(userId) {
+    let row1 = await utils.dbQuery(pool, sql.showUserCollectionArticle('', userId, '', ''))
+    let articleIds = []
+    let bookIds = []
+    for (let item of row1) {
+      if (item.type == 0) {
+        articleIds.push(item.collection_id)
+      } else if (item.type == 1) {
+        bookIds.push(item.collection_id)
+      }
+    }
+    let row2 = '';
+    if (articleIds.length > 0) {
+      row2 = await utils.dbQuery(pool, sql.showArticles(articleIds))
+    }
+    let row3 = '';
+    if (bookIds.length > 0) {
+      row3 = await utils.dbQuery(pool, sql.showBooks(bookIds))
+    }
+    if (row2.length <= 0 && row3.length <= 0) {
+      return emun.NOT_COLLECTION
+    } else {
+      let data = emun.USER_SUCCESS
+      row2.push(row3)
+      data.data = row2
+      return data
     }
   },
 
