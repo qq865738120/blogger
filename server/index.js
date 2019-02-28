@@ -1,6 +1,9 @@
 const myConfig = require('../configs/index');
 const express = require('express')
 const session = require('express-session');
+const fs = require('fs');
+const https = require('https');
+const http = require('http');
 const client = require("redis").createClient(myConfig.redis)
 const redisStore = require('connect-redis')(session);
 const merge = require('webpack-merge')
@@ -10,7 +13,15 @@ const { Nuxt, Builder } = require('nuxt')
 const bodyParser = require('body-parser');
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 80
+// const host = '10.214.129.200'
+// const port = 3000
+
+const credentials = {
+  key: fs.readFileSync('ssl/3_www.cutey.net.cn.key', 'utf8'),
+  cert: fs.readFileSync('ssl/2_www.cutey.net.cn.crt', 'utf8'),
+  // ca: ca
+};
 
 app.use(session(merge(myConfig.session, {
   store: new redisStore(merge(myConfig.redisStore, { client: client }))
@@ -38,7 +49,18 @@ async function start() {
   app.use(nuxt.render)
 
   // Listen the server
-  app.listen(port, host)
+  // app.listen(port, host)
+
+  // const httpServer = http.createServer(app);
+  //   httpServer.listen(port, host,function(){
+  //   console.log('http启动...');
+  // });
+
+  const httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(443, host, function(){
+    console.log('https启动...');
+  })
+
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true

@@ -1,5 +1,4 @@
 const pkg = require('./package')
-const config = require('./configs/index')
 
 module.exports = {
   mode: 'universal',
@@ -18,6 +17,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'keywords', content: 'Open-blogger是一个开放博客平台' },
       { name: 'description', content: 'Open-blogger是一个开放博客平台' },
       { name: 'og:description', content: 'Open-blogger是一个开放博客平台' },
       { name: 'og:title', content: 'Open - blogger 开放博客平台' },
@@ -105,6 +105,9 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    // baseURL: 'http://www.cutey.net.cn',
+    baseURL: 'http://127.0.0.1:80',
+    debug: false
   },
 
   /*
