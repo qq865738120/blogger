@@ -6,7 +6,7 @@
         <p class="title color-base-black" :style="{ fontSize: titleSize, lineHeight: lineHeight }" style="-webkit-box-orient: vertical;">{{ title }}</p>
         <span v-if="author" class="font-extra-extra-small color-sub-black">{{ $t('common.author') }} <span class="color-main-color">{{ author }}</span></span>
         <span v-if="startDate" class="margin-top-10 font-extra-extra-small color-sub-black">{{ $t('common.start') }} {{ startDate }}</span>
-        <div class="bottom">
+        <div class="bottom" v-if="isShowBottom">
           <div v-if="isShowButton" class="iconfont open-bianji font-extra-extra-small" @click.stop="onEdit"></div>
           <div class="iconfont open-ai-share font-extra-extra-small"></div>
         </div>
@@ -41,6 +41,10 @@ export default {
       type: Boolean,
       default: true
     },
+    isShowBottom: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {

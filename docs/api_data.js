@@ -606,6 +606,13 @@ define({ "api": [
             "optional": false,
             "field": "authorId",
             "description": "<p>根据作者id筛选结果（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "classId",
+            "description": "<p>根据分类id筛选结果（选传）</p>"
           }
         ]
       }

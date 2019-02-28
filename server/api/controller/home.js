@@ -46,6 +46,7 @@ module.exports = {
   * @apiParam {Number} status 文章状态（选传）
   * @apiParam {Boolean} showAuthor 是否展示作者昵称，默认不展示提升性能（选传）
   * @apiParam {String} authorId 根据作者id筛选结果（选传）
+  * @apiParam {String} classId 根据分类id筛选结果（选传）
   * @apiSuccess {Number} code 错误码 200：成功；300：传参异常
   * @apiSuccess {String} msg 错误信息
   * @apiSuccess {Object} data 数据（没数据返回空）
@@ -69,7 +70,7 @@ module.exports = {
     } else {
       let row = req.query.row ? parseInt(req.query.row) : 20;
       let asc = req.query.asc ? ( req.query.asc == 'true' ? true : false ) : false
-      result = await service.showArticleByCreateTime(req.query.page, row, asc, req.query.status, req.query.showAuthor, req.query.authorId)
+      result = await service.showArticleByCreateTime(req.query.page, row, asc, req.query.status, req.query.showAuthor, req.query.authorId, req.query.classId)
     }
     res.json(result)
   },

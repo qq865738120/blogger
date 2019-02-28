@@ -29,10 +29,11 @@ module.exports = {
        status Number 文章状态（选传）
        isShowAuthor Boolean 是否需要展示作者昵称（选传，默认不展示）
        authorId String 作者id
+       classId String 分类id
   返回：articleEmun枚举
   */
-  async showArticleByCreateTime(page, rows, isAsc, status, isShowAuthor, authorId) {
-    let row = await utils.dbQuery(pool, sql.showArticleByCreateTimeDescPage(page < 1 ? 1 : page, rows, isAsc, status, authorId))
+  async showArticleByCreateTime(page, rows, isAsc, status, isShowAuthor, authorId, classId) {
+    let row = await utils.dbQuery(pool, sql.showArticleByCreateTimeDescPage(page < 1 ? 1 : page, rows, isAsc, status, authorId, classId))
     if (row.length == 0) {
       return emun.NOT_ARTICLE
     } else {

@@ -23,8 +23,6 @@ export default {
       let dom = document.getElementById('0')
       this.width = dom.offsetWidth + 'px';
       this.left = dom.offsetLeft + 'px';
-      console.log('offsetWidth', dom.offsetWidth);
-      console.log('offsetLeft', dom.offsetLeft);
     }
   },
 

@@ -16,13 +16,19 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'description', content: 'Open-blogger是一个开放博客平台' },
+      { name: 'og:description', content: 'Open-blogger是一个开放博客平台' },
+      { name: 'og:title', content: 'Open - blogger 开放博客平台' },
+      { name: 'og:type', content: 'website' },
+      { name: 'og:url', content: 'http://localhost:3000' },
+      { name: 'og:image', content: 'http://localhost:3000/logo.png' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     script: [
       { src: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/logo.ico' },
       // { rel: 'stylesheet', href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/vs.min.css' }
     ]
   },

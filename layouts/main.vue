@@ -15,7 +15,7 @@
           <el-menu
             class="header-menu"
             mode="horizontal"
-            default-active="/"
+            :default-active="currentPath"
             background-color="#2B3843"
             text-color="#fff"
             active-text-color="#FF9C00"
@@ -98,6 +98,7 @@ export default {
       searchInput: '',
       logSrc: '',
       minHeight: '',
+      currentPath: '/'
     }
   },
   created() {
@@ -107,6 +108,7 @@ export default {
   },
   mounted() {
     this.logSrc = process.env.cosPath + '/system/logo.png';
+    this.currentPath = this.$route.fullPath
     if (this.$store.state.isLogin && this.$store.state.userInfo == '') {
       const loading = this.$loading({
         lock: true,

@@ -105,7 +105,7 @@ const _getAuthorInfo = async function (that, articleId) {
 返回：页面data对象，包含mainDisplay对象，subDisplay数组，baseDisplay数组
 */
 const _updateArticleList = async function (that, page, isFirst) {
-  let res = await that.$axios.get('/api/v1/article/createtime', { params: { page: page, row: 10, status: 1, showAuthor: true } })
+  let res = await that.$axios.get('/api/v1/article/createtime', { params: { page: page, row: 20, status: 1, showAuthor: true } })
   if (res.data.code != 200) {
     return
   }
