@@ -81,4 +81,4 @@ dist
 .idea
 
 # 忽略configs文件夹
-configs/
+#configs/
