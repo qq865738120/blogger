@@ -5,7 +5,9 @@ module.exports = {
   mode: 'universal',
 
   env: {
-    cosPath: 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com'
+    cosPath: 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com',
+    HOST: 'www.cutey.net.cn',
+    PORT: '80'
   },
 
   /*
@@ -20,8 +22,8 @@ module.exports = {
       { name: 'og:description', content: 'Open-blogger是一个开放博客平台' },
       { name: 'og:title', content: 'Open - blogger 开放博客平台' },
       { name: 'og:type', content: 'website' },
-      { name: 'og:url', content: 'http://localhost:3000' },
-      { name: 'og:image', content: 'http://localhost:3000/logo.png' },
+      { name: 'og:url', content: 'http://www.cutey.net.cn' },
+      { name: 'og:image', content: 'http://www.cutey.net.cn/logo.png' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     script: [
