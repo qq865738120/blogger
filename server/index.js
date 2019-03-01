@@ -18,8 +18,8 @@ const port = process.env.PORT || 80
 // const port = 3000
 
 const credentials = {
-  key: fs.readFileSync('ssl/3_www.cutey.net.cn.key', 'utf8'),
-  cert: fs.readFileSync('ssl/2_www.cutey.net.cn.crt', 'utf8'),
+  key: fs.readFileSync('ssl/2_www.cutey.net.cn.key', 'utf8'),
+  cert: fs.readFileSync('ssl/1_www.cutey.net.cn_bundle.crt', 'utf8'),
   // ca: ca
 };
 
@@ -51,10 +51,10 @@ async function start() {
   // Listen the server
   // app.listen(port, host)
 
-  // const httpServer = http.createServer(app);
-  //   httpServer.listen(port, host,function(){
-  //   console.log('http启动...');
-  // });
+  const httpServer = http.createServer(app);
+    httpServer.listen(port, host,function(){
+    console.log('http启动...');
+  });
 
   const httpsServer = https.createServer(credentials, app);
     httpsServer.listen(443, host, function(){

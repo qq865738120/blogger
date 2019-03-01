@@ -107,7 +107,8 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
     // baseURL: 'http://www.cutey.net.cn',
     baseURL: 'http://127.0.0.1:80',
-    debug: false
+    debug: false,
+    https: true
   },
 
   /*
