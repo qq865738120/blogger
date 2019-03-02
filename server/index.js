@@ -12,10 +12,8 @@ const api = require('./api/index.js')
 const { Nuxt, Builder } = require('nuxt')
 const bodyParser = require('body-parser');
 const app = express()
-const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 80
-// const host = '10.214.129.200'
-// const port = 3000
+const host = myConfig.host
+const port = myConfig.port
 
 const credentials = {
   key: fs.readFileSync('ssl/2_www.cutey.net.cn.key', 'utf8'),
@@ -52,18 +50,22 @@ async function start() {
   // app.listen(port, host)
 
   const httpServer = http.createServer(app);
-    httpServer.listen(port, host,function(){
-    console.log('http启动...');
+    httpServer.listen(port, host, function(){
+    consola.ready({
+      message: `Server listening on http://${host}:${port}`,
+      badge: true
+    })
   });
 
-  const httpsServer = https.createServer(credentials, app);
-    httpsServer.listen(443, host, function(){
-    console.log('https启动...');
-  })
-
-  consola.ready({
-    message: `Server listening on http://${host}:${port}`,
-    badge: true
-  })
+  if (myConfig.NODE_ENV != 'dev') {
+    const httpsServer = https.createServer(credentials, app);
+      httpsServer.listen(443, host, function(){
+      consola.ready({
+        message: `Server listening on https://${host}:443`,
+        badge: true
+      });
+    })
+  }
+  
 }
 start()

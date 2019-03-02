@@ -1,12 +1,14 @@
 const pkg = require('./package')
+const myConfig = require('./configs/index');
+console.log('myConfig', myConfig);
 
 module.exports = {
   mode: 'universal',
 
   env: {
     cosPath: 'https://weixin-1251663069.cos.ap-chengdu.myqcloud.com',
-    HOST: 'www.cutey.net.cn',
-    PORT: '80'
+    HOST: myConfig.host,
+    PORT: myConfig.port
   },
 
   /*
@@ -73,11 +75,6 @@ module.exports = {
       ssr: true
     },
     {
-      // 滚动条
-      src: '@/plugins/vue-gemini-scrollbar',
-      ssr: false
-    },
-    {
       // 图片懒加载
       src: '@/plugins/vue-lazyload',
       ssr: true
@@ -106,9 +103,9 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     // baseURL: 'http://www.cutey.net.cn',
-    baseURL: 'http://127.0.0.1:80',
+    baseURL: 'http://' + myConfig.host,
     debug: false,
-    https: true
+    https: myConfig.NODE_ENV == 'dev' ? false : true
   },
 
   /*
