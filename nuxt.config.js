@@ -1,6 +1,5 @@
 const pkg = require('./package')
 const myConfig = require('./configs/index');
-console.log('myConfig', myConfig);
 
 module.exports = {
   mode: 'universal',
@@ -103,9 +102,8 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     // baseURL: 'http://www.cutey.net.cn',
-    baseURL: 'http://' + myConfig.host,
+    baseURL: myConfig.NODE_ENV == 'dev' ? 'http://' + myConfig.host : 'https://' + myConfig.hostName,
     debug: false,
-    https: myConfig.NODE_ENV == 'dev' ? false : true
   },
 
   /*

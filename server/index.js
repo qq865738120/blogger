@@ -61,11 +61,11 @@ async function start() {
     const httpsServer = https.createServer(credentials, app);
       httpsServer.listen(443, host, function(){
       consola.ready({
-        message: `Server listening on https://${host}:443`,
+        message: `Server listening on https://www.cutey.net.cn/:443`,
         badge: true
       });
     })
   }
-  
+
 }
 start()
