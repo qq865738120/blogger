@@ -273,6 +273,10 @@ Vue.prototype.$utils = {
       message: context.$t(tip),
       type: type ? type : error
     });
+  },
+
+  addWatch(context, id, type) {
+
   }
 
 }

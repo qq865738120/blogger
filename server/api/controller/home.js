@@ -167,6 +167,37 @@ module.exports = {
     let result = {}
     result = await service.showCountArticle(req.query.authorId, req.query.classId, req.query.title, req.query.keywords)
     res.json(result)
+  },
+
+
+  /**
+  * @api {get} /article/watch 增加文章阅读数量
+  * @apiDescription 增加文章阅读数量
+  * @apiName add article watch count
+  * @apiGroup Article
+  * @apiParam {String} id 文章id（必传）
+  * @apiSuccess {Number} code 错误码 200：成功；300：文章id参数异常
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功'
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 300,
+  *   msg: '文章id参数异常'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async addWatchArticle(req, res) {
+    let result = {}
+    if (!req.query.id) {
+      result = emun.PAR_ARTICLE_ID_ERR
+    } else {
+      result = await service.addWatchArticle(req.query.id)
+    }
+    res.json(result)
   }
 
 }

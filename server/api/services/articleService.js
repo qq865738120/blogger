@@ -102,4 +102,17 @@ module.exports = {
     }
   },
 
+  /*
+  增加一个文章阅读量
+  参数：id String 文章id
+  */
+  async addWatchArticle(id) {
+    let row = await utils.dbQuery(pool, sql.addWatchArticle(id))
+    if (row.fieldCount == 0) {
+      return emun.SUCCESS
+    } else {
+      return emun.FAIL
+    }
+  }
+
 }

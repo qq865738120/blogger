@@ -185,6 +185,11 @@ const apiMap = [
     type: 'get',
     method: user.showUserCollection
   },
+  {
+    path: '/article/watch',
+    type: 'get',
+    method: home.addWatchArticle
+  },
 ]
 
 for (let item of apiMap) {

@@ -517,6 +517,12 @@ module.exports = {
     return `SELECT * FROM book_article WHERE${str.substring(0, str.length - 3)}order by serial ${isDesc ? 'desc' : 'asc'};`
   },
 
-
+  /*
+  增加一个文章阅读量
+  参数：id String 文章id
+  */
+  addWatchArticle: (id) => {
+    return `UPDATE article SET watch_count=watch_count+1 WHERE id=${id}`
+  }
 
 }
