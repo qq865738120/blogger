@@ -200,4 +200,31 @@ module.exports = {
     res.json(result)
   }
 
+  /**
+  * @api {get} /article/hot 增加文章阅读数量
+  * @apiDescription 增加文章阅读数量
+  * @apiName add article watch count
+  * @apiGroup Article
+  * @apiParam {String} count 数量（选传，默认6）
+  * @apiSuccess {Number} code 错误码 200：成功；
+  * @apiSuccess {String} msg 错误信息
+  * @apiSuccessExample {json} Success:
+  *{
+  *  code: 200,
+  *  msg: '成功'
+  *  data: []
+  *}
+  * @apiErrorExample {json} Error:
+  * {
+  *   code: 300,
+  *   msg: '文章id参数异常'
+  * }
+  * @apiVersion 1.0.0
+  */
+  async showHotArticle(req, res) {
+    let result = {}
+    result = await service.showHotArticle(req.query.count)
+    res.json(result)
+  }
+
 }

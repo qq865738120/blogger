@@ -115,4 +115,19 @@ module.exports = {
     }
   }
 
+  /*
+  查询热点文章
+  参数：count Number 数量（默认为6）
+  */
+  async showHotArticle(count) {
+    let row = await utils.dbQuery(pool, sql.showHotArticle(count))
+    if (row.length == 0) {
+      return emun.SELECT_ERR
+    } else {
+      let data = emun.ARTICLE_SUCCESS
+      data.data = row
+      return data
+    }
+  }
+
 }

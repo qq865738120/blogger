@@ -523,6 +523,15 @@ module.exports = {
   */
   addWatchArticle: (id) => {
     return `UPDATE article SET watch_count=watch_count+1 WHERE id='${id}'`
+  },
+
+  /*
+  查询热点文章
+  参数：count Number 数量（默认为6）
+  */
+  showHotArticle: (count) => {
+    let mcount = count ? count : 6;
+    return `SELECT * FROM article ORDER BY watch_count DESC LIMIT 1, ${mcount}`
   }
 
 }

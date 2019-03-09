@@ -190,6 +190,11 @@ const apiMap = [
     type: 'get',
     method: home.addWatchArticle
   },
+  {
+    path: '/article/hot',
+    type: 'get',
+    method: home.showHotArticle
+  },
 ]
 
 for (let item of apiMap) {
