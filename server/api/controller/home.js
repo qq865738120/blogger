@@ -198,7 +198,7 @@ module.exports = {
       result = await service.addWatchArticle(req.query.id)
     }
     res.json(result)
-  }
+  },
 
   /**
   * @api {get} /article/hot 查询热点文章

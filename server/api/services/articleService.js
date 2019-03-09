@@ -113,7 +113,7 @@ module.exports = {
     } else {
       return emun.FAIL
     }
-  }
+  },
 
   /*
   查询热点文章
