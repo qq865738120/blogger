@@ -27,7 +27,6 @@ export default {
 
   async created() {
     let res = await this.$axios.get('/api/v1/article/hot')
-    console.log(res);
     if (res.data.code == 200) {
       let data = []
       for (let item of res.data.data) {

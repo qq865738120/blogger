@@ -21,6 +21,13 @@ const credentials = {
   // ca: ca
 };
 
+if (myConfig.NODE_ENV != 'dev') {
+  app.use(function (req, res, next) {
+    let host = req.headers.host;
+    host = host.replace(/\:\d+$/, ''); // Remove port number
+    res.redirect(307, `https://${host}${req.path}`);
+  });
+}
 app.use(session(merge(myConfig.session, {
   store: new redisStore(merge(myConfig.redisStore, { client: client }))
 })))
@@ -58,13 +65,6 @@ async function start() {
   });
 
   if (myConfig.NODE_ENV != 'dev') {
-
-    app.all("*", (req, res, next) => {
-      let host = req.headers.host;
-      host = host.replace(/\:\d+$/, ''); // Remove port number
-      res.redirect(307, `https://${host}${req.path}`);
-    });
-
     const httpsServer = https.createServer(credentials, app);
       httpsServer.listen(443, host, function(){
       consola.ready({
