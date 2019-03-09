@@ -51,6 +51,7 @@ export default {
   },
 
   async asyncData({ app, params, route }) {
+    await app.$axios.get('/api/v1/article/watch', { params: { id: params.id } })
     let res = await app.$axios.get('/api/v1/article/id', { params: { id: params.id } })
     if (res.data.code == 200) {
       let content = await app.$axios.get(res.data.data.content)

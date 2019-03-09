@@ -522,7 +522,7 @@ module.exports = {
   参数：id String 文章id
   */
   addWatchArticle: (id) => {
-    return `UPDATE article SET watch_count=watch_count+1 WHERE id=${id}`
+    return `UPDATE article SET watch_count=watch_count+1 WHERE id='${id}'`
   }
 
 }

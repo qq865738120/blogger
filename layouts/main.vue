@@ -84,8 +84,14 @@
         type="flex"
         justify="center">
         <span>友情链接：</span>
-        <a>123</a>
-        <a>123</a>
+        <a class="hover-pointer" href="https://github.com/">GitHub</a>
+        <a class="hover-pointer" href="https://www.cnblogs.com/">博客园</a>
+        <a class="hover-pointer" href="https://www.blogger.com">Blogger</a>
+        <a class="hover-pointer" href="https://www.infoq.cn/">InfoQ</a>
+        <a class="hover-pointer" href="https://segmentfault.com/">思否</a>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <span style="padding-top: 20px;" class="font-extra-extra-small color-base-black-4">鄂ICP备17003728号-2</span>
       </el-row>
     </el-footer>
   </el-container>
