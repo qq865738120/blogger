@@ -5,8 +5,13 @@
         v-for="(item, index) of data"
         :key="item.id"
         :data-index="index + 1"
-        class="font-small hover-pointer">
-        {{ item.title }}
+        class="font-small hover-pointer"
+        @click="">
+        <nuxt-link
+          style="color: #141414"
+          :to="{ name: 'article-id', params: { id: item.id }}">
+          {{ item.title }}
+        </nuxt-link>
       </li>
     </ul>
   </div>
@@ -43,7 +48,23 @@ export default {
         }
       ]
     }
+  },
+
+  async created() {
+    let res = await this.$axios.get('/api/v1/article/hot')
+    console.log(res);
+    if (res.data.code == 200) {
+      let data = []
+      for (let item of res.data.data) {
+        data.push({
+          id: item.id,
+          title: item.title
+        })
+      }
+      this.data = data
+    }
   }
+
 }
 </script>
 

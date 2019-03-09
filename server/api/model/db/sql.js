@@ -531,7 +531,7 @@ module.exports = {
   */
   showHotArticle: (count) => {
     let mcount = count ? count : 6;
-    return `SELECT * FROM article ORDER BY watch_count DESC LIMIT 1, ${mcount}`
+    return `SELECT * FROM article ORDER BY watch_count DESC LIMIT 0, ${mcount}`
   }
 
 }
