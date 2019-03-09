@@ -201,9 +201,9 @@ module.exports = {
   }
 
   /**
-  * @api {get} /article/hot 增加文章阅读数量
-  * @apiDescription 增加文章阅读数量
-  * @apiName add article watch count
+  * @api {get} /article/hot 查询热点文章
+  * @apiDescription 查询热点文章
+  * @apiName show hot article
   * @apiGroup Article
   * @apiParam {String} count 数量（选传，默认6）
   * @apiSuccess {Number} code 错误码 200：成功；
