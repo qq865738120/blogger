@@ -81,23 +81,6 @@ import BaseDisplay from '~/components/BaseDisplay.vue'
 import HotList from '~/components/HotList.vue'
 
 /*
-获取文章作者详细信息
-参数： that Object 页面this引用
-      articleId String 文章id
-返回： 作者昵称字符串，多位作者用“，”隔开
-*/
-const _getAuthorInfo = async function (that, articleId) {
-  let res = await that.$axios.get('/api/v1/author/info', { params: { articleId: articleId } })
-  let result = ''
-  if (res.data.code == 200) {
-    for (let item of res.data.data) {
-      result += (item.nickname + ',')
-    }
-  }
-  return result.substring(0, result.length - 2)
-}
-
-/*
 更新文章列表
 参数： that Object 页面this引用
       page Number 第几页

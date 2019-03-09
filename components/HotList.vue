@@ -21,32 +21,7 @@
 export default {
   data() {
     return {
-      data: [
-        {
-          id: 1,
-          title: '从 400+ 节点 Elasticsearch 集群的运维中，我们总结了这些经验'
-        },
-        {
-          id: 2,
-          title: '从 400+ 节点 Elasticsearch 集群的运维中，我们总结了这些经验'
-        },
-        {
-          id: 3,
-          title: '从 400+ 节点 Elasticsearch 集群的运维中，我们总结了这些经验'
-        },
-        {
-          id: 4,
-          title: '从 400+ 节点 Elasticsearch 集群的运维中，我们总结了这些经验'
-        },
-        {
-          id: 5,
-          title: '从 400+ 节点 Elasticsearch 集群的运维中，我们总结了这些经验'
-        },
-        {
-          id: 6,
-          title: '从 400+ 节点 Elasticsearch 集群的运维中，我们总结了这些经验'
-        }
-      ]
+      data: []
     }
   },
 
