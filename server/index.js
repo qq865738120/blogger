@@ -18,14 +18,14 @@ const port = myConfig.port
 const credentials = {
   key: fs.readFileSync('ssl/2_www.cutey.net.cn.key', 'utf8'),
   cert: fs.readFileSync('ssl/1_www.cutey.net.cn_bundle.crt', 'utf8'),
-  // ca: ca
 };
 
 if (myConfig.NODE_ENV != 'dev') {
   app.use(function (req, res, next) {
-    let host = req.headers.host;
-    host = host.replace(/\:\d+$/, ''); // Remove port number
-    res.redirect(307, `https://${host}${req.path}`);
+    if (req.secure && req.hostname.indexOf(myConfig.hostName) != -1) {
+      return next()
+    }
+    res.redirect(307, `https://${myConfig.hostName}${req.url}`);
   });
 }
 app.use(session(merge(myConfig.session, {
@@ -72,7 +72,6 @@ async function start() {
         badge: true
       });
     })
-
   }
 
 }

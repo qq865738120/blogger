@@ -25,6 +25,7 @@ module.exports = {
       { name: 'og:type', content: 'website' },
       { name: 'og:url', content: 'http://www.cutey.net.cn' },
       { name: 'og:image', content: 'http://www.cutey.net.cn/logo.png' },
+      { name: 'google-site-verification', content: 'TBgJMF9cw-FCX_Rg6hZXAzqKzUk4fweyHOoKjvb_Du4' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     script: [
