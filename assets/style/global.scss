@@ -9,6 +9,11 @@ a {
 i {
   cursor: pointer;
 }
+pre {
+  padding: 30px 25px 15px !important;
+  background: #5a5b5d !important;
+  border-radius: 3px !important;
+}
 .page-enter-active, .page-leave-active {
   transition: opacity .35s;
 }
