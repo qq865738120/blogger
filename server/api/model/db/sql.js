@@ -80,8 +80,9 @@ module.exports = {
        status Number 文章状态
        authorId String 作者id
        classId String 分类id
+       title String 标题
   */
-  showArticleByCreateTimeDescPage: ( page, row, isAsc, status, authorId, classId ) => {
+  showArticleByCreateTimeDescPage: ( page, row, isAsc, status, authorId, classId, title ) => {
     let mPage = page ? parseInt(page) : 0;
     let mRow = row ? parseInt(row) : 20;
     let asc = isAsc ? 'asc' : 'desc';
@@ -92,7 +93,8 @@ module.exports = {
     let mStatus = status ? ' status=' + status + ' AND' : ''
     let mauthorId = authorId ? " author_id='" + authorId + "' AND" : ''
     let mclassId = classId ? " class_id='" + classId + "' AND" : ''
-    let str = whereStr + mStatus + mauthorId + mclassId
+    let mtitle = title ? " title LIKE '%" + title + "%' AND" : ''
+    let str = whereStr + mStatus + mauthorId + mclassId + mtitle
     const start = (mPage - 1) * mRow;
     return `select * from article ${str.substring(0, str.length - 3)} order by created_date ${asc} limit ${start}, ${mRow}`
   },

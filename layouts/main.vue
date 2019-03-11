@@ -11,7 +11,7 @@
           class="flex-inline-center">
           <div class="iconfont open-logo logo hover-pointer"/>
         </el-col>
-        <el-col :span="9">
+        <el-col :span="7">
           <el-menu
             class="header-menu"
             mode="horizontal"
@@ -30,7 +30,7 @@
             </el-menu-item>
           </el-menu>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="6">
           <el-row
             :gutter="20"
             type="flex"
@@ -43,7 +43,8 @@
                 class="search-input"
                 maxlength="120"
                 minlength="2"
-                prefix-icon="el-icon-search"/>
+                prefix-icon="el-icon-search"
+                @keyup.enter.native="onSearch"/>
             </el-col>
             <el-col :span="10">
               <div
@@ -162,6 +163,11 @@ export default {
         })
       }
     },
+
+    onSearch(e) {
+      this.$store.commit('SET_SEARCH_KEY', this.searchInput)
+      this.$router.push('/search')
+    }
 
   }
 }

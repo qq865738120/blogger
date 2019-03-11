@@ -10,6 +10,7 @@ export const state = () => ({
   listEdit: [{ title: '' }], //ListEdit组件属性
   chapterEdit: [{ chapterId: '', title: '' }], //listEdit组件章节编辑属性
   treeData: [], //TableContents章节列表组件数据
+  searchKey: '', // 搜索关键词
 })
 export const mutations = {
   SET_LANG(state, locale) {
@@ -43,5 +44,8 @@ export const mutations = {
   },
   SET_TREE_DATA(state, value) {
     state.treeData = value
+  },
+  SET_SEARCH_KEY(state, value) {
+    state.searchKey = value
   }
 }

@@ -673,6 +673,13 @@ define({ "api": [
             "optional": false,
             "field": "classId",
             "description": "<p>根据分类id筛选结果（选传）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>根据标题模糊匹配筛选结果（选传）</p>"
           }
         ]
       }
