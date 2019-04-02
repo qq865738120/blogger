@@ -23,6 +23,15 @@ i {
 .ql-editor p {
   line-height: 1.8;
 }
+.ql-editor ul li {
+  margin: 10px 0 !important;
+}
+.ql-editor ul li:first-of-type {
+  margin-top: 0 !important;
+}
+.ql-editor ul li:last-of-type {
+  margin-bottom: 0 !important;
+}
 .page-enter-active, .page-leave-active {
   transition: opacity .35s;
 }

@@ -19,7 +19,7 @@
     </div>
     <div class="content margin-top-24">
       <span class="title">{{ title }}</span>
-      <div class="article-content" v-html="articleContent"></div>
+      <div class="ql-editor article-content" v-html="articleContent"></div>
     </div>
   </div>
 </template>
